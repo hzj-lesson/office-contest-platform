@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Office 高级应用赛 · PowerPoint 赛项备考平台</title>
+<meta name="description" content="2020–2025 往届真题 · 7 套操作真题 + 355 道客观题；本平台收录 PowerPoint 赛项相关题目：PPT 专业题 + 三科共用「计算机基础」题；Word/Excel 专项题未收录。">
+<meta name="theme-color" content="#2b1a63">
+<link rel="icon" href="data:,">
+<style>
+
+:root{
+  --bg:#f4f7fb; --card:#ffffff; --fg:#1a2333; --muted:#64748b; --border:#e2e8f0;
+  --primary:#1d6fe0; --primary-2:#0ea5c6; --primary-fg:#ffffff; --primary-foreground:#ffffff; --muted-foreground:var(--muted);
+  /* 兼容别名：页面历史代码混用过 shadcn 风格变量名，缺定义会让整条 color-mix() 失效 */
+  --background:var(--bg); --foreground:var(--fg); --card-foreground:var(--fg);
+  /* 浅色底专用。--muted 是次要“文字”色(#64748b)，不可拿来当背景，否则深底深字看不见 */
+  --muted-bg:#eef2f7;
+  --ok:#16a34a; --warn:#d97706; --soft:#eef4fd; --err:#dc2626;
+  --radius:16px; --shadow:0 2px 12px rgba(29,111,224,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;background:var(--bg);color:var(--fg);line-height:1.7}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px 80px}
+.hero{background:linear-gradient(135deg,#0b2a5b 0%,#14468f 45%,#0e7ea8 100%);color:#fff;padding:40px 16px 76px;text-align:center;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 82% 18%,rgba(14,165,198,.45),transparent 42%),radial-gradient(circle at 12% 85%,rgba(29,111,224,.4),transparent 40%);pointer-events:none}
+.hero h1{font-size:25px;font-weight:800;letter-spacing:1px;position:relative;text-wrap:balance}
+.hero p{margin-top:10px;font-size:14px;opacity:.92;position:relative}
+.cd{display:inline-flex;gap:10px;margin-top:18px;position:relative}
+.cd .b{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);border-radius:12px;padding:8px 12px;min-width:54px}
+.cd .n{font-size:22px;font-weight:800;line-height:1}
+.cd .l{font-size:11px;opacity:.85;margin-top:3px}
+@media(max-width:560px){
+  .hero{padding:26px 14px 58px}
+  .hero h1{font-size:18.5px;letter-spacing:.5px}
+  .hero p{font-size:12.5px;margin-top:8px;line-height:1.65}
+  .cd{gap:6px;margin-top:14px}
+  .cd .b{min-width:46px;padding:6px 9px;border-radius:10px}
+  .cd .n{font-size:18px}
+  .cd .l{font-size:10px}
+}
+/* sticky progress */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.topbar .in{max-width:960px;margin:0 auto;padding:8px 16px;display:flex;align-items:center;gap:12px;font-size:13px}
+.topbar b{color:var(--primary)}
+.topbar .bar{flex:1;height:8px;background:var(--soft);border-radius:6px;overflow:hidden}
+.topbar .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--primary-2));transition:width .3s}
+.topbar .err{color:var(--err);font-weight:700}
+.sec{font-size:18px;font-weight:800;margin:30px 0 12px;display:flex;align-items:center;gap:8px}
+.sec small{font-weight:500;font-size:12px;color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-bottom:14px}
+.note{font-size:13.5px;color:var(--muted);background:var(--soft);border-radius:12px;padding:12px 14px}
+/* overview */
+.ov-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+.ov-table th,.ov-table td{border:1px solid var(--border);padding:8px 10px;text-align:left;vertical-align:top}
+.ov-table th{background:var(--soft);color:var(--primary)}
+details{margin-bottom:14px}
+details>summary{cursor:pointer;font-weight:700;font-size:15px;padding:12px 14px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);list-style:none}
+details>summary::-webkit-details-marker{display:none}
+details>summary:before{content:"▸ ";color:var(--primary)}
+details[open]>summary:before{content:"▾ "}
+.dbox{padding:14px 16px}
+/* unit */
+.unit{border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:14px;overflow:hidden;background:var(--card)}
+.unit>.uh{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;cursor:pointer;background:linear-gradient(180deg,#fbfdff,#fff)}
+.unit>.uh .no{flex:0 0 30px;height:30px;border-radius:9px;background:var(--primary);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px;margin-top:2px}
+.unit>.uh .ht{flex:1}
+.unit>.uh .ti{font-size:16px;font-weight:800}
+.unit>.uh .badges{margin-top:6px;display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:11.5px;padding:2px 8px;border-radius:20px;background:var(--soft);color:var(--primary);font-weight:600}
+.chip.day{background:#fff7ed;color:#c2410c}
+.chip.master{background:#dcfce7;color:#15803d}
+.chip.familiar{background:#e0f2fe;color:#0369a1}
+.chip.know{background:#f1f5f9;color:#475569}
+.chip.hot{background:#fee2e2;color:#b91c1c}
+.phase{font-size:11px;color:var(--muted)}
+.uh .arr{margin-left:6px;color:var(--muted);transition:transform .2s}
+.unit.open .uh .arr{transform:rotate(90deg)}
+.uh .done{margin-left:auto;accent-color:var(--ok);width:18px;height:18px;flex:0 0 auto;margin-top:4px}
+.ubody{display:none;padding:14px 16px 18px;border-top:1px solid var(--border)}
+.unit.open .ubody{display:block}
+.row{display:flex;gap:12px;padding:9px 0;border-bottom:1px dashed var(--border);font-size:14px}
+.row:last-child{border-bottom:none}
+.row .k{flex:0 0 96px;font-weight:700;color:var(--primary);font-size:13px}
+.row .v{flex:1;color:var(--fg)}
+.row .v.excel{background:#f0f9ff;padding:6px 8px;border-radius:8px}
+.row .v.tip{background:#fffbeb;padding:6px 8px;border-radius:8px}
+.qhead{margin:16px 0 8px;font-weight:800;font-size:14px;color:var(--fg);display:flex;align-items:center;gap:8px}
+.qhead .cnt{font-size:12px;color:var(--muted);font-weight:500}
+.q{background:#fbfdff;border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+.q .qt{font-size:14px;font-weight:600;margin-bottom:8px}
+.qt table{border-collapse:collapse;margin:10px 0;font-size:13px;font-weight:400}
+.qt table td,.qt table th{border:1px solid #c9d3e0;padding:6px 10px;text-align:center;white-space:nowrap;line-height:1.5}
+.qt table th{background:#eef3fa;font-weight:700}
+.qt table tr:nth-child(even) td{background:#f8fafd}
+.q .opts{display:flex;flex-direction:column;gap:7px}
+.opt{text-align:left;padding:9px 12px;border:1.5px solid var(--border);border-radius:10px;background:#fff;cursor:pointer;font-size:13.5px;transition:.15s;display:flex;gap:8px;align-items:flex-start}
+.opt:hover{border-color:var(--primary)}
+.opt .lk{flex:0 0 20px;height:20px;border-radius:6px;background:var(--soft);color:var(--primary);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:12px}
+.opt.correct{border-color:var(--ok);background:#ecfdf5}
+.opt.correct .lk{background:var(--ok);color:#fff}
+.opt.wrong{border-color:var(--err);background:#fef2f2}
+.opt.wrong .lk{background:var(--err);color:#fff}
+.opt.sel{border-color:var(--primary);background:var(--soft)}
+.q .ex{display:none;margin-top:9px;font-size:13px;color:#334155;background:#f8fafc;border-left:3px solid var(--primary);padding:8px 10px;border-radius:6px}
+.q.done .ex{display:block}
+.q .qbar{display:flex;align-items:center;gap:10px;margin-top:9px}
+.q .qbar .res{font-size:13px;font-weight:700}
+.q .qbar .res.ok{color:var(--ok)}
+.q .qbar .res.no{color:var(--err)}
+.mini{border:1px solid var(--border);background:#fff;color:var(--muted);font-size:12px;padding:5px 10px;border-radius:8px;cursor:pointer}
+.chrow{margin-top:7px}
+.chtag{display:inline-block;font-size:11.5px;line-height:1.5;background:#ecfdf5;color:#047857;border:1px solid #a7f3d0;border-radius:999px;padding:2px 10px}
+.chtag-lab{background:#fef3c7;color:#b45309;border-color:#fde68a}
+.chst{padding:9px 0;border-bottom:1px dashed var(--border)}
+.chst-h{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13.5px}
+.chst-tag{font-size:11.5px;line-height:1.5;padding:2px 9px;border-radius:999px;border:1px solid var(--border);color:var(--muted);white-space:nowrap}
+.chst-tag.ok{background:#ecfdf5;border-color:#a7f3d0;color:#047857}
+.chst-tag.warn{background:#fffbeb;border-color:#fde68a;color:#b45309}
+.chst-tag.bad{background:#fef2f2;border-color:#fecaca;color:#b91c1c}
+.chst-bar{height:6px;background:#eef2f7;border-radius:999px;margin:7px 0 5px;overflow:hidden}
+.chst-bar i{display:block;height:100%;border-radius:999px;background:#cbd5e1}
+.chst-bar i.ok{background:#10b981}
+.chst-bar i.warn{background:#f59e0b}
+.chst-bar i.bad{background:#ef4444}
+.chst-m{font-size:12px;color:var(--muted)}
+.chst-tip{margin-top:10px;padding:9px 12px;border-radius:10px;background:#fffbeb;border:1px solid #fde68a;color:#92400e;font-size:12.5px;line-height:1.6}
+.mini.on{background:#fef2f2;color:var(--err);border-color:#fecaca}
+.mini.fav{background:#fffbeb;color:#b45309;border-color:#fde68a}
+.mini.fav.on{background:#fef3c7;color:#92400e;border-color:#f59e0b}
+.ref{font-size:13.5px;color:var(--muted);background:#fff7ed;border-radius:10px;padding:10px 12px;margin-top:6px}
+a.anc{color:var(--primary);text-decoration:none;font-weight:600}
+a.anc:hover{text-decoration:underline}
+.tips{display:grid;grid-template-columns:1fr;gap:10px}
+.tipc{display:flex;gap:12px;align-items:flex-start}
+.tipc .ic{font-size:22px}
+.tipc .tx{font-size:14px}
+.tipc .tx b{color:var(--primary)}
+.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);background:#0f172a;color:#fff;padding:10px 18px;border-radius:24px;font-size:13px;opacity:0;pointer-events:none;transition:.25s;z-index:1000}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 14px}
+.tbtn{border:1px solid var(--border);background:#fff;color:var(--primary);font-size:13px;padding:7px 14px;border-radius:10px;cursor:pointer;font-weight:600}
+.tbtn:hover{background:var(--soft)}
+.tbtn.on{background:#fef3c7;color:#b45309;border-color:#fcd34d}
+.foot{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
+/* judge option glyphs (正确/错误 → ✓/✗) */
+.lk.jdg.ok{background:var(--ok);color:#fff}
+.lk.jdg.no{background:var(--err);color:#fff}
+/* paper block */
+.paper{border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:14px;overflow:hidden;background:var(--card)}
+.paper-hd{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;background:linear-gradient(180deg,#fbfdff,#fff);flex-wrap:wrap}
+.paper-hd .cnt{font-size:12px;color:var(--muted);font-weight:500;margin-left:8px}
+/* ===== 答题视图（逐题练习 / 模拟卷共用）===== */
+.exam{position:fixed;inset:0;background:var(--bg);z-index:200;display:flex;flex-direction:column}
+.exam-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#0b2a5b;color:#fff;flex-wrap:wrap}
+.exam-bar .eb-left{display:flex;align-items:baseline;gap:8px;min-width:0}
+.exam-bar .eb-mid{margin-left:auto}
+.exam-bar .eb-right{display:flex;gap:6px;flex-wrap:wrap}
+.exam-bar .cnt{color:#cbd5e1;font-weight:500;font-size:12px}
+.exam-bar .tbtn{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);color:#fff}
+.exam-bar .tbtn:hover{background:rgba(255,255,255,.22)}
+.exam-body{flex:1;display:flex;gap:14px;padding:16px;overflow:hidden}
+.exam-main{flex:1;overflow:auto;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.exam-side{flex:0 0 210px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);overflow:auto}
+.nav-title{font-weight:700;font-size:13px;margin-bottom:8px;color:var(--muted)}
+.nav-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.nc{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border-radius:8px;border:1px solid var(--border);cursor:pointer;user-select:none}
+.nc.un{background:#f1f5f9;color:#94a3b8}
+.nc.an{background:var(--soft);color:var(--primary);border-color:#bfdbfe}
+.nc.fl{background:#fef3c7;color:#b45309;border-color:#fcd34d}
+.nc.cur{outline:2px solid var(--primary)}
+.nav-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;font-size:11px;color:var(--muted);align-items:center}
+.nav-legend .nc{cursor:default;width:16px;height:16px;aspect-ratio:auto}
+.exam-nav{display:flex;justify-content:space-between;margin-top:14px}
+@media(max-width:680px){.exam-body{flex-direction:column;overflow:auto}.exam-side{flex:0 0 auto}.nav-grid{grid-template-columns:repeat(8,1fr)}}
+/* practice mode (逐题练习) */
+.nc.cok{background:#dcfce7;color:#15803d;border-color:#bbf7d0}
+.nc.cno{background:#fee2e2;color:#b91c1c;border-color:#fecaca}
+.prac-acc{font-size:15px;font-weight:800;font-variant-numeric:tabular-nums}
+.rec-log{max-height:240px;overflow:auto}
+
+  /* ---- 教材考点 ---- */
+  .bkch{border:1px solid var(--border);border-radius:14px;margin:10px 0;background:var(--card);overflow:hidden;content-visibility:auto;contain-intrinsic-size:auto 520px}
+  .bkch>summary{cursor:pointer;padding:12px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:14.5px}
+  .bkch>summary::-webkit-details-marker{display:none}
+  .bkch>summary:hover{background:#f1f5f9;color:var(--primary)}
+  .bkch .bkno{flex:0 0 30px;height:30px;border-radius:9px;background:var(--primary);color:var(--primary-foreground);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
+  .bkch .bkti{font-weight:700}
+  .bkch .bkpart{font-size:11.5px;color:var(--muted-foreground);border:1px solid var(--border);border-radius:8px;padding:2px 8px}
+  .bkch .bkbody{padding:0 14px 14px;border-top:1px solid var(--border)}
+.qitem{border:1px solid var(--border);border-radius:10px;margin:8px 0;background:#fff;overflow:hidden}
+.qitem>summary{cursor:pointer;padding:10px 12px;display:flex;gap:8px;align-items:flex-start;font-size:13.5px;line-height:1.5}
+.qitem>summary::-webkit-details-marker{display:none}
+.qitem>summary:hover{background:#f8fafc}
+.qitem .qith{flex:0 0 auto;font-size:11px;font-weight:700;color:#fff;background:var(--primary);border-radius:6px;padding:1px 7px;margin-top:2px}
+.qitem .qitxt{color:var(--foreground)}
+.bkbody .q .chrow{display:none}
+  .bkmind{display:flex;flex-wrap:wrap;gap:6px}
+  .bkmind .chip{background:#eef2ff;color:#3730a3;border-radius:8px;padding:3px 9px;font-size:12px}
+  .bksec{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+  .bksec span{font-size:12.5px;background:#f1f5f9;color:#475569;border-radius:8px;padding:3px 9px}
+  @media(max-width:560px){.bkch>summary{font-size:13.5px;padding:10px 12px}}
+
+  /* ---- 教材考点：完整知识点 ---- */
+  .bkpwrap{margin-top:4px}
+
+  /* 教材练习题 · 卡片化渲染 */
+  .bkex-row .k{flex:0 0 96px}
+  .bkex-list{display:flex;flex-direction:column;gap:10px;width:100%}
+  .bkex-sec{display:flex;align-items:center;gap:10px;background:linear-gradient(90deg,color-mix(in srgb,var(--primary) 10%,var(--background)),transparent);color:var(--primary);font-weight:700;font-size:14px;padding:8px 14px;border-radius:8px;margin:8px 0 2px;border-left:3px solid var(--primary);letter-spacing:.5px}
+  .bkex-sec-bar{width:4px;height:14px;background:var(--primary);border-radius:2px;flex-shrink:0}
+  .bkex-q{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px 12px 12px;transition:all .15s ease}
+  .bkex-q:hover{border-color:color-mix(in srgb,var(--primary) 40%,var(--border));box-shadow:0 2px 8px color-mix(in srgb,#000 6%,transparent)}
+  .bkex-no{flex:0 0 30px;height:30px;background:var(--primary);color:var(--primary-foreground);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0;margin-top:1px}
+  .bkex-main{flex:1;min-width:0}
+  .bkex-head{display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+  .bkex-type{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;letter-spacing:.5px;line-height:1.5;flex-shrink:0;margin-top:1px}
+  .bkex-type-single{background:color-mix(in srgb,#3b82f6 15%,transparent);color:#1d4ed8}
+  .bkex-type-multi{background:color-mix(in srgb,#a855f7 15%,transparent);color:#7e22ce}
+  .bkex-type-judge{background:color-mix(in srgb,#f59e0b 15%,transparent);color:#b45309}
+  .bkex-type-fill{background:color-mix(in srgb,#64748b 15%,transparent);color:#475569}
+  .bkex-h{flex:1;min-width:0;font-size:14px;line-height:1.75;color:var(--fg);font-weight:500}
+  .bkex-opts{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
+  .bkex-opt{display:flex;gap:6px;align-items:flex-start;padding:6px 10px;border:1px solid var(--border);border-radius:7px;background:var(--background);font-size:13.5px;line-height:1.65;transition:all .15s ease;min-width:0}
+  .bkex-opt:hover{border-color:color-mix(in srgb,var(--primary) 50%,var(--border));background:color-mix(in srgb,var(--primary) 4%,var(--background))}
+  .bkex-lt{flex:0 0 20px;height:20px;border-radius:5px;background:var(--muted-bg);color:var(--fg);font-weight:700;font-size:11.5px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .bkex-ot{flex:1;min-width:0;word-break:break-word}
+  .bkex-ans{display:inline-flex;align-items:center;gap:8px;margin-top:8px;padding:5px 12px;background:linear-gradient(90deg,color-mix(in srgb,#16a34a 10%,var(--background)),color-mix(in srgb,#16a34a 4%,transparent));border:1px solid color-mix(in srgb,#16a34a 35%,transparent);border-radius:7px;font-size:13px}
+  .bkex-ans-tag{color:#fff;background:#16a34a;padding:2px 7px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.3px}
+  .bkex-ans-v{color:#15803d;font-weight:800;font-size:14px;letter-spacing:.5px}
+  .bkex-text{padding:8px 12px;color:var(--muted-foreground);font-size:13.5px;line-height:1.7;font-style:italic}
+  @media(max-width:560px){
+    .bkex-q{padding:10px 12px 10px 10px;gap:8px}
+    .bkex-no{flex:0 0 26px;height:26px;font-size:12px}
+    .bkex-opts{grid-template-columns:1fr;gap:5px}
+    .bkex-h{font-size:13.5px}
+    .bkex-opt{font-size:13px;padding:5px 8px}
+    .bkex-ans{padding:4px 10px;font-size:12.5px}
+    .bkex-ans-v{font-size:13px}
+  }
+
+  /*FS_HOT_CSS*/
+  /* ---- 教材考点：字号可调 + 高频标注 ---- */
+  #book{--bfs:14px}
+  .bkfsbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:4px 0 12px;padding:8px 12px;background:var(--soft);border:1px solid var(--border);border-radius:12px;font-size:12.5px;color:var(--muted)}
+  .bkfsbar .bkfslbl{font-weight:700;color:var(--fg)}
+  .bkfsbar .bkfsctl{display:inline-flex;align-items:center;gap:4px}
+  .bkfsbar .bkfsctl .tbtn{padding:4px 9px;font-size:12px;line-height:1}
+  .bkfsbar #fsVal{font-size:11.5px;color:var(--primary);min-width:34px;display:inline-block;text-align:center}
+  .bkfsbar .bkleg{font-size:11.5px;color:var(--muted)}
+  .bkpwrap{margin-top:4px}
+  .bkp-list{display:flex;flex-direction:column;gap:6px}
+  .bkp-card{position:relative;background:linear-gradient(135deg,color-mix(in srgb,#fb923c 8%,var(--card)),color-mix(in srgb,#f59e0b 4%,var(--background)));border:1px solid color-mix(in srgb,#f59e0b 28%,var(--border));border-radius:10px;padding:10px 14px 10px 40px;transition:all .15s ease;cursor:default}
+  .bkp-card:hover{box-shadow:0 3px 10px color-mix(in srgb,#f59e0b 20%,transparent);border-color:color-mix(in srgb,#f59e0b 50%,var(--border));transform:translateY(-1px)}
+  .bkp-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:18px;line-height:1}
+  .bkp-card-body{flex:1;min-width:0}
+  .bkp-card-title{font-weight:600;font-size:var(--bfs,14px);line-height:1.7;color:var(--foreground);letter-spacing:.2px}
+  .bkp-sub{padding:4px 8px 4px 24px;font-size:calc(var(--bfs,14px) - 1px);line-height:1.7;color:var(--muted-foreground);position:relative;border-left:2px solid color-mix(in srgb,var(--primary) 18%,transparent);margin-left:14px}
+  .bkp-sub::before{content:'';position:absolute;left:-5px;top:11px;width:8px;height:8px;border-radius:50%;background:var(--primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--primary) 18%,transparent)}
+  .bkp-sec{display:flex;align-items:baseline;gap:10px;background:linear-gradient(90deg,color-mix(in srgb,var(--primary) 8%,var(--background)),transparent);border-left:3px solid var(--primary);border-radius:6px;padding:6px 12px;margin:8px 0 2px;font-size:13.5px}
+  .bkp-sec:first-child{margin-top:2px}
+  .bkp-sec-no{color:var(--primary);font-weight:800;letter-spacing:.5px;flex-shrink:0}
+  .bkp-sec-rest{color:var(--muted-foreground);font-weight:500;flex:1;min-width:0;line-height:1.6;font-size:13px}
+  @media(max-width:560px){.bkp-card{padding:9px 12px 9px 36px}.bkp-card-title{font-size:calc(var(--bfs,14px) - 0.5px)}.bkp-sub{font-size:calc(var(--bfs,14px) - 1.5px);padding-left:18px;margin-left:10px}.bkp-icon{font-size:16px;left:10px}}
+  /* 高频 / 真题关联 标注 */
+  .bktier{font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:8px;margin-left:auto;white-space:nowrap}
+  .tier3{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+  .tier2{background:#fff7ed;color:#d97706;border:1px solid #fed7aa}
+  .tier1{background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe}
+  .tier0{background:#f1f5f9;color:#64748b;border:1px solid #e2e8f0}
+  .tier-1{background:#f8fafc;color:#94a3b8;border:1px solid #e2e8f0}
+  /* 只看高频：隐藏非高频章 + 辅助说明 */
+  #book.hotonly .bkch:not(.has-hot){display:none}
+  #book.hotonly .bkp-sub{display:none}
+  #book.hotonly .bkp-sec-rest{display:none}
+
+
+
+
+
+/* ===== Office 平台专用增强 ===== */
+:root{--pp:#7c3aed;--pp2:#0ea5c6}
+.hero{background:linear-gradient(135deg,#2b1a63 0%,#4c2fa8 42%,#0e7ea8 100%)}
+.hero::after{background:radial-gradient(circle at 82% 18%,rgba(124,58,237,.42),transparent 42%),radial-gradient(circle at 12% 85%,rgba(14,165,198,.38),transparent 40%)}
+.brand{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);border-radius:20px;padding:4px 13px;font-size:12px;font-weight:700;letter-spacing:1px;margin-bottom:12px;position:relative}
+.sec{color:#1a2333}
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;margin-bottom:12px}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.pcard h3{font-size:15.5px;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:7px}
+.pcard .meta{font-size:12.5px;color:var(--muted);line-height:1.7;margin-bottom:10px}
+.pbar{height:7px;border-radius:8px;background:var(--muted-bg);overflow:hidden;margin:9px 0}
+.pbar i{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--primary-2));border-radius:8px;transition:.3s}
+.kv{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.kv span{font-size:11.5px;background:var(--soft);color:var(--primary);border-radius:6px;padding:3px 9px;font-weight:600}
+.kv span.g{background:#f1f5f9;color:#475569}
+.kv span.p{background:#f3e8ff;color:#7c3aed}
+.kv span.w{background:#fff7ed;color:#c2410c}
+.opcard{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden}
+.opcard>summary{padding:14px 16px;cursor:pointer;font-weight:800;font-size:15px;display:flex;align-items:center;gap:9px;list-style:none}
+.opcard>summary::-webkit-details-marker{display:none}
+.opcard>summary::before{content:'▸';color:var(--primary);font-size:15px}
+.opcard[open]>summary::before{content:'▾'}
+.opbody{padding:0 16px 16px}
+.opbody h4{font-size:13.5px;color:var(--primary);margin:12px 0 6px}
+.oppre{white-space:pre-wrap;background:var(--muted-bg);border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.85;color:#26324a;max-height:520px;overflow:auto}
+.oppre.score{background:#f3e8ff;color:#3b2668}
+.optrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.ptable{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+.ptable th,.ptable td{border:1px solid var(--border);padding:8px 10px;text-align:left}
+.ptable th{background:var(--muted-bg);font-weight:700}
+.plist{margin:8px 0 0;padding-left:20px;font-size:13.2px;line-height:1.95;color:#334155}
+.plist li{margin:2px 0}
+.tagline{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.7}
+.warnbox{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:10px;padding:10px 13px;font-size:12.8px;line-height:1.75;margin-top:10px}
+.qsub{font-size:11.5px;color:var(--muted);margin-bottom:7px;display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.qsub b{background:var(--soft);color:var(--primary);border-radius:5px;padding:1px 7px;font-weight:600}
+.qsub b.j{background:#fef3c7;color:#92400e}
+.qsub b.m{background:#f3e8ff;color:#7c3aed}
+.qsub b.y{background:#e0f2fe;color:#0369a1}
+.ex-note{font-size:12.3px;color:var(--muted);margin-top:7px;font-style:italic}
+.nav-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:5px}
+/* 浮层：与参考平台一致的横向布局，顶栏换成本平台紫蓝 */
+.exam-bar{background:linear-gradient(90deg,#2b1a63,#4c2fa8 60%,#0e7ea8)}
+.exam-body{display:flex;gap:14px;padding:16px;flex:1;min-height:0;overflow:hidden}
+.exam .exam-main{flex:1;min-width:0;overflow:auto}
+.exam .exam-side{flex:0 0 220px}
+.exam .qhead{display:block}
+.exam .res.ok{color:var(--ok)}
+.exam .res.err{color:var(--err)}
+@media(max-width:680px){
+  .exam-body{flex-direction:column;overflow:auto}
+  .exam .exam-side{flex:0 0 auto}
+}
+@media(max-width:560px){.nav-grid{grid-template-columns:repeat(8,1fr)}.pgrid{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+<div class="hero">
+  <span class="brand">NCCCU · OFFICE 高级应用赛</span>
+  <h1>Office 高级应用赛 · PowerPoint 赛项备考平台</h1>
+  <p>2020–2025 往届真题 · 7 套操作真题 + 355 道客观题</p>
+  <div class="cd" id="cd"></div>
+</div>
+<div class="wrap">
+
+  <div class="topbar">
+    <span>做题进度 <b id="progTxt">0 / 355</b></span>
+    <span class="bar"><i id="progBar"></i></span>
+    <span>正确率 <b id="accTxt">—</b></span>
+    <span class="err" id="wrongTxt">错题 0</span>
+    <span id="favTxt" style="font-weight:700;color:#b45309">⭐ 收藏 0</span>
+  </div>
+  <div class="toolbar" style="margin-bottom:6px">
+    <button class="tbtn" id="btnRedo">🔁 重练错题</button>
+    <button class="tbtn" id="clearWrong">清空错题</button>
+    <button class="tbtn" id="btnReset">重置全部进度</button>
+  </div>
+
+  <div class="sec">📋 备考概览 <small>考试结构 · 官方考点 · 命题范围</small></div>
+  <div class="pcard" id="overview"></div>
+
+  <div class="sec">📑 历年真题卷 <small>2020–2025 区域赛客观题 · 按年份整套练习，进度自动保存</small></div>
+  <div class="pgrid" id="years"></div>
+
+  <div class="sec">🗂️ 专项刷题 <small>按科目 / 题型 / 年份筛选，针对性补弱</small></div>
+  <div class="pgrid" id="cats"></div>
+
+  <div class="sec">🎬 PowerPoint 操作真题 <small>7 套往届操作题 · 原题要求 + 官方得分点评分说明</small></div>
+  <div id="ops"></div>
+
+  <div class="sec">❌ 我的错题 <small>答错自动汇总 · 做对一道自动移出</small></div>
+  <div class="pcard" id="wrongBook"></div>
+
+  <div class="sec">⭐ 我的收藏 <small>做题时点「⭐ 收藏」· 一键重练</small></div>
+  <div class="pcard" id="favBox"></div>
+
+  <div class="sec">🎲 随机模考 <small>按区域赛题型结构随机抽题 · 交卷出正确率报告</small></div>
+  <div class="pcard" id="randBox"></div>
+
+  <div class="sec">📊 做题记录 <small>本机自动保存 · 按年份与科目统计</small></div>
+  <div class="pcard" id="rec"></div>
+
+  <div class="sec">💡 备考贴士</div>
+  <div class="pcard"><div class="tips" id="tips"></div></div>
+
+  <div class="foot">题目来源：2020–2025 年 Office 高级应用赛区域赛往届真题（桌面 夸克数据库\office题库） · 仅供个人备考复习使用</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var DATA = {"meta":{"title":"Office 高级应用赛 · PowerPoint 赛项备考平台","subtitle":"2020–2025 往届真题 · 7 套操作真题 + 355 道客观题","exam":"全国高校计算机能力挑战赛（NCCCU）Office 高级应用赛","source":"题目来源：2020–2025 年 Office 高级应用赛区域赛往届真题（桌面 夸克数据库\\office题库）","scope":"本平台收录 PowerPoint 赛项相关题目：PPT 专业题 + 三科共用「计算机基础」题；Word/Excel 专项题未收录。","env":"官方比赛环境：Microsoft Office 2016 及以上（不建议使用 WPS 完成操作题）"},"examStruct":[{"name":"区域赛","time":"60 分钟","detail":"单选 40×1分 + 不定项 10×2分 + 判断 10×1分 + 操作题 1×30分 = 100分"},{"name":"国赛","time":"90 分钟","detail":"选择题 + 操作题若干"}],"points":["基本功能、运行环境、启动与退出","演示文稿的创建、打开、关闭、保存与打印设置","幻灯片基本操作：插入/移动/复制/删除、版式编辑、母版应用","文本、图片、相册、艺术字、形状、表格等对象的编辑与应用","演示文稿主题选用与幻灯片背景设置","对象动画、幻灯片切换效果、放映设置"],"common":["计算机发展与应用","数据表示与存储","软硬件系统","多媒体技术","计算机病毒与防护","操作系统基础","计算机网络与 Internet","信息安全","办公软件通用知识"],"questions":[{"q":"下列关于Windows操作系统的叙述中，不正确的是____。","o":["屏幕上打开的窗口都是活动窗口","不同文件之间可通过剪贴板交换信息","应用程序窗口最小化成图标后仍运行","在不同磁盘分区间可以用鼠标拖动文件的方法实现文件的复制"],"a":"A","type":"single","subj":"计算机基础","diff":"","year":"2020","ex":"","id":"q0001"},{"q":"计算机的分代主要是根据_____来划分的。","o":["集成电路","电子元件","电子管","晶体管"],"a":"B","type":"single","subj":"计算机基础","diff":"","year":"2020","ex":"","id":"q0002"},{"q":"目前广泛使用的航空（火车）售票系统、财务管理等软件，按计算机应用分类，应属于_____。","o":["实时控制","科学计算","计算机辅助工程","数据处理"],"a":"D","type":"single","subj":"计算机基础","diff":"","year":"2020","ex":"","id":"q0003"},{"q":"物流利用计算机对快递包裹进行自动分捡的技术是_____。","o":["机器翻译","自然语言理解","过程控制","模式识别"],"a":"D","type":"single","subj":"计算机基础","diff":"","year":"2020","ex":"","id":"q0004"},{"q":"CAD软件可用来绘制______。","o":["机械零件","建筑设计","服装设计","以上都对"],"a":"D","type":"single","subj":"计算机基础","diff":"","year":"2020","ex":"","id":"q0005"},{"q":"人工智能是让计算机能模仿人的一部分智能，下列______不属于人工智能领域中的应用。","o":["机器人","信用卡","人机对奕","机械手"],"a":"B","type":"single","subj":"计算机基础","diff":"","year":"2020","ex":"","id":"q0006"},{"q":"在计算机术语中，对多媒体的定义是指_____。","o":["多种表示和传播信息的载体","各种信息的编码","计算机的输入输出信息","计算机屏幕显示的信息"],"a":"A","type":"single","subj":"计算机基础","diff":"","year":"2020","ex":"","id":"q0007"},{"q":"扩展名为.WAV的文件类型是_____。","o":["音频文件","视频文件","文本文件","可执行文件"],"a":"A","type":"single","subj":"计算机基础","diff":"","year":"2020","ex":"","id":"q0008"},{"q":"为减少多媒体数据所占存储空间，一般都采用_____。","o":["存储缓冲技术","数据压缩技术","多通道技术","流水线技术"],"a":"B","type":"single","subj":"计算机基础","diff":"","year":"2020","ex":"","id":"q0009"},{"q":"执行二进制算术加11001001+100111的结果是_____。","o":["11101111","11110000","1","10100010"],"a":"B","type":"single","subj":"计算机基础","diff":"","year":"2020","ex":"","id":"q0010"},{"q":"下列字符中，ASCII码值最大的是_____。","o":["Q","q","B","b"],"a":"B","type":"single","subj":"计算机基础","diff":"","year":"2020","ex":"","id":"q0011"},{"q":"在ASCII码表中，按照ASCII码值从小到大排列顺序是_____。","o":["数字、英文大写字母、英文小写字母","数字、英文小写字母、英文大写字母","英文大写字母、英文小写字母、数字","英文小写字母、英文大写字母、数字"],"a":"A","type":"single","subj":"计算机基础","diff":"","year":"2020","ex":"","id":"q0012"},{"q":"计算机在使用中突然断电后，数据会丢失的是_____存储器。","o":["ROM","RAM","硬盘","光盘"],"a":"B","type":"single","subj":"计算机基础","diff":"","year":"2020","ex":"","id":"q0013"},{"q":"在计算机的性能指标中，内存条的容量通常是指_____。","o":["RAM的容量","ROM的容量","RAM和ROM的容量之和","CD-ROM的容量"],"a":"A","type":"single","subj":"计算机基础","diff":"","year":"2020","ex":"","id":"q0014"},{"q":"计算机中的每个存储单位都被赋予一个唯一的序号，该序号称为_____。","o":["地址","编号","容量","字节"],"a":"A","type":"single","subj":"计算机基础","diff":"","year":"2020","ex":"","id":"q0015"},{"q":"关于随机存储器（RAM）功能的叙述，_____是正确的。","o":["只能读，不能写","断电后信息不消失","读写速度比硬盘慢","能直接与CPU交换信息"],"a":"D","type":"single","subj":"计算机基础","diff":"","year":"2020","ex":"","id":"q0016"},{"q":"在计算机中，高速缓存（Cache）的作用是_____。","o":["匹配CPU与内存的读写速度","匹配外存与内存的读写速度","匹配CPU内部的读写速度","匹配计算机与外设的读写速度"],"a":"A","type":"single","subj":"计算机基础","diff":"","year":"2020","ex":"","id":"q0017"},{"q":"现在一般的微机内部有二级缓存（Cache），其中一级缓存位于_____内。","o":["CPU","内存","主板","硬盘"],"a":"A","type":"single","subj":"计算机基础","diff":"","year":"2020","ex":"","id":"q0018"},{"q":"用户可以多次向其中写入信息的光盘是_____。","o":["CD-ROM","CD-R","CD-RW","DVD-ROM"],"a":"C","type":"single","subj":"计算机基础","diff":"","year":"2020","ex":"","id":"q0019"},{"q":"在对硬盘的下列操作中，最容易磨损机械硬盘的是_____。","o":["在硬盘上建立目录","对硬盘进行分区","高级格式化","低级格式化"],"a":"D","type":"single","subj":"计算机基础","diff":"","year":"2020","ex":"","id":"q0020"},{"q":"在Powerpoint的\"幻灯片切换\"对话框中，正确的描述是_____。","o":["设置幻灯片切换时的视觉效果和听觉效果","只能设置幻灯片切换时的听觉效果","只能设置幻灯片切换时的视觉效果","只能设置幻灯片切换时的定时效果"],"a":"A","type":"single","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0021"},{"q":"在PowerPoint中，如果希望在演示过程中终止幻灯片的放映，随时可按键_____。","o":["Delete","Ctrl＋E","Shift＋E","Esc"],"a":"D","type":"single","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0022"},{"q":"在PowerPoint中\\\"观看放映\\\"命令的快捷键是_____。","o":["F1","F4","F5","F8"],"a":"C","type":"single","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0023"},{"q":"以下_____不是PowerPoint2010的视图方式。","o":["普通视图","阅读视图","幻灯片浏览视图","页面视图"],"a":"D","type":"single","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0024"},{"q":"在PowerPoint一张幻灯片中，若对一幅图片及文本框设置成一致的动画显示效果时，则以下说法正确的是_____。","o":["图片有动画效果，文本框没有动画效果","图片没有动画效果，文本框有动画效果","图片有动画效果，文本框也有动画效果","图片没有动画效果，文本框也没有动画效果"],"a":"C","type":"single","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0025"},{"q":"在PowerPoint幻灯片普通视图窗格中单击\"幻灯片放映\"视图按钮，通常情况下，将在屏幕上看到_____。","o":["从第一张幻灯片开始全屏幕放映所有的幻灯片","从当前幻灯片开始放映剩余的幻灯片","只放映当前的一张幻灯片","按照幻灯片设置的时间放映全部幻灯片"],"a":"B","type":"single","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0026"},{"q":"在PowerPoint中，超级链接只有在下列哪种视图中才能被激活_____。","o":["幻灯片普通视图","幻灯片大纲视图","幻灯片浏览视图","幻灯片放映视图"],"a":"D","type":"single","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0027"},{"q":"在PowerPoint中，用\"文件\"→\"新建\"命令可_____。","o":["在文件中添加一张幻灯片","重新建立一个演示文稿文件","消除原演示文稿中的内容","插入图形对象"],"a":"B","type":"single","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0028"},{"q":"下列不是PowerPoint2010中的视图方式是_____。","o":["阅读视图","web版式","普通视图","备注页"],"a":"B","type":"single","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0029"},{"q":"在PowerPoint中， 要使所制作的背景对所有幻灯片生效，应在背景对话框中选择_____。","o":["应用","取消","全部应用","确定"],"a":"C","type":"single","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0030"},{"q":"在PowerPoint中，当在幻灯片中插入了声音以后，幻灯片中将会出现_____。","o":["喇叭标记","一段文字说明","链接说明","链接按钮"],"a":"A","type":"single","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0031"},{"q":"在PowerPoint中，需要整体观察演示文稿中某张幻灯片的播放效果，一般应该选择_____。","o":["幻灯片浏览视图","大纲视图","幻灯片放映视图","普通视图"],"a":"C","type":"single","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0032"},{"q":"在PowerPoint中,文字区的插入条光标存在,证明此时是______状态。","o":["移动","文字编辑","复制","文字框选取"],"a":"B","type":"single","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0033"},{"q":"在PowerPoint中，修改幻灯片中文本框内的内容,应该是_____。","o":["首先删除文本框，然后再重新插入一个新的文本框","选择该文本框中所要修改的内容，然后重新输入文字","重新选择带有文本框的版式，然后再向文本框内输入文字","用新插入的文本框覆盖原文本框"],"a":"B","type":"single","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0034"},{"q":"在PowerPoint2010中，开始选项卡中的新建按钮是_____。","o":["新建幻灯片","新建幻灯片母版","新建演示文稿","新建幻灯片模版"],"a":"A","type":"single","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0035"},{"q":"在PowerPoint2010中，将某张幻灯片版式更改为\\\"垂直排列标题与文本\\\"，应选择的选项卡是_____。","o":["文件","动画","插入","开始"],"a":"D","type":"single","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0036"},{"q":"在PowerPoint2010中，设置背景时，若使所选择的背景仅适用于当前所选的幻灯片，应该按_____。","o":["全部应用按钮","关闭按钮","取消按钮","重置背景按钮"],"a":"B","type":"single","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0037"},{"q":"在PowerPoint中，如果要从一张幻灯片\"溶解\"到下一张幻灯片，应使用_____。","o":["动作设置","添加动画","幻灯片切换","页面设置"],"a":"C","type":"single","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0038"},{"q":"在PowerPoint中，如果要从第二张幻灯片跳转到第八张幻灯片，应使用_____。","o":["超链接","添加动画","幻灯片切换","页面设置"],"a":"A","type":"single","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0039"},{"q":"在PowePoint中，下列说法中正确的是_____。","o":["按功能键[F5]打开文件","按功能键[F5]从头放映幻灯片","按功能键[F5]从当前页放映幻灯片","按功能键[F5]样式检查"],"a":"B","type":"single","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0040"},{"q":"下列对PowerPoint的可应用功能和场景叙述中，错误的是_____。","o":["课堂教学","学术报告","产品介绍","图像处理"],"a":"D","type":"single","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0041"},{"q":"在PowerPoint幻灯片浏览视图中，利用键盘作删除幻灯片操作，应先选中该幻灯片，再按_____键。","o":["Ctrl+C","Alt","Esc","Del"],"a":"D","type":"single","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0042"},{"q":"在PowerPoint幻灯片浏览视图中，以下_____是不可以进行的操作。","o":["插入幻灯片","删除幻灯片","改变幻灯片的顺序","编辑幻灯片中的文字"],"a":"D","type":"single","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0043"},{"q":"在MS Office软件中，以下_____菜单项是PowerPoint特有的。","o":["视图","切换","文件","幻灯片放映"],"a":"BD","type":"multi","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0044"},{"q":"PowerPoint中个，动画效果针对的对象包括_____。","o":["文本","图片","图形","幻灯片"],"a":"ABC","type":"multi","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0045"},{"q":"PowerPoint启动后，不能用______方法建立一个新的演示文稿文件。","o":["在\"文件\"菜单下选择\"新建\"项","直接单击工具栏的\\\"新建幻灯片\\\"按钮","直接按\"Ctrl＋N\"快捷键","直接按\"Shift＋N\"快捷键"],"a":"BD","type":"multi","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0046"},{"q":"在PowerPoint幻灯片中，下列说法中不正确的是_____。","o":["可以链接到其他页的幻灯片上","可以链接到本页幻灯片上","可以链接到其他演示文稿上","不可以链接到其他演示文稿上"],"a":"D","type":"single","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0047"},{"q":"在PowerPoint中，按下Ctrl+J键可以实现选中文本框内的文字快速段落居中对齐。","o":["正确","错误"],"a":"B","type":"judge","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0048"},{"q":"在PowerPoint中，按下Ctrl+L键可以实现选中文本框内的文字快速段落居左对齐。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0049"},{"q":"在PowerPoint幻灯片放映时，用户可以利用绘图笔在幻灯片上写字或者画画，这些内容在本次演示中不可以擦除。","o":["正确","错误"],"a":"B","type":"judge","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0050"},{"q":"在PowerPoint中，不可以同时应用两个以上的模板主题。","o":["正确","错误"],"a":"B","type":"judge","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0051"},{"q":"在PowerPoint幻灯片中，不可以将文本框中多行文字直接转换为SmartArt图形。","o":["正确","错误"],"a":"B","type":"judge","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0052"},{"q":"在PowerPoint中，幻灯片不仅可以插入剪贴画，还可以插入外部的图形文件。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0053"},{"q":"在PowerPoint幻灯片中插入SmartArt图形，\"交替六边形\"效果在\"关系\"组中。","o":["正确","错误"],"a":"B","type":"judge","subj":"PPT","diff":"","year":"2020","ex":"","id":"q0054"},{"q":"计算机中所有信息的存储都采用（）。","o":["八进制","十进制","二进制","十六进制"],"a":"C","type":"single","subj":"计算机基础","diff":"易","year":"2021","ex":"","id":"q0055"},{"q":"按电子计算机传统的分代方法，第二代计算机是（）。","o":["电子管计算机","机械计算机","晶体管计算机","集成电路计算机"],"a":"C","type":"single","subj":"计算机基础","diff":"易","year":"2021","ex":"","id":"q0056"},{"q":"下列各项中，格式正确的电子邮箱地址是（）。","o":["zhaoyu@ncre.cn","panwd&nrce.cn","wangjlncre.cn","zhang#ncre.cn"],"a":"A","type":"single","subj":"计算机基础","diff":"易","year":"2021","ex":"","id":"q0057"},{"q":"下列关于计算机病毒的叙述中，正确的是（）。","o":["计算机病毒只感染.exe或.com文件","感染过计算机病毒的计算机具有对该病毒的免疫性","反病毒软件必须随着新病毒的出现而升级，提高查、杀病毒的功能","会导致部分计算机操作人员感染病毒，但不会致病"],"a":"C","type":"single","subj":"计算机基础","diff":"易","year":"2021","ex":"","id":"q0058"},{"q":"为了保护个人隐私安全，设置下列哪种开机密码最安全（）。","o":["yg@Djh#520","2021111746","ZhouYunhan","ch%4559897"],"a":"A","type":"single","subj":"计算机基础","diff":"易","year":"2021","ex":"","id":"q0059"},{"q":"CPU的中文名称是（）。","o":["控制器","显示器","外存储器","中央处理器"],"a":"D","type":"single","subj":"计算机基础","diff":"易","year":"2021","ex":"","id":"q0060"},{"q":"在计算机中，I/O设备是指（）。","o":["输出设备","输入设备","其他输入设备","输入输出设备"],"a":"D","type":"single","subj":"计算机基础","diff":"易","year":"2021","ex":"","id":"q0061"},{"q":"下列关于1GB的数值表达，正确的是（）。","o":["1024MB","1000MB","1024KB","1000KB"],"a":"A","type":"single","subj":"计算机基础","diff":"易","year":"2021","ex":"","id":"q0062"},{"q":"下列不属于输出设备的是（）。","o":["显示器","鼠标器","打印机","投影仪"],"a":"B","type":"single","subj":"计算机基础","diff":"易","year":"2021","ex":"","id":"q0063"},{"q":"下列哪种不是程序设计语言（）。","o":["汇编语言","符号语言","机器语言","高级语言"],"a":"B","type":"single","subj":"计算机基础","diff":"易","year":"2021","ex":"","id":"q0064"},{"q":"因特网中IP地址用四组十进制数表示，每组数字的取值范围是（）。","o":["0～255","0～256","0～127","0～128"],"a":"A","type":"single","subj":"计算机基础","diff":"易","year":"2021","ex":"","id":"q0065"},{"q":"下列各软件中，不属于系统软件的是（）。","o":["LIUNX","WPS","DOS","Windows"],"a":"B","type":"single","subj":"计算机基础","diff":"易","year":"2021","ex":"","id":"q0066"},{"q":"下列各项中， Internet的IP地址错误的是（）。","o":["192.168.32.1","212.128.1.0","168.256.112.6","64.32.8.2"],"a":"C","type":"single","subj":"计算机基础","diff":"易","year":"2021","ex":"","id":"q0067"},{"q":"根据域名代码规定，表示教育单位网站的域名代码是（）。","o":["gov","edu","com","mil"],"a":"B","type":"single","subj":"计算机基础","diff":"易","year":"2021","ex":"","id":"q0068"},{"q":"域名YG.XYZ.COM.CN中主机名是（）。","o":["YG","XYZ","COM","CN"],"a":"A","type":"single","subj":"计算机基础","diff":"易","year":"2021","ex":"","id":"q0069"},{"q":"用户名为zhangyu的正确电子邮件地址是（）。","o":["zhangyu@163.com","zhangyu.163#.com","zhangyu.163@.com","zhangyu#163.com"],"a":"A","type":"single","subj":"计算机基础","diff":"易","year":"2021","ex":"","id":"q0070"},{"q":"在使用浏览器浏览网站时，点击“收藏夹”可以（）。","o":["打印网站中的内容","复制此网站的地址","隐藏网站中的内容","记住此网站的地址"],"a":"D","type":"single","subj":"计算机基础","diff":"易","year":"2021","ex":"","id":"q0071"},{"q":"微型计算机键盘上的Enter键是（）。","o":["退格键","空格键","回车键","制表定位键"],"a":"C","type":"single","subj":"计算机基础","diff":"易","year":"2021","ex":"","id":"q0072"},{"q":"网络上“黑客”一词是指（）的人。","o":["会修电脑","在晚上上网","匿名上网","非法侵入他人计算机"],"a":"D","type":"single","subj":"计算机基础","diff":"易","year":"2021","ex":"","id":"q0073"},{"q":"在Windows7操作系统中，下列方法中无法启动“开始”菜单的是（）。","o":["点击“开始”按钮","按“Ctrl”+“ESC”组合键","按键盘上的“Windows徽标”","按“Shift”+“ESC”组合键"],"a":"D","type":"single","subj":"计算机基础","diff":"易","year":"2021","ex":"","id":"q0074"},{"q":"演示文稿默认的文件扩展名是（）。","o":[".exe",".txt",".pptx",".bmp"],"a":"C","type":"single","subj":"PPT","diff":"易","year":"2021","ex":"","id":"q0075"},{"q":"快速放映PPT，按键盘（）。","o":["F2键","F3键","F4键","F5键"],"a":"D","type":"single","subj":"PPT","diff":"易","year":"2021","ex":"","id":"q0076"},{"q":"PowerPoint的主要功能是（）。","o":["制作简明文档","对数据进行统计运算","制作放映动态GIF图像","制作放映电子幻灯片文稿"],"a":"D","type":"single","subj":"PPT","diff":"易","year":"2021","ex":"","id":"q0077"},{"q":"在空白幻灯片中不可以直接插入（）。","o":["文字","公式","艺术字","文本框"],"a":"A","type":"single","subj":"PPT","diff":"易","year":"2021","ex":"","id":"q0078"},{"q":"新建一个演示文稿时第一张幻灯片的默认版式是（）。","o":["空白","两栏内容","标题幻灯片","标题和内容"],"a":"C","type":"single","subj":"PPT","diff":"易","year":"2021","ex":"","id":"q0079"},{"q":"在PowerPoint中（）设置一张幻灯片的切换效果。","o":["只能使用一种切换方式","最多使用5种切换方式","可以使用多种切换方式","以上都对"],"a":"A","type":"single","subj":"PPT","diff":"易","year":"2021","ex":"","id":"q0080"},{"q":"设置演示文稿的主题时，可以使用（）主题。","o":["一种","两种","多种","最多5种"],"a":"C","type":"single","subj":"PPT","diff":"易","year":"2021","ex":"","id":"q0081"},{"q":"在PowerPoint中，“视图”这个名词表示（）。","o":["一种图形","显示幻灯片的方式","编辑演示文稿的方式","一张正在修改的幻灯片"],"a":"B","type":"single","subj":"PPT","diff":"易","year":"2021","ex":"","id":"q0082"},{"q":"在下列PowerPoint的各种视图中，可编辑、修改幻灯片内容的视图是（）。","o":["普通视图","阅读视图","幻灯片浏览视图","幻灯片放映视图"],"a":"A","type":"single","subj":"PPT","diff":"易","year":"2021","ex":"","id":"q0083"},{"q":"幻灯片的主题可以通过（）选项卡更改。","o":["插入","设计","切换","开始"],"a":"B","type":"single","subj":"PPT","diff":"易","year":"2021","ex":"","id":"q0084"},{"q":"普通视图中，显示幻灯片具体内容的窗格是（）。","o":["幻灯片窗格","“备注”窗格","“视图”工具栏","左窗格的“幻灯片”选项卡"],"a":"A","type":"single","subj":"PPT","diff":"易","year":"2021","ex":"","id":"q0085"},{"q":"在PowerPoint菜单中，显示和隐藏“参考线”的选项卡的是（）。","o":["工具","格式","视图","菜单"],"a":"C","type":"single","subj":"PPT","diff":"易","year":"2021","ex":"","id":"q0086"},{"q":"以下不是PowerPoint 2016的视图方式的是（）。","o":["普通视图","阅读视图","Web视图","幻灯片浏览视图"],"a":"C","type":"single","subj":"PPT","diff":"中","year":"2021","ex":"","id":"q0087"},{"q":"结束幻灯片放映，按键盘（）。","o":["Shift键","Ctrl键","Esc键","Tab键"],"a":"C","type":"single","subj":"PPT","diff":"中","year":"2021","ex":"","id":"q0088"},{"q":"在PowerPoint 2016中设置切换方式，若将所选切换效果应用到全部幻灯片，应选择（）按钮。","o":["应用","确定","全部应用","应用全部"],"a":"C","type":"single","subj":"PPT","diff":"中","year":"2021","ex":"","id":"q0089"},{"q":"在PowerPoint中，“开始”选项卡“字体”功能组中的“B”代表（）。","o":["增大","加粗","删除","添加"],"a":"B","type":"single","subj":"PPT","diff":"中","year":"2021","ex":"","id":"q0090"},{"q":"PowerPoint中使用超链接可以链接到的对象不包括（）。","o":["文件","文件夹","幻灯片中的图片","书签"],"a":"C","type":"single","subj":"PPT","diff":"难","year":"2021","ex":"","id":"q0091"},{"q":"在PowerPoint 2016中，母版视图不包括（）。","o":["大纲视图","幻灯片母版","讲义母版","备注母版"],"a":"A","type":"single","subj":"PPT","diff":"难","year":"2021","ex":"","id":"q0092"},{"q":"在PowerPoint 2016演示文稿中，利用“大纲”窗格组织、排列幻灯片中的文字时，输入幻灯片标题后进入下一级文本输入状态的快捷方法是（）。","o":["按 Ctrl+Enter组合键","按 Ctrl+ Shift组合键","按 Ctrl+Tab组合键","按Enter+Shift组合键"],"a":"A","type":"single","subj":"PPT","diff":"难","year":"2021","ex":"","id":"q0093"},{"q":"在PowerPoint的“幻灯片浏览”视图下，按住ctrl键并拖动某张幻灯片可以完成（）操作。","o":["选定幻灯片","移动幻灯片","复制幻灯片","删除幻灯片"],"a":"C","type":"single","subj":"PPT","diff":"难","year":"2021","ex":"","id":"q0094"},{"q":"下列关于“图形”操作描述正确的是（）。","o":["图形内不能添加文本","通过“插图-形状”命令可插入图形","鼠标拖动图形可以直接改变图形位置","同一幻灯片中的多个图形可任意组合成一个图形对象"],"a":"BCD","type":"multi","subj":"PPT","diff":"易","year":"2021","ex":"","id":"q0095"},{"q":"下列有关PowerPoint演示文稿放映的控制方法中，描述正确的是（）。","o":["可以用键盘控制播放","可以用鼠标控制播放","用鼠标控制时可以切换到“下一张”而不能切换到“上一张”","按键盘“↓”键切换到“下一张”，按键盘“↑”切换到“上一张”"],"a":"ABD","type":"multi","subj":"PPT","diff":"易","year":"2021","ex":"","id":"q0096"},{"q":"关于PowerPoint工具栏按纽，下列说法正确的是（）。","o":["“新建幻灯片”按纽可以设置当前幻灯片的版式","“版式”按纽可以设置当前幻灯片的版式","“设计”选项卡可以改变当前幻灯片的版式","“设计”选项卡可以选择幻灯片的主题"],"a":"BD","type":"multi","subj":"PPT","diff":"易","year":"2021","ex":"","id":"q0097"},{"q":"若在PowerPoint 幻灯片中添加图片，可以通过（）来实现。","o":["插入-图像-图片","插入-图像-联机图片","插入-媒体-视频","使用剪贴板将图片粘贴到幻灯片中"],"a":"ABD","type":"multi","subj":"PPT","diff":"易","year":"2021","ex":"","id":"q0098"},{"q":"在PowerPoint 中，能够同时显示水平标尺和垂直标尺的视图方式是（）。","o":["普通视图","幻灯片浏览视图","备注页视图","阅读视图"],"a":"AC","type":"multi","subj":"PPT","diff":"易","year":"2021","ex":"","id":"q0099"},{"q":"关于PowerPoint 2016幻灯片的使用，下列选项中说法正确的是（）。","o":["PowerPoint 2016的默认视图是浏览视图","PowerPoint 2016放映幻灯片时可以隐藏鼠标","PowerPoint 2016放映幻灯片只能是全屏幕放映","PowerPoint 2016中可以插入超链接，但超链接只能是网页链接"],"a":"B","type":"single","subj":"PPT","diff":"中","year":"2021","ex":"","id":"q0100"},{"q":"在以下几种 PowerPoint视图中，不能够添加和显示备注文字的是（）。","o":["阅读视图","大纲视图","普通视图","幻灯片浏览"],"a":"AD","type":"multi","subj":"PPT","diff":"难","year":"2021","ex":"","id":"q0101"},{"q":"在PowerPoint表格中，不相邻的两个单元格是不可以“合并单元格”的。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"","year":"2021","ex":"","id":"q0102"},{"q":"在PowerPoint中，不同类型的动画效果，其时间轴会以不同的颜色进行显示。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"","year":"2021","ex":"","id":"q0103"},{"q":"在PowerPoint中，终止幻灯片放映的快捷键是Esc键。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"","year":"2021","ex":"","id":"q0104"},{"q":"在PowerPoint中 ，设置打印时可以选择给幻灯片加框。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"","year":"2021","ex":"","id":"q0105"},{"q":"在PowerPoint中，选择需要添加超链接的对象后，按“Ctrl+K”组合键，可以打开“插入超链接”对话框。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"","year":"2021","ex":"","id":"q0106"},{"q":"PowerPoint是图文处理方面的应用软件。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"","year":"2021","ex":"","id":"q0107"},{"q":"若要删除幻灯片中某个对象的动画效果，单击“动画”组中的“无”即可。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"","year":"2021","ex":"","id":"q0108"},{"q":"世界上公认的第一台电子计算机诞生的年代是（）。","o":["20世纪30年代","20世纪40年代","20世纪80年代","20世纪90年代"],"a":"B","type":"single","subj":"计算机基础","diff":"易","year":"2022","ex":"","id":"q0109"},{"q":"现代微型计算机中所采用的电子器件是（）。","o":["电子管","晶体管","小规模集成电路","大规模和超大规模集成电路"],"a":"D","type":"single","subj":"计算机基础","diff":"易","year":"2022","ex":"","id":"q0110"},{"q":"以下名称是手机中的常用软件，属于系统软件的是（）。","o":["手机QQ","微信","Skype","android"],"a":"D","type":"single","subj":"计算机基础","diff":"易","year":"2022","ex":"","id":"q0111"},{"q":"下列关于计算机病毒的叙述中，正确的是（）。","o":["计算机病毒只感染.exe或.com文件","感染过计算机病毒的计算机具有对该病毒的免疫性","反病毒软件必须随着新病毒的出现而升级，提高查、杀病毒的功能","会导致部分计算机操作人员感染病毒，但不会致病"],"a":"C","type":"single","subj":"计算机基础","diff":"易","year":"2022","ex":"","id":"q0112"},{"q":"为了保护个人隐私安全，设置下列哪种开机密码最安全（）。","o":["yg@Djh#520","2021111746","ZhouYunhan","ch%4559897"],"a":"A","type":"single","subj":"计算机基础","diff":"易","year":"2022","ex":"","id":"q0113"},{"q":"下列关于1GB的数值表达，正确的是（）。","o":["1024MB","1000MB","1024KB","1000KB"],"a":"A","type":"single","subj":"计算机基础","diff":"易","year":"2022","ex":"","id":"q0114"},{"q":"下列各项中， Internet的IP地址错误的是（）。","o":["192.168.32.1","212.128.1.0","168.256.112.6","64.32.8.2"],"a":"C","type":"single","subj":"计算机基础","diff":"易","year":"2022","ex":"","id":"q0115"},{"q":"域名YG.XYZ.COM.CN中主机名是（）。","o":["YG","XYZ","COM","CN"],"a":"A","type":"single","subj":"计算机基础","diff":"易","year":"2022","ex":"","id":"q0116"},{"q":"用户名为zhangyu的正确电子邮件地址是（）。","o":["zhangyu@163.com","zhangyu.163#.com","zhangyu.163@.com","zhangyu#163.com"],"a":"A","type":"single","subj":"计算机基础","diff":"易","year":"2022","ex":"","id":"q0117"},{"q":"在Windows操作系统中，如果要选中多个不连续的文件或文件夹，需按快捷键（）。","o":["Ctrl","Shift","Alt","Tab"],"a":"A","type":"single","subj":"计算机基础","diff":"易","year":"2022","ex":"","id":"q0118"},{"q":"一个字符的标准ASCII码码长是（）。","o":["7bit","6bit","8bit","16bit"],"a":"A","type":"single","subj":"计算机基础","diff":"易","year":"2022","ex":"","id":"q0119"},{"q":"在微机中，西文字符所采用的编码是（）。","o":["国标码","ASCII码","EBCDIC码","BCD码"],"a":"B","type":"single","subj":"计算机基础","diff":"易","year":"2022","ex":"","id":"q0120"},{"q":"声音与视频信息在计算机内的表现形式是（）。","o":["模拟","调制","模拟或数字","二进制数字"],"a":"D","type":"single","subj":"计算机基础","diff":"易","year":"2022","ex":"","id":"q0121"},{"q":"Internet最初创建时的应用领域是（）。","o":["军事","外交","经济","教育"],"a":"A","type":"single","subj":"计算机基础","diff":"易","year":"2022","ex":"","id":"q0122"},{"q":"用来控制、指挥和协调计算机各部件工作的是（）。","o":["鼠标器","控制器","运算器","存储器"],"a":"B","type":"single","subj":"计算机基础","diff":"易","year":"2022","ex":"","id":"q0123"},{"q":"组成一个完整的计算机系统应该包括（）。","o":["主机、显示器、键盘和音箱等外部设备","主机、鼠标器、键盘和显示器","硬件系统和软件系统","系统软件和应用软件"],"a":"C","type":"single","subj":"计算机基础","diff":"易","year":"2022","ex":"","id":"q0124"},{"q":"目前市面上主要的智能手机种类有Windows手机、苹果手机、安卓手机，这是按照它们使用的（）来分类。","o":["操作系统","CPU型号","手机品牌","屏幕尺寸"],"a":"A","type":"single","subj":"计算机基础","diff":"易","year":"2022","ex":"","id":"q0125"},{"q":"写邮件时，除了发件人地址之外，另一项必须要填写的是（）。","o":["主题","收件人地址","信件内容","抄送"],"a":"B","type":"single","subj":"计算机基础","diff":"易","year":"2022","ex":"","id":"q0126"},{"q":"下列各项中，格式正确的电子邮箱地址是（）。","o":["zhaoyu@ncre.cn","panwd&nrce.cn","wangjlncre.cn","zhang#ncre.cn"],"a":"A","type":"single","subj":"计算机基础","diff":"易","year":"2022","ex":"","id":"q0127"},{"q":"能够利用无线移动网络上网的是（）。","o":["内置无线网卡的笔记本电脑","部分具有上网功能的手机","部分具有上网功能的平板电脑","以上全部"],"a":"D","type":"single","subj":"计算机基础","diff":"易","year":"2022","ex":"","id":"q0128"},{"q":"演示文稿模板文件的扩展名是（）。","o":[".exe",".thmx",".potx",".pptx"],"a":"C","type":"single","subj":"PPT","diff":"易","year":"2022","ex":"","id":"q0129"},{"q":"快速放映PPT，按键盘（）。","o":["F2键","F3键","F4键","F5键"],"a":"D","type":"single","subj":"PPT","diff":"易","year":"2022","ex":"","id":"q0130"},{"q":"PowerPoint的主要功能是（）。","o":["制作简明文档","对数据进行统计运算","制作放映动态GIF图像","制作放映电子幻灯片文稿"],"a":"D","type":"single","subj":"PPT","diff":"易","year":"2022","ex":"","id":"q0131"},{"q":"在PowerPoint中，不可以直接为幻灯片（）。","o":["设置切换效果","设置动画效果","插入图表","插入艺术字"],"a":"B","type":"single","subj":"PPT","diff":"易","year":"2022","ex":"","id":"q0132"},{"q":"新建一个演示文稿时第一张幻灯片的默认版式是（）。","o":["空白","两栏内容","标题幻灯片","标题和内容"],"a":"C","type":"single","subj":"PPT","diff":"易","year":"2022","ex":"","id":"q0133"},{"q":"在PowerPoint中（）设置一张幻灯片的切换效果。","o":["只能使用一种切换方式","最多使用5种切换方式","可以使用多种切换方式","以上都对"],"a":"A","type":"single","subj":"PPT","diff":"易","year":"2022","ex":"","id":"q0134"},{"q":"设置演示文稿的主题时，可以使用（）主题。","o":["一种","两种","多种","最多5种"],"a":"C","type":"single","subj":"PPT","diff":"易","year":"2022","ex":"","id":"q0135"},{"q":"在PowerPoint中，“视图”这个名词表示（）。","o":["一种图形","显示幻灯片的方式","编辑演示文稿的方式","一张正在修改的幻灯片"],"a":"B","type":"single","subj":"PPT","diff":"易","year":"2022","ex":"","id":"q0136"},{"q":"在下列PowerPoint的各种视图中，可编辑、修改幻灯片内容的视图是（）。","o":["普通视图","阅读视图","幻灯片浏览视图","幻灯片放映视图"],"a":"A","type":"single","subj":"PPT","diff":"易","year":"2022","ex":"","id":"q0137"},{"q":"幻灯片的自动换片时间需要在（）选项卡下设置。","o":["插入","设计","切换","开始"],"a":"C","type":"single","subj":"PPT","diff":"易","year":"2022","ex":"","id":"q0138"},{"q":"在普通视图下，能够显示幻灯片预览内容的窗格是（）。","o":["缩略图窗格","备注窗格","幻灯片窗格","批注窗格"],"a":"A","type":"single","subj":"PPT","diff":"易","year":"2022","ex":"","id":"q0139"},{"q":"在PowerPoint中，可以在（）选项卡下设置“新建批注”命令。","o":["开发工具","插入","视图","审阅"],"a":"D","type":"single","subj":"PPT","diff":"易","year":"2022","ex":"","id":"q0140"},{"q":"以下不是PowerPoint 2016的视图方式的是（）。","o":["普通视图","阅读视图","Web视图","幻灯片浏览视图"],"a":"C","type":"single","subj":"PPT","diff":"中","year":"2022","ex":"","id":"q0141"},{"q":"结束幻灯片放映，按键盘（）。","o":["Shift键","Ctrl键","Tab键","Esc键"],"a":"D","type":"single","subj":"PPT","diff":"中","year":"2022","ex":"","id":"q0142"},{"q":"在PowerPoint 2016中设置切换方式，若将所选切换效果应用到全部幻灯片，应选择（）按钮。","o":["应用","确定","全部应用","应用全部"],"a":"C","type":"single","subj":"PPT","diff":"中","year":"2022","ex":"","id":"q0143"},{"q":"在PowerPoint中，“开始”选项卡下“字体”功能组中的“I”代表（）。","o":["增大","倾斜","加粗","文字阴影"],"a":"B","type":"single","subj":"PPT","diff":"中","year":"2022","ex":"","id":"q0144"},{"q":"PowerPoint中使用超链接可以链接到的对象不包括（）。","o":["文件","文件夹","幻灯片中的图片","书签"],"a":"C","type":"single","subj":"PPT","diff":"难","year":"2022","ex":"","id":"q0145"},{"q":"在PowerPoint 2016中，母版视图不包括（）。","o":["大纲视图","幻灯片母版","讲义母版","备注母版"],"a":"A","type":"single","subj":"PPT","diff":"难","year":"2022","ex":"","id":"q0146"},{"q":"在PowerPoint 2016演示文稿中，利用“大纲”窗格组织、排列幻灯片中的文字时，可实现文本换行输入的快捷键是（）。","o":["按 Ctrl+Enter组合键","按 Shift+Enter组合键","按 Ctrl+Tab组合键","按 Shift+Tab组合键"],"a":"B","type":"single","subj":"PPT","diff":"难","year":"2022","ex":"","id":"q0147"},{"q":"在PowerPoint的“幻灯片浏览”视图下，按住ctrl键并拖动某张幻灯片可以完成（）操作。","o":["选定幻灯片","移动幻灯片","复制幻灯片","删除幻灯片"],"a":"C","type":"single","subj":"PPT","diff":"难","year":"2022","ex":"","id":"q0148"},{"q":"在PowerPoint中，功能区下方的演示文稿编辑区分为（）。","o":["左侧的幻灯片预览窗格","右侧上方的幻灯片窗格","右侧下方的备注窗格","右侧下方的批注窗格"],"a":"ABC","type":"multi","subj":"PPT","diff":"易","year":"2022","ex":"","id":"q0149"},{"q":"在PowerPoint中，可以通过（）来创建SmartArt图形。","o":["“插入”→“插图”→“SmartArt”命令","内容占位符","“插入”→“插图”→“形状”命令","文本转换为SmartArt图形"],"a":"ABD","type":"multi","subj":"PPT","diff":"易","year":"2022","ex":"","id":"q0150"},{"q":"下列对PowerPoint的可应用功能和场景叙述中，正确的是（）。","o":["课堂教学","学术报告","产品介绍","图像处理"],"a":"ABC","type":"multi","subj":"PPT","diff":"易","year":"2022","ex":"","id":"q0151"},{"q":"添加幻灯片可以通过（）来实现。","o":["执行“幻灯片”→“新建幻灯片”命令","执行“幻灯片”→“版式”命令","在幻灯片窗格中右键选择“新建幻灯片”命令","使用“Ctrl+M”组合键"],"a":"AD","type":"multi","subj":"PPT","diff":"易","year":"2022","ex":"","id":"q0152"},{"q":"在PowerPoint中，关于“动画”的说法正确的是（）。","o":["动画有3类，分别为“进入”动画、“强调”动画、“退出”动画","动画开始方式是指开始播放动画的方式","动画持续时间是指动画开始后的整个播放时间","动画延迟时间是指播放操作开始后延迟播放的时间"],"a":"BCD","type":"multi","subj":"PPT","diff":"易","year":"2022","ex":"","id":"q0153"},{"q":"PowerPoint中经常有一些命令显示灰色，对于这种现象下列说法错误的是（）。","o":["系统运行故障","应用程序本身有故障","这些命令在当前状态下不起作用","这些命令在当前状态下有特殊效果"],"a":"ABD","type":"multi","subj":"PPT","diff":"中","year":"2022","ex":"","id":"q0154"},{"q":"若要将幻灯片文本框中的文本级别由第三级调整为第二级，以下操作正确的是（）。","o":["选中文本按“Shift+Tab”组合键","单击“提高列表级别”按钮","在段落格式中设置文本之前的缩进距离","单击“降低列表级别”按钮"],"a":"AD","type":"multi","subj":"PPT","diff":"难","year":"2022","ex":"","id":"q0155"},{"q":"在PowerPoint表格中，不相邻的两个单元格是不可以“合并单元格”的。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"","year":"2022","ex":"","id":"q0156"},{"q":"在PowerPoint中，不同类型的动画效果，其时间轴会以不同的颜色进行显示。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"","year":"2022","ex":"","id":"q0157"},{"q":"在PowerPoint中，同时选中幻灯片的多个图形(如图片、形状等），按“Ctrl+G”组合键，可以将选中图形组合成为一个对象。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"","year":"2022","ex":"","id":"q0158"},{"q":"PowerPoint是图文处理方面的应用软件。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"","year":"2022","ex":"","id":"q0159"},{"q":"若要删除演示文稿中某张幻灯片的切换效果，单击“切换到此幻灯片”组中的“无”即可。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"","year":"2022","ex":"","id":"q0160"},{"q":"在幻灯片中，“向上箭头”版式的SmartArt图形需要在“流程”组中查找。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"","year":"2022","ex":"","id":"q0161"},{"q":"PowerPoint 2016中文本的艺术字样式可以在“绘图工具|格式”选项卡下更改。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"","year":"2022","ex":"","id":"q0162"},{"q":"计算机中所有信息的存储都采用（）。","o":["八进制","十进制","二进制","十六进制"],"a":"C","type":"single","subj":"计算机基础","diff":"简单","year":"2023","ex":"","id":"q0163"},{"q":"按电子计算机传统的分代方法，第二代计算机是（）。","o":["电子管计算机","机械计算机","晶体管计算机","集成电路计算机"],"a":"C","type":"single","subj":"计算机基础","diff":"简单","year":"2023","ex":"","id":"q0164"},{"q":"假设邮件服务器的地址是email.sh163.com，则用户的正确的电子邮箱地址的格式是（）。","o":["用户名@email.sh163.com","用户名#email.shj163.com","用户名&email.sh163.com","用户名.sh163.com"],"a":"A","type":"single","subj":"计算机基础","diff":"简单","year":"2023","ex":"","id":"q0165"},{"q":"要在Web浏览器中查看某一电子商务公司的主页，应知道（）。","o":["该公司的电子邮件地址","该公司法人的电子邮箱","该公司的WWW地址","该公司法人的QQ号"],"a":"C","type":"single","subj":"计算机基础","diff":"简单","year":"2023","ex":"","id":"q0166"},{"q":"下列不属于输出设备的是（）。","o":["显示器","鼠标","打印机","投影仪"],"a":"B","type":"single","subj":"计算机基础","diff":"简单","year":"2023","ex":"","id":"q0167"},{"q":"（）不是程序设计语言。","o":["汇编语言","符号语言","机器语言","高级语言"],"a":"B","type":"single","subj":"计算机基础","diff":"简单","year":"2023","ex":"","id":"q0168"},{"q":"因特网中IP地址用四组十进制数表示，每组数字的取值范围是（）。","o":["0～255","0～256","0～127","0～128"],"a":"A","type":"single","subj":"计算机基础","diff":"简单","year":"2023","ex":"","id":"q0169"},{"q":"下列各软件中，不属于系统软件的是（）。","o":["LIUNX","WPS","DOS","Windows"],"a":"B","type":"single","subj":"计算机基础","diff":"简单","year":"2023","ex":"","id":"q0170"},{"q":"根据域名代码规定，表示教育单位网站的域名代码是（）。","o":["gov","edu","com","mil"],"a":"B","type":"single","subj":"计算机基础","diff":"简单","year":"2023","ex":"","id":"q0171"},{"q":"在使用浏览器浏览网站时，点击“收藏夹”可以（）。","o":["打印网站中的内容","复制此网站的地址","隐藏网站中的内容","记住此网站的地址"],"a":"D","type":"single","subj":"计算机基础","diff":"简单","year":"2023","ex":"","id":"q0172"},{"q":"数据通信中，把数字信号转换成模拟信号的过程称为（）。","o":["调制","解调","编码","解码"],"a":"A","type":"single","subj":"计算机基础","diff":"中等","year":"2023","ex":"","id":"q0173"},{"q":"OSI(开放系统互连)参考模型中“网络层”在第（）层。","o":["二","四","三","五"],"a":"C","type":"single","subj":"计算机基础","diff":"中等","year":"2023","ex":"","id":"q0174"},{"q":"下面关于计算机内部数据的说法有误的是（）。","o":["计算机内部，指令和数据都是用二进制数0和1表示","数据可以分为数值数据和字符数据这两类","现代计算机中存储数据都是以字节作为处理单位","英文和汉字的字符都是用一个字节表示"],"a":"D","type":"single","subj":"计算机基础","diff":"中等","year":"2023","ex":"","id":"q0175"},{"q":"（）是用来表示统一资源定位器。","o":["HTTP","FTP","IP","URL"],"a":"D","type":"single","subj":"计算机基础","diff":"中等","year":"2023","ex":"","id":"q0176"},{"q":"与高级语言相比，汇编语言编写的程序通常（）。","o":["更短","执行效率更高","移植性更好","可读性更好"],"a":"B","type":"single","subj":"计算机基础","diff":"中等","year":"2023","ex":"","id":"q0177"},{"q":"15D+A3H=（）。","o":["175D","B1H","178D","10110000B"],"a":"C","type":"single","subj":"计算机基础","diff":"困难","year":"2023","ex":"","id":"q0178"},{"q":"在下列字符中，其ASCII码值最大的一个是（）。","o":["B","a","9","空格字符"],"a":"B","type":"single","subj":"计算机基础","diff":"困难","year":"2023","ex":"","id":"q0179"},{"q":"在ASCII码表中，根据码值由小到大的排列顺序是（）。","o":["数字符、空格字符、大写英文字母、小写英文字母","空格字符、数字符、小写英文字母、大写英文字母","空格字符、数字符、大写英文字母、小写英文字母","数字符、大写英文字母、小写英文字母、空格字符"],"a":"C","type":"single","subj":"计算机基础","diff":"困难","year":"2023","ex":"","id":"q0180"},{"q":"下列不同进制数中，最大的数是（）。","o":["二进制110010","八进制54","十进制48","十六进制2A"],"a":"A","type":"single","subj":"计算机基础","diff":"困难","year":"2023","ex":"","id":"q0181"},{"q":"已知英文字母d的二进制码值为1100100，那么字母j的ASCII码值是（）。","o":["7AH","6BH","7BH","6AH"],"a":"D","type":"single","subj":"计算机基础","diff":"困难","year":"2023","ex":"","id":"q0182"},{"q":"若要放映演示文稿应该使用“幻灯片浏览”视图。","o":["正确","错误"],"a":"B","type":"judge","subj":"PPT","diff":"简单","year":"2023","ex":"","id":"q0183"},{"q":"在幻灯片中，插入“交替流”版式的SmartArt图形需要在“列表”组中查找。","o":["正确","错误"],"a":"B","type":"judge","subj":"PPT","diff":"简单","year":"2023","ex":"","id":"q0184"},{"q":"GIF类型的图片具有动画效果，但在插入幻灯片后，其动画效果不显示。","o":["正确","错误"],"a":"B","type":"judge","subj":"PPT","diff":"简单","year":"2023","ex":"","id":"q0185"},{"q":"在PowerPoint 2016中，不可以对标题文字设置“三维旋转”效果。","o":["正确","错误"],"a":"B","type":"judge","subj":"PPT","diff":"简单","year":"2023","ex":"","id":"q0186"},{"q":"在PowerPoint 2016“大纲视图”中不可以新建幻灯片。","o":["正确","错误"],"a":"B","type":"judge","subj":"PPT","diff":"简单","year":"2023","ex":"","id":"q0187"},{"q":"在PowerPoint 2016中，“标题和图片”版式是内置幻灯片标准版式之一。","o":["正确","错误"],"a":"B","type":"judge","subj":"PPT","diff":"简单","year":"2023","ex":"","id":"q0188"},{"q":"在PowerPoint幻灯片中，同一个对象只能设置一种动画效果。","o":["正确","错误"],"a":"B","type":"judge","subj":"PPT","diff":"简单","year":"2023","ex":"","id":"q0189"},{"q":"在PowerPoint 2016的普通视图下，用户可以在（）中预览所有幻灯片内容。","o":["缩略图窗格","“备注”窗格","幻灯片窗格","状态栏"],"a":"A","type":"single","subj":"PPT","diff":"简单","year":"2023","ex":"","id":"q0190"},{"q":"在PowerPoint 2016中，用户不可以通过“开始”选项卡下相应命令设置幻灯片文本内容的（）。","o":["字符间距","项目符号","文本级别","艺术字样式"],"a":"D","type":"single","subj":"PPT","diff":"简单","year":"2023","ex":"","id":"q0191"},{"q":"在PowerPoint中，将鼠标指针移动到图片周围的控点上，当鼠标指针变成（）时，拖动控点，就可以改变图片的大小。","o":["双向箭头","四向箭头","右侧箭头","旋转手柄"],"a":"A","type":"single","subj":"PPT","diff":"简单","year":"2023","ex":"","id":"q0192"},{"q":"在演示文稿编辑过程中，按键盘上的（）组合键可以快速保存当前文稿。","o":["Ctrl+A","Ctrl+S","Ctrl+X","Ctrl+C"],"a":"B","type":"single","subj":"PPT","diff":"简单","year":"2023","ex":"","id":"q0193"},{"q":"以下不属于PowerPoint 2016工作窗口的是（）。","o":["幻灯片缩略图","幻灯片窗格","工作区","状态栏"],"a":"C","type":"single","subj":"PPT","diff":"简单","year":"2023","ex":"","id":"q0194"},{"q":"在选中某一幻灯片的状态下，按键盘上的（）组合键即可选择当前演示文稿中的所有幻灯片。","o":["Ctrl+A","Ctrl+C","Ctrl+B","Ctrl+V"],"a":"A","type":"single","subj":"PPT","diff":"简单","year":"2023","ex":"","id":"q0195"},{"q":"演示文稿中的文本内容可以设置多种对齐方式，以下方式不正确的是（）。","o":["左对齐","两端对齐","分散对齐","悬挂缩进"],"a":"D","type":"single","subj":"PPT","diff":"简单","year":"2023","ex":"","id":"q0196"},{"q":"若要对当前演示文稿中的文本设置“简繁转换”，则应切换到（）选项卡。","o":["设计","插入","审阅","幻灯片放映"],"a":"C","type":"single","subj":"PPT","diff":"简单","year":"2023","ex":"","id":"q0197"},{"q":"在PowerPoint中，用户可以使用（）快速放映幻灯片。","o":["F2键","F3键","F4键","F5键"],"a":"D","type":"single","subj":"PPT","diff":"简单","year":"2023","ex":"","id":"q0198"},{"q":"PowerPoint软件的主要功能是（）。","o":["制作简明文档","对数据进行统计运算","制作放映动态GIF图像","制作放映电子幻灯片文稿"],"a":"D","type":"single","subj":"PPT","diff":"简单","year":"2023","ex":"","id":"q0199"},{"q":"若要某一对象的动画在4秒内完成，则应该修改该对象动画的（）。","o":["效果选项","延迟时间","持续时间","触发效果"],"a":"C","type":"single","subj":"PPT","diff":"中等","year":"2023","ex":"","id":"q0200"},{"q":"在PowerPoint 2016中，通过“形状效果”命令不可以修改的是（）。","o":["“三维旋转”效果","“发光”效果","“棱台”效果","“转换”效果"],"a":"D","type":"single","subj":"PPT","diff":"中等","year":"2023","ex":"","id":"q0201"},{"q":"在PowerPoint 2016的大纲视图中，会显示每张幻灯片中的标题和（）_组成的大纲。","o":["所有对象","所有文本","主文本","占位符"],"a":"C","type":"single","subj":"PPT","diff":"中等","year":"2023","ex":"","id":"q0202"},{"q":"PowerPoint 2016中，“取色器”功能可以实现的操作不包括（）。","o":["提取缩略图窗格中的颜色","提取幻灯片窗格中的颜色","提取SmartArt图形中的颜色","提取图片中的颜色"],"a":"A","type":"single","subj":"PPT","diff":"中等","year":"2023","ex":"","id":"q0203"},{"q":"在PowerPoint中，设置表格“标题行”样式的功能组是（）。","o":["表格样式","表格样式选项","排列","表"],"a":"B","type":"single","subj":"PPT","diff":"中等","year":"2023","ex":"","id":"q0204"},{"q":"在PowerPoint 2016大纲视图中，大纲窗格中显示的内容不包括（）。","o":["标题占位符中的文本","内容占位符中的文本","表格中的文本","幻灯片编号"],"a":"C","type":"single","subj":"PPT","diff":"困难","year":"2023","ex":"","id":"q0205"},{"q":"PowerPoint 2016提供的预设“表格样式”设置中不包含（）。","o":["表格中的文本字体","表格边框","表格底纹效果","表格背景效果"],"a":"D","type":"single","subj":"PPT","diff":"困难","year":"2023","ex":"","id":"q0206"},{"q":"若要设置对象的动画效果伴随着“锤打声”进入，正确的操作方法是（）。","o":["在“动画效果”选项对话框设置声音为“锤打”","在“计时”选项对话框设置声音为“锤打”","在“高级动画”功能组设置声音为“锤打”","在“触发”下拉列表设置声音为“锤打”"],"a":"A","type":"single","subj":"PPT","diff":"困难","year":"2023","ex":"","id":"q0207"},{"q":"小李在幻灯片母版的“标题幻灯片”版式中插入图片“国旗”后，普通视图下（）。","o":["所有幻灯片均显示图片，且可被选中删除","仅应用该版式的幻灯片显示图片，且可被选中删除","所有幻灯片均显示图片，且不可被选中删除","仅应用该版式的幻灯片显示图片，且不可被选中删除"],"a":"D","type":"single","subj":"PPT","diff":"困难","year":"2023","ex":"","id":"q0208"},{"q":"若幻灯片设置的背景被主题背景图形覆盖，此时可以勾选（）命令。","o":["“设计”选项卡-“隐藏背景图形”","“设置背景格式”窗格-“隐藏背景图形”","“设计”选项卡-“重置背景”","“设置背景格式”窗格-“重置背景”"],"a":"B","type":"single","subj":"PPT","diff":"困难","year":"2023","ex":"","id":"q0209"},{"q":"在PowerPoint 2016中，常用的关闭演示文稿的方法有（）。","o":["单击“文件”选项卡下左侧的“关闭”命令","单击PowerPoint窗口右上方的“关闭”按钮","右击任务栏上的PowerPoint图标，在弹出的菜单中选择“关闭窗口”命令","在演示文稿的标题栏中鼠标右击，在弹出的菜单中选择“关闭”命令"],"a":"ABCD","type":"multi","subj":"PPT","diff":"简单","year":"2023","ex":"","id":"q0210"},{"q":"演示文稿除放映外，还可以打印成文档，以下可以设置的内容有（）。","o":["打印顺序","打印范围","打印版式","打印颜色"],"a":"ABCD","type":"multi","subj":"PPT","diff":"简单","year":"2023","ex":"","id":"q0211"},{"q":"在PowerPoint 2016中，关于表格的设置正确的是（）。","o":["可以调整表格行高、列宽","可以合并与拆分单元格","可以设置文本对齐方式","可以利用公式计算数值"],"a":"ABC","type":"multi","subj":"PPT","diff":"简单","year":"2023","ex":"","id":"q0212"},{"q":"在PowerPoint 2016中，关于SmartArt图形的设置正确的是（）。","o":["可以编辑文本和图片","可以添加形状","可以更改smartart的布局","可以更改smartart图形的颜色"],"a":"ABCD","type":"multi","subj":"PPT","diff":"简单","year":"2023","ex":"","id":"q0213"},{"q":"关于PowerPoint 2016幻灯片的使用，下列选项中说法正确的是（）。","o":["PowerPoint 2016的默认视图是浏览视图","PowerPoint 2016放映幻灯片时可以隐藏鼠标","PowerPoint 2016放映幻灯片只能是全屏幕放映","PowerPoint 2016中可以插入超链接，但超链接只能是网页链接"],"a":"B","type":"single","subj":"PPT","diff":"中等","year":"2023","ex":"","id":"q0214"},{"q":"若在PowerPoint 2016幻灯片母版中改变“字体”，以下描述错误的是（）。","o":["所有幻灯片的“字体”都会被改变","空白幻灯片的“字体”不会被改变","只有第一张幻灯片的“字体”被改变","新建幻灯片的“字体”不会被改变"],"a":"BCD","type":"multi","subj":"PPT","diff":"中等","year":"2023","ex":"","id":"q0215"},{"q":"第四代微型计算机中所采用的电子元器件是()。","o":["电子管","晶体管","小规模集成电路","大规模和超大规模集成电路"],"a":"D","type":"single","subj":"计算机基础","diff":"简单","year":"2024","ex":"","id":"q0216"},{"q":"以下名称是手机中的常用软件，属于系统软件的是()。","o":["微信","微博","手机QQ","Android"],"a":"D","type":"single","subj":"计算机基础","diff":"简单","year":"2024","ex":"","id":"q0217"},{"q":"为了保护个人隐私安全，设置下列哪种开机密码最安全()。","o":["PZL@Djh#520","2024111746","ChenYuXi","qhc%1059897"],"a":"A","type":"single","subj":"计算机基础","diff":"简单","year":"2024","ex":"","id":"q0218"},{"q":"下列IP地址中，属于C类地址的是()。","o":["126.168.112.6","179.128.1.0","196.168.32.1","255.130.26.27"],"a":"C","type":"single","subj":"计算机基础","diff":"简单","year":"2024","ex":"","id":"q0219"},{"q":"域名YG.XYZ.COM.CN中的主机名是()。","o":["YG","XYZ","COM","CN"],"a":"A","type":"single","subj":"计算机基础","diff":"简单","year":"2024","ex":"","id":"q0220"},{"q":"用户名为QueenWen的正确电子邮件地址是()。","o":["QueenWen@163.com","QueenWen.163#.com","QueenWen.163@com","QueenWen#163.com"],"a":"A","type":"single","subj":"计算机基础","diff":"简单","year":"2024","ex":"","id":"q0221"},{"q":"Windows应用程序窗口的右上角，可能出现的控制按钮组合是()。","o":["最小化、最大化、向下还原","最大化、向下还原、关闭","最小化、最大化、移动","最小化、向下还原、关闭"],"a":"D","type":"single","subj":"计算机基础","diff":"简单","year":"2024","ex":"","id":"q0222"},{"q":"在Windows操作系统中，如果要选中多个连续的文件或文件夹，需按快捷键()。","o":["Ctrl","Shift","Alt","Tab"],"a":"B","type":"single","subj":"计算机基础","diff":"简单","year":"2024","ex":"","id":"q0223"},{"q":"在电视节目中,主持人常常在提示观众扫描屏幕上的二维码进行互动，这种对二维码的信息识别属于()。","o":["语音识别技术","自然语言处理技术","图像识别技术","专家系统"],"a":"C","type":"single","subj":"计算机基础","diff":"简单","year":"2024","ex":"","id":"q0224"},{"q":"下列选项中，不属于人工智能技术应用的是()。","o":["利用小红书发布信息","利用语音识别输入汉字","通过人脸识别支付","利用扫地机器人打扫卫生"],"a":"A","type":"single","subj":"计算机基础","diff":"简单","year":"2024","ex":"","id":"q0225"},{"q":"在计算机编码中，汉字和全角符号占用()字节，英文和半角符号占用()字节。","o":["2,1","2,2","1,2","1,1"],"a":"A","type":"single","subj":"计算机基础","diff":"简单","year":"2024","ex":"","id":"q0226"},{"q":"在微机中，西文字符所采用的编码是()。","o":["国标码","ASCII码","EBCDIC码","BCD码"],"a":"B","type":"single","subj":"计算机基础","diff":"简单","year":"2024","ex":"","id":"q0227"},{"q":"声音与视频信息在计算机内的表现形式是()。","o":["模拟","调制","模拟或数字","二进制数字"],"a":"D","type":"single","subj":"计算机基础","diff":"简单","year":"2024","ex":"","id":"q0228"},{"q":"运算器的主要功能是对二进制数码进行() 。","o":["加法运算","算术运算","逻辑运算","算术和逻辑运算"],"a":"D","type":"single","subj":"计算机基础","diff":"简单","year":"2024","ex":"","id":"q0229"},{"q":"组成一个完整的计算机系统应该包括()。","o":["主机、显示器、键盘和音箱等外部设备","主机、鼠标器、键盘和显示器","硬件系统和软件系统","系统软件和应用软件"],"a":"C","type":"single","subj":"计算机基础","diff":"简单","year":"2024","ex":"","id":"q0230"},{"q":"目前市面上主要的智能手机种类有Windows手机、苹果手机、安卓手机，这是按照它们使用的()来分类。","o":["操作系统","CPU型号","手机品牌","屏幕尺寸"],"a":"A","type":"single","subj":"计算机基础","diff":"简单","year":"2024","ex":"","id":"q0231"},{"q":"写邮件时，除了发件人地址之外，另一项必须要填写的是()。","o":["主题","收件人地址","信件内容","抄送"],"a":"B","type":"single","subj":"计算机基础","diff":"简单","year":"2024","ex":"","id":"q0232"},{"q":"能够利用无线移动网络上网的是()。","o":["内置无线网卡的笔记本电脑","部分具有上网功能的手机","部分具有上网功能的平板电脑","以上全部"],"a":"D","type":"single","subj":"计算机基础","diff":"简单","year":"2024","ex":"","id":"q0233"},{"q":"字长是CPU的主要技术性能指标之一，它表示的是()。","o":["CPU的计算结果的有效数字长度","CPU能表示的最大的有效数字位数","CPU一次能处理二进制数据的位数","CPU能表示的十进制整数的位数"],"a":"C","type":"single","subj":"计算机基础","diff":"简单","year":"2024","ex":"","id":"q0234"},{"q":"计算机主要技术指标通常是指()。","o":["硬盘容量的大小","所配备的系统软件的版本","显示器的分辨率、打印机的配置","CPU的时钟频率、运算速度、字长和存储容量"],"a":"D","type":"single","subj":"计算机基础","diff":"简单","year":"2024","ex":"","id":"q0235"},{"q":"在PowerPoint 2016中，可以设置显示或隐藏“标尺”的选项卡是（）。","o":["“工具”选项卡","“格式”选项卡","“视图”选项卡","“审阅”选项卡"],"a":"C","type":"single","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0236"},{"q":"在普通视图下，若想选择不连续的多张幻灯片，可以按住（）键并逐个单击要选择的幻灯片缩略图。","o":["Tab","Enter","Ctrl","Shift"],"a":"C","type":"single","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0237"},{"q":"在PowerPoint中，用户可以使用（）快速放映幻灯片。","o":["F2键","F3键","F4键","F5键"],"a":"D","type":"single","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0238"},{"q":"PowerPoint演示文稿可以保存为（），在没有安装演示文稿软件的机器上也可以放映。","o":["PowerPoint演示文稿",".ppt文件",".pptx文件",".ppsx文件"],"a":"D","type":"single","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0239"},{"q":"PowerPoint 2016提供的SmartArt图形类型共8种，其中不包括（）。","o":["列表","表格","流程","图片"],"a":"B","type":"single","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0240"},{"q":"在幻灯片中，用户可以设置文本的水平对齐方式与垂直对齐方式，其中不包括（）。","o":["两端对齐","顶部居中","分散对齐","跨列居中"],"a":"D","type":"single","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0241"},{"q":"在PowerPoint 2016中，使用超链接可以链接到的对象不包括（）。","o":["文件","文件夹","幻灯片中的图片","网页地址"],"a":"C","type":"single","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0242"},{"q":"PowerPoint提供了多种显示演示文稿的方式，可以从不同角度有效管理演示文稿，这些演示文稿的不同显示方式称为（）。","o":["母版","视图","背景","主题"],"a":"B","type":"single","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0243"},{"q":"利用PowerPoint 2016建立空白演示文稿时，系统会自动生成一张幻灯片，该幻灯片版式为（）。","o":["空白","两栏内容","标题幻灯片","标题和内容"],"a":"C","type":"single","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0244"},{"q":"在PowerPoint 2016中，文本“加粗”的快捷键是（）。","o":["Ctrl+B","Ctrl+D","Ctrl+E","Ctrl+F"],"a":"A","type":"single","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0245"},{"q":"默认状态下，快速访问工具栏只包含几个基本的常用命令，其中不包括（）。","o":["保存命令","撤销命令","恢复命令","关闭命令"],"a":"D","type":"single","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0246"},{"q":"在PowerPoint 2016中，要体现演示文稿放映时，幻灯片进入和离开播放画面时的整体视觉效果，应设置（）。","o":["切换效果","动画效果","放映效果","主题效果"],"a":"A","type":"single","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0247"},{"q":"在设置某一演示文稿的主题时，最多可以应用（）主题。","o":["一种","两种","5种","若干种"],"a":"D","type":"single","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0248"},{"q":"可以在PowerPoint“设计”选项卡中设置的内容不包括（）。","o":["字体","段落","效果","颜色"],"a":"B","type":"single","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0249"},{"q":"幻灯片的“自动换片时间”需要在（）选项卡下设置。","o":["插入","设计","切换","开始"],"a":"C","type":"single","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0250"},{"q":"在PowerPoint 2016中，设置“简繁转换”命令的选项卡是（）。","o":["开发工具","格式","视图","审阅"],"a":"D","type":"single","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0251"},{"q":"在PowerPoint 2016中，“动画”选项卡中的“效果选项”是随着（）的变化而变化的。","o":["幻灯片背景","动画效果","幻灯片版式","切换效果"],"a":"B","type":"single","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0252"},{"q":"在PowerPoint中，用户可以使用（）结束幻灯片放映。","o":["Shift键","Ctrl键","Esc键","Tab键"],"a":"C","type":"single","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0253"},{"q":"在PowerPoint 2016中，幻灯片中占位符的作用是（）。","o":["表示图形大小","表示文本长度","为文本、图形等预留位置","限制插入对象的数量"],"a":"C","type":"single","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0254"},{"q":"在PowerPoint 2016中，对于演示文稿中不准备放映的幻灯片可以使用（）选项卡中的“隐藏幻灯片”命令隐藏。","o":["设计","视图","审阅","幻灯片放映"],"a":"D","type":"single","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0255"},{"q":"在PowerPoint的视图模式中，无法查看动画效果的是（）。","o":["定时浏览(全屏幕)","演讲者放映(全屏幕)","观众自行浏览(窗口)","在展台浏览(全屏幕)"],"a":"A","type":"single","subj":"PPT","diff":"中等","year":"2024","ex":"","id":"q0256"},{"q":"在PowerPoint 2016中，若要为某个包含文本的形状添加超链接，首先应（）。","o":["选中形状","选中形状中的所有文本","将光标定位在形状内","以上说法都正确"],"a":"A","type":"single","subj":"PPT","diff":"中等","year":"2024","ex":"","id":"q0257"},{"q":"在PowerPoint 2016中，设置幻灯片背景样式的操作位置正确的是（）。","o":["“插入”选项卡-“变体”功能组","“插入”选项卡-“背景”功能组","“设计”选项卡-“背景”功能组","“设计”选项卡-“变体”功能组"],"a":"D","type":"single","subj":"PPT","diff":"中等","year":"2024","ex":"","id":"q0258"},{"q":"在PowerPoint 2016中，选中文本框，单击“开始”选项卡下“段落”功能组的“右对齐”按钮，出现的结果是（）。","o":["文本框对齐幻灯片右侧","文本框位于幻灯片右下角","文本位于文本框右下角","文本对齐文本框右侧"],"a":"D","type":"single","subj":"PPT","diff":"中等","year":"2024","ex":"","id":"q0259"},{"q":"在PowerPoint中，大纲窗格是由每张幻灯片的（）所组成的。","o":["标题和正文","标题和图片","标题和图形","图片和正文"],"a":"A","type":"single","subj":"PPT","diff":"中等","year":"2024","ex":"","id":"q0260"},{"q":"在PowerPoint 2016中，用户可以在（）选项卡中将幻灯片大小更改为“全屏显示（16:9）”。","o":["开始","设计","切换","审阅"],"a":"B","type":"single","subj":"PPT","diff":"中等","year":"2024","ex":"","id":"q0261"},{"q":"在幻灯片缩略图中，部分幻灯片编号下方可能会显示一个五角星图标，它代表该幻灯片中（）。","o":["已设置切换效果，未设置动画效果","已设置动画效果，未设置切换效果","切换效果、动画效果均已设置","已设置动画效果或切换效果"],"a":"D","type":"single","subj":"PPT","diff":"困难","year":"2024","ex":"","id":"q0262"},{"q":"在PowerPoint 2016中，为备注页添加页脚内容的正确操作方法是（）。","o":["切换到备注页中，单击“插入”选项卡-“页眉和页脚”命令","切换到备注母版中，在“页脚”占位符中输入页脚内容","切换到文件菜单中，在“打印”选项中设置备注页页脚内容","切换到“页眉和页脚工具”选项卡中，添加页脚内容"],"a":"A","type":"single","subj":"PPT","diff":"困难","year":"2024","ex":"","id":"q0263"},{"q":"下列关于PowerPoint中幻灯片母版的描述错误的是（）。","o":["在幻灯片母版中可以自定义幻灯片版式，修改占位符的位置及大小","一个演示文稿中可以同时存在若干个幻灯片母版","母版在“幻灯片母版”视图缩略图窗格中显示较小，版式略大","可以在窗格中成组移动母版，或者调整版式的位置"],"a":"C","type":"single","subj":"PPT","diff":"困难","year":"2024","ex":"","id":"q0264"},{"q":"双击打开某个PowerPoint演示文稿时，系统弹出“Windows无法打开此文件，若要打开此文件Windows ，需要知道要使用哪个程序打开它……”对话框，出现这种情况的可能原因是（）。","o":["该演示文稿过大","该计算机操作系统版本低","该计算机没有安装PowerPoint软件","该演示文稿中链接的相关视频、声音等文件丢失"],"a":"C","type":"single","subj":"PPT","diff":"困难","year":"2024","ex":"","id":"q0265"},{"q":"在PowerPoint视图中，不能够添加和显示备注文字的是（）。","o":["阅读视图","大纲视图","幻灯片浏览视图","普通视图"],"a":"AC","type":"multi","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0266"},{"q":"在PowerPoint 2016中，下列关于表格的描述正确的是（）。","o":["可以对表格中的文字方向进行调整","将光标定位到表格中会出现“表格工具”选项卡","可以直接将文本转换为表格","表格中的行、列边框线必须统一设置"],"a":"AB","type":"multi","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0267"},{"q":"关于演示文稿中超链接的使用，以下描述正确的是（）。","o":["超链接可以起到演示文稿放映的导航作用","“取消超链接”命令可以删除已创建的超链接","可以为幻灯片中的音频、视频创建超链接","可以为幻灯片中的文本、图片、形状创建超链接"],"a":"ABD","type":"multi","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0268"},{"q":"在PowerPoint 2016中，下列关于幻灯片主题描述正确的是（）。","o":["可以应用于所有幻灯片","可以应用于指定幻灯片","可以对已使用的主题进行更改","可以在“文件-选项”中更改"],"a":"ABC","type":"multi","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0269"},{"q":"下列关于幻灯片中“音频”对象的操作，描述错误的是（）。","o":["可以剪裁音频","可以插入录制的音频","可以设置音频循环播放，直到停止","插入音频后显示的小图标不可以隐藏"],"a":"D","type":"single","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0270"},{"q":"在PowePoint 2016中，下列关于批注的说法正确的是（）。","o":["批注插入成功后无法进行修改","批注中不可以插入超链接","批注中可以插入项目符号","一张幻灯片可以插入多个批注"],"a":"BD","type":"multi","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0271"},{"q":"关于演示文稿中的“插入对象”命令，以下说法正确的是（）。","o":["将文档插入到当前演示文稿时，可以设置是否显示为图标","将文件内容作为对象插入到演示文稿后，可以用创建它的应用程序激活它","可以选择新建一个对象或由其他文件创建一个对象","利用“插入对象”命令可以将文档部件插入到演示文稿中"],"a":"ABC","type":"multi","subj":"PPT","diff":"中等","year":"2024","ex":"","id":"q0272"},{"q":"在PowerPoint 2016中，下列关于自定义放映方案的描述正确的是（）。","o":["用户可以在不改变演示文稿内容的前提下，只对放映内容进行重新组合","在一个演示文稿中，用户可以自定义多个放映方案","在包含自定义放映方案的演示文稿中，直接单击放映命令即可以自定义方案进行放映","包含多个自定义放映方案时，用户可以自行选择当前放映的方案"],"a":"ABD","type":"multi","subj":"PPT","diff":"中等","year":"2024","ex":"","id":"q0273"},{"q":"若要将幻灯片文本框中的文本级别由第二级调整为第一级，以下操作不能实现的是（）。","o":["选中文本按“Shift+Tab”组合键","单击“提高列表级别”按钮","在段落格式中设置文本之前的缩进距离","单击“降低列表级别”按钮"],"a":"BC","type":"multi","subj":"PPT","diff":"中等","year":"2024","ex":"","id":"q0274"},{"q":"关于PowerPoint背景设置，下列说法正确的是（）。","o":["设置背景格式有改变背景颜色、图案填充、纹理填充和图片填充四种方式","既可以改变所有幻灯片的背景，也可以只改变所选幻灯片的背景","背景颜色有纯色填充和预设渐变两种方式","若已设置演示文稿主题，则新设置的背景不会覆盖主题背景"],"a":"AB","type":"multi","subj":"PPT","diff":"中等","year":"2024","ex":"","id":"q0275"},{"q":"在演示文稿中不可以直接利用占位符插入音频对象。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0276"},{"q":"PowerPoint 2016软件可以用于制作和播放图文并茂、声影交错的演示文稿。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0277"},{"q":"在PowerPoint表格中，相邻的两个单元格不可以设置“合并单元格”命令。","o":["正确","错误"],"a":"B","type":"judge","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0278"},{"q":"在PowerPoint中，不同类型的动画效果，其时间轴都以相同的颜色进行显示。","o":["正确","错误"],"a":"B","type":"judge","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0279"},{"q":"在PowerPoint 2016中，放映幻灯片时可以设置是否隐藏鼠标。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0280"},{"q":"在“视图”选项卡中，可以设置幻灯片中是否显示网格线和参考线。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0281"},{"q":"在PowerPoint中，幻灯片虚框上的六个小圆圈称为“尺寸控制点”。","o":["正确","错误"],"a":"B","type":"judge","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0282"},{"q":"在PowerPoint中，当保存演示文稿时出现“另存为”对话框，则说明该文稿之前被保存过。","o":["正确","错误"],"a":"B","type":"judge","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0283"},{"q":"在PowerPoint中，用户可以利用“文本”功能组中的命令为幻灯片插入页眉和页脚。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0284"},{"q":"若要删除演示文稿中某张幻灯片的切换效果，单击“切换到此幻灯片”组中的“删除”即可。","o":["正确","错误"],"a":"B","type":"judge","subj":"PPT","diff":"简单","year":"2024","ex":"","id":"q0285"},{"q":"浏览器无痕浏览模式的主要功能是（ ）。","o":["阻止病毒入侵","不保存历史记录与Cookie","提高页面加载速度","加密所有传输数据"],"a":"B","type":"single","subj":"计算机基础","diff":"","year":"2025","ex":"","id":"q0286"},{"q":"关于计算机基础说法中，描述正确的是（ ）。","o":["字长为32位表示这台计算机的CPU一次能处理32位二进制数","字长为32位表示这台计算机最大能计算一个32位的十进制数","SRAM的集成度高于DRAM","运算器只能进行逻辑运算"],"a":"A","type":"single","subj":"计算机基础","diff":"","year":"2025","ex":"","id":"q0287"},{"q":"计算机有多种技术指标，其中主频指的是（ ）。","o":["硬盘读写速度","显示器输出速度","系统时钟频率，也叫外频","CPU内核工作的时钟频率"],"a":"D","type":"single","subj":"计算机基础","diff":"","year":"2025","ex":"","id":"q0288"},{"q":"在计算机网络拓扑结构中，（ ）类型从未在实际网络部署中被采用过。","o":["星型","环型","总线型","螺旋型"],"a":"D","type":"single","subj":"计算机基础","diff":"","year":"2025","ex":"","id":"q0289"},{"q":"URL格式中通常不包含（ ）。","o":["协议","域名","路径","分辨率"],"a":"D","type":"single","subj":"计算机基础","diff":"","year":"2025","ex":"","id":"q0290"},{"q":"下列选项中，不属于系统软件的是（ ）。","o":["文字处理软件","操作系统","数据库管理系统","语言处理系统"],"a":"A","type":"single","subj":"计算机基础","diff":"","year":"2025","ex":"","id":"q0291"},{"q":"FTP协议是（ ）。","o":["文件传输协议","传输控制协议","超文本传输协议","用户数据报协议"],"a":"A","type":"single","subj":"计算机基础","diff":"","year":"2025","ex":"","id":"q0292"},{"q":"最早提出“存储程序”这一计算机设计思想的是（ ）。","o":["图灵","冯·诺依曼","巴贝奇","香农"],"a":"B","type":"single","subj":"计算机基础","diff":"","year":"2025","ex":"","id":"q0293"},{"q":"在超级计算机的应用领域中，大规模并行计算常被用于解决极端复杂的科学和工程问题，下列（ ）任务极少动用超级计算机资源。","o":["天气预报","核爆模拟","图像滤镜","基因测序"],"a":"C","type":"single","subj":"计算机基础","diff":"","year":"2025","ex":"","id":"q0294"},{"q":"多核处理器通过集成多个独立的处理核心，显著提升了计算机的性能和效率。多核处理器的优势主要体现在（ ）。","o":["提高单任务执行速度","降低主频需求","支持并行任务处理","减少散热功耗"],"a":"C","type":"single","subj":"计算机基础","diff":"","year":"2025","ex":"","id":"q0295"},{"q":"在衡量计算机性能时，下列（ ）最常被定义为计算机的主要技术指标。","o":["所安装操作系统及系统软件的版本号","CPU的时钟频率、运算速度、字长和内存容量","显示器分辨率及打印机型号规格","硬盘存储容量的大小"],"a":"B","type":"single","subj":"计算机基础","diff":"","year":"2025","ex":"","id":"q0296"},{"q":"常见的有线信道不包括（ ）。","o":["双绞线","同轴电缆","短波","光纤"],"a":"C","type":"single","subj":"计算机基础","diff":"","year":"2025","ex":"","id":"q0297"},{"q":"素有“计算机界诺贝尔奖”之称的图灵奖，主要表彰在（ ）领域做出里程碑式贡献的科学家。","o":["数学","计算机科学","物理学","化学"],"a":"B","type":"single","subj":"计算机基础","diff":"","year":"2025","ex":"","id":"q0298"},{"q":"计算机的系统总线经常被比喻为“高速公路”，是计算机各部件间传递信息的公共通道，它不包括（ ）。","o":["数据总线","传输总线","控制总线","地址总线"],"a":"B","type":"single","subj":"计算机基础","diff":"","year":"2025","ex":"","id":"q0299"},{"q":"智能手机的广泛使用体现了计算机在（ ）应用中的普及。","o":["数据/信息处理","嵌入式系统","科学计算","量子计算"],"a":"B","type":"single","subj":"计算机基础","diff":"","year":"2025","ex":"","id":"q0300"},{"q":"下列关于域名的说法正确的是（ ）。","o":["域名就是IP地址","域名完全由用户自行定义","域名的使用对象仅限于服务器","域名系统按地理域或机构域分层、采用层次结构"],"a":"D","type":"single","subj":"计算机基础","diff":"","year":"2025","ex":"","id":"q0301"},{"q":"关于数据通信的基本概念中，描述正确的是（ ）。","o":["信道的作用是把携带有信息的信号从它的输入端传递到输出端","数字信号是一种连续变化的信号","把数字脉冲信号还原成模拟信号的过程成为解调","调制的目的是为了传输数据"],"a":"A","type":"single","subj":"计算机基础","diff":"","year":"2025","ex":"","id":"q0302"},{"q":"局域网的特征不包括（ ）。","o":["误码率高","传输速度快","成本低","覆盖范围有限"],"a":"A","type":"single","subj":"计算机基础","diff":"","year":"2025","ex":"","id":"q0303"},{"q":"（ ）扩展名为可执行文件，通常寄生在文件的首部或尾部，并修改程序的第一条指令。","o":["文件型病毒","引导区型病毒","宏病毒","Internet病毒"],"a":"A","type":"single","subj":"计算机基础","diff":"","year":"2025","ex":"","id":"q0304"},{"q":"在Windows操作系统中，打开任务管理器无法完成（ ）操作。","o":["修改注册表","查看进程","结束任务","查看性能"],"a":"A","type":"single","subj":"计算机基础","diff":"","year":"2025","ex":"","id":"q0305"},{"q":"在PowerPoint 2016中，默认保存文件的扩展名是（ ）。","o":[".potx",".pptx",".ppsx",".docx"],"a":"B","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0306"},{"q":"在PowerPoint中，用户可以通过（ ）中的命令新建一个空白演示文稿。","o":["【开始】选项卡","【插入】选项卡","【设计】选项卡","文件菜单"],"a":"D","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0307"},{"q":"在大纲窗格中，用户可以通过（ ）快捷键将正文的某段第二级文本调整为第三级文本。","o":["Enter","Tab","Shift + Tab","Ctrl + →"],"a":"B","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0308"},{"q":"若想一次性查看所有幻灯片的顺序并调整其整体结构，用户可以切换到（ ）进行设置。","o":["普通视图","幻灯片浏览视图","阅读视图","备注页视图"],"a":"B","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0309"},{"q":"在演示文稿中新建相册时，默认每张幻灯片显示（ ）。","o":["固定1张图片","固定4张图片","1/2/4张图片，根据“图片版式”设置可变","由图片数量自动确定"],"a":"C","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0310"},{"q":"小李需要在“幻灯片浏览”视图中选中不连续的多张幻灯片（如第1张、第3张和第7张），下列操作方法正确的是（ ）。","o":["按住Alt键依次单击目标幻灯片","按住Shift键依次单击目标幻灯片","按住Ctrl键依次单击目标幻灯片","拖动鼠标直接框选所有目标幻灯片"],"a":"C","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0311"},{"q":"在演示文稿中，用户可以按（ ）组合键快速创建一张空白幻灯片。","o":["Ctrl+C","Ctrl+D","Ctrl+M","Ctrl+N"],"a":"C","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0312"},{"q":"在PowerPoint普通视图中，用户可以通过（ ）快速定位到特定幻灯片。","o":["缩略图窗格","任务窗格","备注窗格","幻灯片编辑区"],"a":"A","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0313"},{"q":"若想为所有幻灯片添加统一的公司LOGO图片，用户应切换到（ ）操作。","o":["大纲视图","幻灯片母版视图","备注母版视图","阅读视图"],"a":"B","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0314"},{"q":"创建相册时，若希望为所有图片添加“居中矩形阴影”效果，应在插入相册时设置（ ）。","o":["相框形状","图片版式","主题","适应幻灯片尺寸"],"a":"A","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0315"},{"q":"在PowerPoint 2016中，用户可以利用（ ）命令将选中的多段文字一键拆分为两列排版。","o":["添加或删除栏","提高列表级别","溢出时缩排文字","形状中的文字自动分栏"],"a":"A","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0316"},{"q":"若要设置动画在上一动画完成后延迟2秒播放，应调整该动画的（ ）。","o":["延迟时间","字母之间的延迟百分比","持续时间","触发对象"],"a":"A","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0317"},{"q":"在PowerPoint 2016中，幻灯片母版视图主要用于（ ）。","o":["设置单个对象的动画效果","设置所有幻灯片的统一格式，包括标题、文本的字体格式等","设置幻灯片切换时的过渡效果","调整单张幻灯片的背景颜色"],"a":"B","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0318"},{"q":"在PowerPoint 2016中，若要将A艺术字的样式快速复制到B文本上，下列操作方法正确的是（ ）。","o":["在【设计】选项卡中保存A艺术字的样式，即可直接应用到B文本上","复制A艺术字，直接粘贴到B文本的位置","将A艺术字另存为图片模板，再为B文本应用该模板","选中A艺术字，选择“格式刷”命令后单击B文本"],"a":"D","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0319"},{"q":"在普通视图左侧的“缩略图窗格”中，用户通过（ ）可以快速折叠所有节，仅显示当前演示文稿的所有节标题。","o":["双击任意节标题","按住Shift键依次单击每个节标题","鼠标右键单击任意节标题，选择“全部折叠”命令","在【视图】选项卡中勾选“仅显示节标题”复选框"],"a":"C","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0320"},{"q":"在PowerPoint 2016中，小李插入了一个柱形图并录入了数据，现在他希望将图表中的“行”数据和“列”数据互换显示，下列操作正确的是（ ）。","o":["单击【图表工具/设计】选项卡下“更改图表类型”命令","单击【图表工具/设计】选项卡下“切换行/列”命令","单击【图表工具/格式】选项卡下“切换行/列”命令","单击【图表工具/格式】选项卡下“重设以匹配样式”命令"],"a":"B","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0321"},{"q":"小许在演示文稿中插入了一段音频，但仅需前30秒前奏作为入场音效，最优操作方法是（ ）。","o":["播放音频时手动在30秒处暂停","利用“剪裁音频”功能设置音频对象","在【动画】选项卡中设置音频结束播放的幻灯片位置","用专门的剪辑软件剪辑后重新插入"],"a":"B","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0322"},{"q":"小李为某张幻灯片添加了“分割”切换效果，若希望所有幻灯片都应用这一相同的切换效果，最优的操作方法是（ ）。","o":["逐张为幻灯片手动添加“分割”切换效果","为当前幻灯片设置“分割”效果后，单击【切换】选项卡下“计时”功能组的“全部应用”命令","为当前幻灯片设置“分割”效果后，双击“格式刷”命令，依次单击所有幻灯片","保存当前幻灯片的切换效果为默认模板，再为所有幻灯片应用该切换模板"],"a":"B","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0323"},{"q":"在PowerPoint 2016的普通视图下，若需选中当前演示文稿中的所有幻灯片，下列操作方法正确的是（ ）。","o":["光标定位在幻灯片中，鼠标右击，在快捷菜单中选择“全选幻灯片”命令","光标定位在幻灯片中，按Ctrl+A组合键","光标定位在缩略图窗格中，按Ctrl+A组合键","在缩略图窗格中选中第一张幻灯片后，按住Ctrl键不放，再选中最后一张幻灯片"],"a":"C","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0324"},{"q":"在PowerPoint 2016中编辑表格时，若要删除某一行单元格，正确的操作是（ ）。","o":["选中该行所有单元格后按Delete键","选中该行后，在【表格工具/布局】选项卡中单击“删除行”命令","选中该行后，在【表格工具/设计】选项卡中单击“删除行”命令","选中该行所有单元格后按Backspace键"],"a":"B","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0325"},{"q":"在PowerPoint 2016中，若要将一张图片精确对齐到垂直距幻灯片顶部3厘米，最优的操作方法是（ ）。","o":["选中图片，按住Ctrl键用方向键调整垂直距离","通过【视图】选项卡启用“标尺”，参照标尺刻度手动拖动图片至目标位置","选中图片后，在“设置图片格式”窗格的“位置”选项中输入具体数值","用鼠标拖动图片并结合智能参考线对齐"],"a":"C","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0326"},{"q":"小李需要将演示文稿中幻灯片的页码设置从“5”开始重新编号，最优的操作方法是（ ）。","o":["逐张在幻灯片页脚处修改页码数字","单击【插入】选项卡的“页码”命令，在“页码格式”对话框中将“起始页码” 改为“5”","在【设计】选项卡中打开“幻灯片大小”对话框，调整幻灯片编号起始值为“5”","利用“替换”功能将所有页码替换为从“5”开始重新编号"],"a":"C","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0327"},{"q":"小刘在演示文稿中插入了一个饼图，现希望为图表添加数据标签，并显示百分比数据，下列操作正确的是（ ）。","o":["为图表添加“数据标签”元素后，默认显示为百分比数据，无需修改","选中饼图鼠标右击，在快捷菜单中选择“编辑数据”，在Excel工作簿中设置数据单元格格式为“百分比”","为图表添加“数据标签”后，双击标签进入编辑模式，直接输入“%”符号实现格式转换","为图表添加“数据标签”元素后，打开“设置数据标签格式”窗格，在“标签选项”中勾选“百分比”复选框"],"a":"D","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0328"},{"q":"若想将演示文稿中所有幻灯片的页脚文字统一修改为 “2025年度报告”，且不更改其他内容，最优的操作方法是（ ）。","o":["逐张修改幻灯片页脚内容","切换到幻灯片母版视图，在母版的页脚占位符中输入文字","在【插入】选项卡中单击“页眉和页脚”命令，修改幻灯片页脚内容并全部应用","选中一张幻灯片的页脚文字，使用格式刷复制到其他幻灯片中"],"a":"C","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0329"},{"q":"小李在PowerPoint中为某对象添加了超链接，现希望修改链接目标，使其单击跳转至第一张幻灯片，最优的操作方法是（ ）。","o":["删除该对象后重新设置超链接","右击该对象，在弹出的菜单中选择“编辑超链接”命令，选择链接目标为“第一张幻灯片”","在【动画】选项卡中为该对象添加跳转到第一张幻灯片的动画效果","双击该对象进入编辑状态，直接修改链接地址中的幻灯片编号即可"],"a":"B","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0330"},{"q":"在PowerPoint 2016中比较文档时，单击“接受修订”命令将（ ）。","o":["接受当前选中更改内容","接受对当前幻灯片所做的所有更改","接受对当前演示文稿所做的所有更改","仅接受当前更改内容，其余修订均拒绝"],"a":"A","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0331"},{"q":"在PowerPoint 2016中，小王在幻灯片中插入了一段视频，希望将一张提前准备好的产品海报图片设置为视频未播放时的预览封面，最优的操作方法是（ ）。","o":["将产品海报图片插入幻灯片中，调整至覆盖视频的位置，播放视频时手动删除海报图片","右键单击视频对象，在“视频选项”中勾选“使用默认视频封面”","选中视频后，在【视频工具/格式】选项卡中单击“标牌框架”下拉按钮，导入产品海报图片","打开视频对象所在文件夹，用产品海报图片替换原视频的缩略图文件"],"a":"C","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0332"},{"q":"下列关于幻灯片切换效果的说法，正确的是（ ）。","o":["切换效果只能应用于单张幻灯片，无法批量设置","同一演示文稿中所有幻灯片必须使用相同的切换效果","用户可以在【切换】选项卡的“计时”组中设置切换效果的持续时间","切换效果仅在幻灯片放映时可见，其他视图无法查看"],"a":"C","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0333"},{"q":"在PowerPoint 2016中利用“比较”功能时，若要拒绝对当前幻灯片的所有修订，应（ ）。","o":["选中任一修订提示，鼠标右击，选择“拒绝所有”命令","在【审阅】选项卡的 “比较”组中，点击“拒绝”下拉按钮，选择“拒绝对此幻灯片所做的所有更改”","在“比较”窗格中勾选“忽略当前幻灯片修订”选项","单击【审阅】选项卡的“结束审阅”命令"],"a":"B","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0334"},{"q":"小沈正在制作一个演示文稿，其中某张幻灯片的内容被其他对象遮挡，她想让被遮挡的内容显示在最上层，下列操作方法正确的是（ ）。","o":["选中被遮挡的对象，在【绘图工具/格式】选项卡“排列”组中单击“置于顶层”命令","选中遮挡的对象，按Delete键删除","选中遮挡的对象，鼠标右键，在快捷菜单中选择“下移一层”命令","拖动被遮挡的对象到幻灯片空白处，避开其他对象"],"a":"A","type":"single","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0335"},{"q":"在PowerPoint 2016中，下列属于演示文稿视图的是（ ）。","o":["自定义视图","普通视图","阅读视图","幻灯片母版视图"],"a":"BCD","type":"multi","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0336"},{"q":"在幻灯片中插入一段音乐后，若希望它能在放映时跨越多张幻灯片连续播放直到放映结束，需要设置的命令是（ ）。","o":["单击时","跨幻灯片播放","放映时隐藏","循环播放，直到停止"],"a":"BD","type":"multi","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0337"},{"q":"在PowerPoint中调整图片大小时，若想确保图片不变形（即保持原始宽高比），正确的操作方法是（ ）。","o":["按住Shift键不放，拖动图片四角控点调整大小","先在【图片工具/格式】选项卡中为图片应用一个样式，再调整图片大小","先在“设置图片格式”窗格中勾选“锁定纵横比”复选框，再调整图片大小","直接拖动图片四角控点调整大小即可"],"a":"AC","type":"multi","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0338"},{"q":"在幻灯片浏览视图中可以实现幻灯片的（ ）操作。","o":["新建","移动","隐藏","切换效果预览"],"a":"ABCD","type":"multi","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0339"},{"q":"下列关于动作按钮的说法，正确的是（ ）。","o":["可以设置单击该按钮打开其他演示文稿","可以运行指定的宏程序","可以设置链接的声音效果","可以设置鼠标悬停时跳转链接"],"a":"ABCD","type":"multi","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0340"},{"q":"小李正在制作一个产品介绍演示文稿，现在需要快速将正文文本的中文字体修改为微软雅黑，下列操作正确的是（ ）。","o":["单击【设计】选项卡下“字体”组的“自定义字体”命令","单击【开始】选项卡下“编辑”组的“替换字体”命令","切换到母版视图中，选中母版的文本占位符对字体进行设置","逐张幻灯片选中正文文本修改字体"],"a":"AC","type":"multi","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0341"},{"q":"小李在幻灯片中为占位符B添加了“飞入”的进入动画效果，现希望设置仅当单击标题A时，占位符B中的文本才会逐段自动飞入，需要修改的内容包括（ ）。","o":["将“飞入”动画的序列设置为“作为一个对象”进入","将动画开始方式均设置为“上一动画之后”","为占位符B添加“标题A”的动画触发效果","为标题A添加“占位符B”的动画触发效果"],"a":"BC","type":"multi","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0342"},{"q":"下列关于PowerPoint中动画的说法，正确的是（ ）。","o":["利用“动画窗格”可以调整多个对象的动画播放顺序","动画的开始方式包括“单击时”、“鼠标悬停”、“与上一动画同时”以及“上一动画之后”","所有动画效果均可设置通过单击某一对象时触发","所有对象都可以添加“退出”动画效果"],"a":"ACD","type":"multi","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0343"},{"q":"在演示文稿中编辑SmartArt图形时，下列操作描述正确的是（ ）。","o":["通过【SmartArt工具/设计】选项卡可以快速更改其样式","右键单击SmartArt中的形状，选择“添加形状”命令可在当前形状前后插入新形状","将SmartArt图形转换为普通形状后，仍可保留原有的文本内容和动画效果","通过【SmartArt工具/格式】选项卡可以为单个形状设置与其他形状不同的填充色"],"a":"ABD","type":"multi","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0344"},{"q":"在PowerPoint 2016中，下列关于幻灯片母版的说法，正确的是（ ）。","o":["一个母版可以包含多个版式，不同版式可设置不同的占位符布局","修改母版的字体样式后，所有基于该母版的版式会自动同步更新","可为某个版式单独设置背景，覆盖母版的背景样式","删除母版后，基于该母版的版式会自动转换为独立版式并保留内容"],"a":"ABC","type":"multi","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0345"},{"q":"在PowerPoint中，图表的数据只能手动输入，无法从Excel表格中导入。","o":["正确","错误"],"a":"B","type":"judge","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0346"},{"q":"在PowerPoint中，同一演示文稿内的所有幻灯片必须应用相同的主题。","o":["正确","错误"],"a":"B","type":"judge","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0347"},{"q":"仅在“幻灯片放映”视图中，才能使用 “笔” 功能添加重点内容标注。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0348"},{"q":"将演示文稿保存为PDF格式后会失去编辑功能，若要修改需重新在原PowerPoint文件中编辑后再次导出。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0349"},{"q":"用户只能在母版视图中添加自定义版式，普通视图无法创建。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0350"},{"q":"在演示文稿中，用户仅能为一个对象添加一个“进入”动画效果，无法重复进入。","o":["正确","错误"],"a":"B","type":"judge","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0351"},{"q":"幻灯片放映时可以通过多种方式增强交互效果，不限于超链接。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0352"},{"q":"在PowerPoint 2016中，为SmartArt图形设置动画后，若将该图形的填充色设置为“无填充颜色”，该动画也会自动消失。","o":["正确","错误"],"a":"B","type":"judge","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0353"},{"q":"为多个形状应用“合并形状”中的“组合”功能后，组合后的形状已成为一个整体，无法单独选中进行编辑。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0354"},{"q":"在幻灯片母版中插入的图片，会自动出现在所有基于该母版的幻灯片中，且无法在单张幻灯片中单独删除。","o":["正确","错误"],"a":"A","type":"judge","subj":"PPT","diff":"","year":"2025","ex":"","id":"q0355"}],"ops":[{"year":"2020","theme":"PPT操作题","req":"结合当下新冠疫情形势，请根据考生文件夹下提供的“素材文件.docx”文件制作演示文稿，具体要求如下：\n1.幻灯片不少于9页，选择恰当的版式并且版式要有变化，整个演示文稿中至少要有4种版式。\n2.为演示文稿选择恰当的演示主题，并且演示文稿中的幻灯片至少要有3种以上的主题。\n3.标题页幻灯片上要有艺术字形式的“七步洗手法”字样，注意艺术字大小、配色要与页面效果协调美观。\n4.“素材文件.docx”中的所有图片均需要正确出现在相对应的幻灯片，图片位置和大小可根据需要进行适当的调整。对第三至五张幻灯片中的图片分别应用“圆形对角，白色”、“棱台左透视，白色”、“透视阴影，白色”图片样式效果。\n5.对第三至五张幻灯片设置动画效果，动画效果要贴切，并且可以依序自动播放。\n6.幻灯片切换效果要恰当、多样，演示文稿切换效果不少于4种，且设置第三至五张幻灯片的换片方式为自动（时间不少于5秒钟）。\n7.采用由观众自行浏览方式放映演示文稿，且在放映是要全程自动播放“背景音乐.mp3”背景音乐。\n8. 将制作好的演示文稿文件另存为“完成稿.pptx”并上传提交。","score":"得分点评分说明：该题满分20分\n结合当下新冠疫情形势，请根据考生文件夹下提供的“素材文件.docx”文件制作演示文稿，具体要求如下：\n1.幻灯片不少于9页（总页数大于等于9页，得0.5分；总页数少于9页，则该观测点不得分），选择恰当的版式并且版式要有变化，整个演示文稿中至少要有4种版式。（幻灯片版式大于等于4种，得1.5分；版式少1种及以上，扣1分）\n2.为演示文稿选择恰当的演示主题，并且演示文稿中的幻灯片至少要有3种以上的主题。（主题大于等于3种，得3分；主题少1种及以上，扣2分）\n3.标题页幻灯片上要有艺术字形式的“七步洗手法”字样，注意艺术字大小、配色要与页面效果协调美观。（艺术字内容及样式设置正确，得2分）\n4.“素材文件.docx”中的所有图片均需要正确出现在相对应的幻灯片，图片位置和大小可根据需要进行适当的调整。（7张图片均插入正确，得1分；1张及以上图片插入错误或缺漏，扣0.5分）对第三至五张幻灯片中的图片分别应用“圆形对角，白色”、“棱台左透视，白色”、“透视阴影，白色”图片样式效果。（3张图片样式均设置正确，得2分；图片样式错误1张扣1分，错误2张扣1.5分）\n5.对第三至五张幻灯片设置动画效果，动画效果要贴切，并且可以依序自动播放。（3张幻灯片动画设置均正确，得3分；有动画效果但“从上一项开始之后”动画效果依序自动播放未设置正确，扣2分）\n6.幻灯片切换效果要恰当、多样，演示文稿切换效果不少于4种（切换效果大于等于4种，得1.5分；切换效果少1种及以上，扣1分），且设置第三至五张幻灯片的换片方式为自动（时间不少于5秒钟）。（3张幻灯片自动换片均设置正确，得1.5分；自动换片错误1张及以上，扣1分）\n7.采用由观众自行浏览方式放映演示文稿（放映方式设置正确，得1分），且在放映是要全程自动播放“背景音乐.mp3”背景音乐。（背景音乐设置正确，得3分；已插入背景音乐，但无法实现跨幻灯片循环播放效果，扣2分）\n8. 将制作好的演示文稿文件另存为“完成稿.pptx”并上传提交。（若文件未提交则大题20分不得分；若提交的文件命名不正确，则该大题20分不得分；若提交文件答案疑似作弊则该大题20分不得分）\n学生答题文件疑似拷贝作弊验证主要观测点：文字内容、图片等均不相同。","id":"op2020_1"},{"year":"2021","theme":"东京奥运会乒乓项目","req":"2020东京奥运会中看点众多，精彩纷呈。为了更好地宣传体育精神，班主任王老师计划在班会上为学生介绍此次奥运会中国成绩，本周将重点展示乒乓项目获奖瞬间，因此需要制作一个演示文稿。请根据考生文件夹下提供的“素材.docx”文件，帮助王老师完成演示文稿，具体要求如下：\n1、\t幻灯片不少于10张，“素材.docx”文档中所有的文字与图片均需要正确出现在相对应的幻灯片中，图片位置和大小可根据需要进行适当的调整。\n2、\t选择恰当的主题修饰演示文稿,并且演示文稿中的幻灯片至少要有2种主题（注意页面效果协调美观）。\n3、请按照如下要求，对幻灯片进行具体设计：\n（1）第1张幻灯片版式为“标题幻灯片”，其余幻灯片中至少含有4种版式（注意页面效果协调美观）。\n（2）在第1张幻灯片中，主标题设置为“东京奥运会”，并为其应用艺术字样式（注意艺术字大小、配色要与页面效果协调美观）；副标题设置为“奥运之光”，文本格式设置为微软雅黑、 28磅、黑色。\n（3）除了标题幻灯片外，其余每张幻灯片中显示页脚“东京奥运会\"五个字，并且设置幻灯片日期为2021/8/8。\n4、为第2张幻灯片的“金牌……男子单打”7段文本，添加项目符号●，并且设置对应页幻灯片的超链接。\n5、对第10张幻灯片进行以下设置： \n（1）标题设置为“东京奥运会奖牌榜”；插入一个11行6列的表格，表格内容可从“素材.docx”文档中获取。\n（2）表格内文本居中，数字右对齐；表格第一列列宽为2厘米，其余列列宽为4厘米，表格位置和大小可根据需要进行适当的调整。\n（3）备注内容设为“中国代表团共获38金、32银、18铜，奖牌总数达88枚，在金牌榜和总奖牌榜上均名列第二，乒乓传统优势项目仍然是中国金牌大户。” \n6、对3-9张幻灯片中内容设置图片样式和动画效果： \n（1）为图片分别设置图片样式，样式不少于3种。\n（2）除标题外，对文本和图片分别设置动画效果，动画效果要贴切；放映时动画播放顺序为：先图片后文本。\n7、为全部幻灯片设置切换效果，自动换片时间为“5秒”；切换声音为“鼓声”，并选择“播放下一段声音之前一直循环”。 \n8、为演示文稿进行以下放映设置: \n（1）在自定义放映新建“自定义放映1”，包含幻灯片3-9张。\n（2）在“设置放映方式”中，“放映幻灯片”选择“自定义放映1”。\n（3）确认上述操作均保存后，将制作好的演示文稿文件另存为“完成稿. pptx”并上传提交。","score":"得分点评分说明：该题满分30分\n2020东京奥运会中看点众多，精彩纷呈。为了更好地宣传体育精神，班主任王老师计划在班会上为学生介绍此次奥运会中国成绩，本周将重点展示乒乓项目获奖瞬间，因此需要制作一个演示文稿。请根据考生文件夹下提供的“素材.docx”文件，帮助王老师完成演示文稿，具体要求如下：\n1、幻灯片不少于10张（总页数大于等于10页，得1分；总数少于10页则该观测点不得分），“素材.docx”文档中所有的文字与图片均需要正确出现在相对应的幻灯片中，图片位置和大小可根据需要进行适当的调整（7张图片均插入正确，得2分；1张及以上图片插入错误或缺漏，扣0.5分）。\n2、选择恰当的主题修饰演示文稿,并且演示文稿中的幻灯片至少要有2种主题（注意页面效果协调美观）（主题大于等于2种，得1分；少1种，扣0.5分）。\n3、请按照如下要求，对幻灯片进行具体设计：\n（1）第1张幻灯片版式为“标题幻灯片”（第一张为“标题幻灯片”，得1分），其余幻灯片中至少含有4种版式（注意页面效果协调美观）（幻灯片版式大于等于4种，得1分；版式少1种及以上，扣分0.5分）。\n（2）在第1张幻灯片中，主标题设置为“东京奥运会”（标题内容输入正确，得1分），并为其应用艺术字样式（注意艺术字大小、配色要与页面效果协调美观）（标设置艺术字样式正确，得1分）；副标题设置为“奥运之光”，文本格式设置为微软雅黑、 28磅、黑色（文本字体、字号、颜色设置正确，得1分）。\n（3）除了标题幻灯片外，其余每张幻灯片中显示页脚“东京奥运会”五个字（页脚设置正确，得1.5分），并且设置幻灯片日期为2021/8/8（时间设置正确，得1.5分）。\n4、为第2张幻灯片中的 “金牌……男子单打”7段文本，添加项目符号●（准确插入项目符号●，得1.5分），并且设置对应页幻灯片的超链接（1-7段文字，对应3-9张幻灯片，设置正确，得1.5分）。\n5、对第10张幻灯片进行以下设置：\n（1）标题设置为“东京奥运会奖牌榜”；插入一个11行6列的表格，表格内容可从“素材.docx”文档中获取（幻灯片中存在11行6列的表格，得1分）。\n（2）表格内文本居中，数字右对齐（准确设置表格内容对齐方式，得1.5分）；表格第一列列宽为2厘米，其余列列宽为4厘米（准确设置表格列宽，得1.5分），表格位置和大小可根据需要进行适当的调整。\n（3）备注内容设为“中国代表团共获38金、32银、18铜，奖牌总数达88枚，在金牌榜和总奖牌榜上均名列第二，乒乓传统优势项目仍然是中国金牌大户。” （准确插入备注内容（中国代表团共获38金、32银、18铜），得1分）\n6、对3-9张幻灯片中内容设置图片样式和动画效果： \n（1）为图片分别设置图片样式，样式不少于3种。（图片均设置样式效果，要大于等于3种，得1分）。\n（2）除标题外，对文本和图片分别设置动画效果，动画效果要贴切；放映时动画播放顺序为：先图片后文本（文本和图片均设置动画效果2分，但放映顺序“先图片后文本”未设置扣0.5分）。\n7、为全部幻灯片设置切换效果（全部幻灯片中存在切换效果，得1分），自动换片时间为“5秒”（ 准确设置切换时间，得1分）；切换声音为“鼓声”（声音设置正确，得1分），并选择“播放下一段声音之前一直循环” （选择 “播放下一段声音之前一直循环”，得1分）。\n8、为演示文稿进行以下放映设置: \n（1）在自定义放映新建“自定义放映1”，包含幻灯片3-9张（新建自定义放映方式时正确选择3-9张幻灯片，得1.5分）。\n（2）在“设置放映方式”中，“放映幻灯片”选择“自定义放映1” （放映方式设置正确，得1.5分）。\n（3）确认上述操作均保存后，将制作好的演示文稿文件另存为“完成稿. pptx”并上传提交（若文件未提交则大题30分不得分；若提交的文件命名不正确，则该大题30分不得分；若提交文件答案疑似作弊则该大题30分不得分）。\n学生答题文件疑似拷贝作弊验证主要观测点：文字内容、图片等均不相同。","id":"op2021_2"},{"year":"2021","theme":"东京奥运会跳水项目","req":"2020东京奥运会中看点众多，精彩纷呈。为了更好地宣传体育精神，班主任王老师计划在班会上为学生介绍此次奥运会中国成绩，本周将重点展示跳水项目获奖瞬间，因此需要制作一个演示文稿。请根据考生文件夹下提供的“素材.docx”文件，帮助王老师完成演示文稿，具体要求如下：\n1、\t幻灯片不少于10张，“素材.docx”文档中所有的文字与图片均需要正确出现在相对应的幻灯片中，图片位置和大小可根据需要进行适当的调整。\n2、\t选择恰当的主题修饰演示文稿,并且演示文稿中的幻灯片至少要有2种主题（注意页面效果协调美观）。\n3、请按照如下要求，对幻灯片进行具体设计：\n（1）第1张幻灯片版式为“标题幻灯片”，其余幻灯片中至少含有4种版式（注意页面效果协调美观）。\n（2）在第1张幻灯片中，主标题设置为“东京奥运会”，并为其应用艺术字样式（注意艺术字大小、配色要与页面效果协调美观）；副标题设置为“奥运之光”，文本格式设置为微软雅黑、 28磅、黑色。\n（3）除了标题幻灯片外，其余每张幻灯片中显示页脚“东京奥运会\"五个字，并且设置幻灯片日期为2021/8/8。\n4、为第2张幻灯片的“金牌……男子10米跳台跳水”7段文本，添加项目符号●，并且设置对应页幻灯片的超链接。\n5、对第10张幻灯片进行以下设置： \n（1）标题设置为“东京奥运会奖牌榜”；插入一个11行6列的表格，表格内容可从“素材.docx”文档中获取。\n（2）表格内文本居中，数字右对齐；表格第一列列宽为2厘米，其余列列宽为4厘米，表格位置和大小可根据需要进行适当的调整。\n（3）备注内容设为“中国代表团共获38金、32银、18铜，奖牌总数达88枚，在金牌榜和总奖牌榜上均名列第二，跳水传统优势项目仍然是中国金牌大户。” \n6、对3-9张幻灯片中内容设置图片样式和动画效果： \n（1）为图片分别设置图片样式，样式不少于3种。\n（2）除标题外，对文本和图片分别设置动画效果，动画效果要贴切；放映时动画播放顺序为：先图片后文本。\n7、为全部幻灯片设置切换效果，自动换片时间为“5秒”；切换声音为“鼓声”，并选择“播放下一段声音之前一直循环”。 \n8、为演示文稿进行以下放映设置: \n（1）在自定义放映新建“自定义放映1”，包含幻灯片3-9张。\n（2）在“设置放映方式”中，“放映幻灯片”选择“自定义放映1”。\n（3）确认上述操作均保存后，将制作好的演示文稿文件另存为“完成稿. pptx”并上传提交。","score":"得分点评分说明：该题满分30分\n2020东京奥运会中看点众多，精彩纷呈。为了更好地宣传体育精神，班主任王老师计划在班会上为学生介绍此次奥运会中国成绩，本周将重点展示跳水项目获奖瞬间，因此需要制作一个演示文稿。请根据考生文件夹下提供的“素材.docx”文件，帮助王老师完成演示文稿，具体要求如下：\n1、幻灯片不少于10张（总页数大于等于10页，得1分；总数少于10页则该观测点不得分），“素材.docx”文档中所有的文字与图片均需要正确出现在相对应的幻灯片中，图片位置和大小可根据需要进行适当的调整（7张图片均插入正确，得2分；1张及以上图片插入错误或缺漏，扣0.5分）。\n2、选择恰当的主题修饰演示文稿,并且演示文稿中的幻灯片至少要有2种主题（注意页面效果协调美观）（主题大于等于2种，得1分；少1种，扣0.5分）。\n3、请按照如下要求，对幻灯片进行具体设计：\n（1）第1张幻灯片版式为“标题幻灯片”（第一张为“标题幻灯片”，得1分），其余幻灯片中至少含有4种版式（注意页面效果协调美观）（幻灯片版式大于等于4种，得1分；版式少1种及以上，扣分0.5分）。\n（2）在第1张幻灯片中，主标题设置为“东京奥运会”（标题内容输入正确，得1分），并为其应用艺术字样式（注意艺术字大小、配色要与页面效果协调美观）（标设置艺术字样式正确，得1分）；副标题设置为“奥运之光”，文本格式设置为微软雅黑、 28磅、黑色（文本字体、字号、颜色设置正确，得1分）。\n（3）除了标题幻灯片外，其余每张幻灯片中显示页脚“东京奥运会”五个字（页脚设置正确，得1.5分），并且设置幻灯片日期为2021/8/8（时间设置正确，得1.5分）。\n4、为第2张幻灯片中的 “金牌……男子10米跳台跳水”7段文本，添加项目符号●（准确插入项目符号●，得1.5分），并且设置对应页幻灯片的超链接（1-7段文字，对应3-9张幻灯片，设置正确，得1.5分）。\n5、对第10张幻灯片进行以下设置：\n（1）标题设置为“东京奥运会奖牌榜”；插入一个11行6列的表格，表格内容可从“素材.docx”文档中获取（幻灯片中存在11行6列的表格，得1分）。\n（2）表格内文本居中，数字右对齐（准确设置表格内容对齐方式，得1.5分）；表格第一列列宽为2厘米，其余列列宽为4厘米（准确设置表格列宽，得1.5分），表格位置和大小可根据需要进行适当的调整。\n（3）备注内容设为“中国代表团共获38金、32银、18铜，奖牌总数达88枚，在金牌榜和总奖牌榜上均名列第二，跳水传统优势项目仍然是中国金牌大户。” （准确插入备注内容（中国代表团共获38金、32银、18铜），得1分）\n6、对3-9张幻灯片中内容设置图片样式和动画效果： \n（1）为图片分别设置图片样式，样式不少于3种。（图片均设置样式效果，要大于等于3种，得1分）。\n（2）除标题外，对文本和图片分别设置动画效果，动画效果要贴切；放映时动画播放顺序为：先图片后文本（文本和图片均设置动画效果2分，但放映顺序“先图片后文本”未设置扣0.5分）。\n7、为全部幻灯片设置切换效果（全部幻灯片中存在切换效果，得1分），自动换片时间为“5秒”（ 准确设置切换时间，得1分）；切换声音为“鼓声”（声音设置正确，得1分），并选择“播放下一段声音之前一直循环” （选择 “播放下一段声音之前一直循环”，得1分）。\n8、为演示文稿进行以下放映设置: \n（1）在自定义放映新建“自定义放映1”，包含幻灯片3-9张（新建自定义放映方式时正确选择3-9张幻灯片，得1.5分）。\n（2）在“设置放映方式”中，“放映幻灯片”选择“自定义放映1” （放映方式设置正确，得1.5分）。\n（3）确认上述操作均保存后，将制作好的演示文稿文件另存为“完成稿. pptx”并上传提交（若文件未提交则大题30分不得分；若提交的文件命名不正确，则该大题30分不得分；若提交文件答案疑似作弊则该大题30分不得分）。\n学生答题文件疑似拷贝作弊验证主要观测点：文字内容、图片等均不相同。","id":"op2021_3"},{"year":"2022","theme":"中医养生","req":"随着时代的变化，现如今养生的热度已经在不断地提高。为了帮助社区服务中心完成春季中医养生知识宣传工作，请根据素材文件夹下提供的“PPT素材.pptx”文档，设计并美化一份相关主题的演示文稿，具体要求如下：\n1.为演示文稿应用素材文件夹下的“养生.thmx”主题。\n2.为第一张幻灯片应用“标题幻灯片”版式；设置主标题为“中医养生保健”，并为其应用恰当的艺术字样式（注意艺术字大小、配色要与页面效果协调美观）；副标题为“社区卫生服务中心”，副标题字体设置为黑体、28磅字。\n3.将第二张幻灯片内容文本框中的文字设置为24磅字，内容文本框的高度和宽度分别设置为11厘米和30厘米，文本框的填充颜色为自定义颜色（RGB：245,178,111），形状效果为柔化边缘25磅。\n4.按下列要求设置第三张幻灯片，具体要求如下：\n①为第三张幻灯片应用“两栏内容”版式；\n②将素材文件夹下的图片文件“图片1. png”插入到第三张幻灯片右侧的内容框中，将图片按照椭圆形状进行裁剪，图片效果为“阴影/外部：居中偏移”；\n③为幻灯片中的文本与图片设置动画效果，单击鼠标时，左侧文本框以“浮入”的效果逐段进入；延迟2秒后右侧图片自动以“陀螺旋”的强调效果逆时针中速旋转两周。\n5.在第四张幻灯片中插入7行2列表格，设置一个合适的表格样式，其中第1列列宽为3厘米，第2列列宽为26厘米。第1行第1、2列内容依次为“鱼名”和“功效”，参考素材文件夹下SC.docx文档的内容，按鲫鱼、带鱼、青鱼、鲤鱼、草鱼、泥鳅的顺序从上到下将适当内容填入表格其余6行，并将表格文字全部设置为水平及垂直居中对齐。\n6.按下列要求设置新增幻灯片，具体要求如下：\n①在第六张幻灯片后插入一张“空白”版式的幻灯片；\n②插入艺术字“祝身体安康！”，恰当设置其样式，且艺术字文本效果为“阴影-透视-靠下”，并将其在幻灯片中水平居中对齐，垂直距幻灯片上侧边缘8厘米；\n③单击鼠标时，艺术字以“回旋”的动画效果进入；\n④设置该页幻灯片的背景为“羊皮纸”纹理填充。\n7.设置幻灯片放映类型为“在展台浏览(全屏幕)”；幻灯片的切换方式全部设置为“擦除”，效果选项为“从右下部”。\n8.将制作好的演示文稿另存为“PPT完成稿.pptx”并提交上传。","score":"得分点说明：该题满分30分\n随着时代的变化，现如今养生的热度已经在不断地提高。为了帮助社区服务中心完成春季中医养生知识宣传工作，请根据素材文件夹下提供的“PPT素材.pptx”文档，设计并美化一份相关主题的演示文稿，具体要求如下：\n1.为演示文稿应用素材文件夹下的“养生.thmx”主题（主题模板应用正确，得1分）。\n2.为第一张幻灯片应用“标题幻灯片”版式（版式应用正确，得1分）；设置主标题为“中医养生保健”，并为其应用恰当的艺术字样式（注意艺术字大小、配色要与页面效果协调美观）（标题文字设置正确且应用任意一种艺术字样式，得1分）；副标题为“社区卫生服务中心”，副标题字体设置为黑体、28磅字（副标题文字正确且字体、字号正确，得1分）。\n3.将第二张幻灯片内容文本框中的文字设置为24磅字（字号设置正确，得0.5分），内容文本框的高度和宽度分别设置为11厘米和30厘米（文本框设置正确，得1分），文本框的填充颜色为自定义颜色（RGB：245,178,111），形状效果为柔化边缘25磅（填充颜色设置正确得1.5分，形状效果设置正确得1分）。\n4.按下列要求设置第三张幻灯片，具体要求如下：\n①为第三张幻灯片应用“两栏内容”版式（版式应用正确，得1分）；\n②将素材文件夹下的图片文件“图片1.png”插入到第三张幻灯片右侧的内容框中（图片插入正确，得1分），将图片按照椭圆形状进行裁剪（图片剪裁正确，得2分），图片效果为“阴影/外部：居中偏移”（图片效果设置正确，得1分）；\n③为幻灯片中的文本与图片设置动画效果，单击鼠标时，左侧文本框以“浮入”的效果逐段进入（动画设置正确，得1分）；延迟2秒后右侧图片自动以“陀螺旋”的强调效果逆时针中速旋转两周（“上一动画之后”、“2秒”延迟、“陀螺旋”、“逆时针”、“中速”、“旋转两周”均设置正确，得3分，否则不得分）。\n5.在第四张幻灯片中插入7行2列表格，设置一个合适的表格样式（表格插入正确且应用任意一种样式，得1分），其中第1列列宽为3厘米，第2列列宽为26厘米（列宽设置正确，得1分）。第1行第1、2列内容依次为“鱼名”和“功效”，参考素材文件夹下SC.docx文档的内容，按鲫鱼、带鱼、青鱼、鲤鱼、草鱼、泥鳅的顺序从上到下将适当内容填入表格其余6行（表格内容正确，得1.5分），并将表格文字全部设置为水平及垂直居中对齐（表格中文本对齐方式设置正确，得1分）。\n6.按下列要求设置新增幻灯片，具体要求如下：\n①在第六张幻灯片后插入一张“空白”版式的幻灯片（插入幻灯片且版式正确，得1分）；\n②插入艺术字“祝身体安康！”，恰当设置其样式，且艺术字文本效果为“阴影-透视-靠下”（文本输入正确得0.5分，艺术字样式及效果设置正确得1分），并将其在幻灯片中水平居中对齐，垂直距幻灯片上侧边缘8厘米（文本框位置设置正确，得1分）；\n③单击鼠标时，艺术字以“回旋”的动画效果进入（动画设置正确，得1分）；\n④设置该页幻灯片的背景为“羊皮纸”纹理填充（背景设置正确，得1分）。\n7.设置幻灯片放映类型为“在展台浏览(全屏幕)”（放映方式正确，得1分）；幻灯片的切换方式全部设置为“擦除”，效果选项为“从右下部”（切换方式设置正确得1分，效果设置正确，得1分）。\n8.将制作好的演示文稿另存为“PPT完成稿.pptx”并提交上传（若文件未提交则大题30分不得分；若提交的文件命名不正确，则该大题30分不得分）。\n学生答题文件疑似拷贝作弊验证主要观测点：文字内容不相同。","id":"op2022_4"},{"year":"2023","theme":"植物介绍","req":"小王需要制作一份有关《海棠》的植物介绍来倡导大家爱护植物，请打开考生文件夹下的文档“素材文件.pptx”，帮助他完成演示文稿的制作，具体要求如下：\n1. 为演示文稿应用考生文件夹下的“植物.thmx”主题，并将主题颜色修改为“蓝绿色”。\n2. 将考生文件夹下的图片“封面背景.jpg”设置为第一张幻灯片背景，透明度为“10%”，隐藏背景图形。并将幻灯片中的文本应用一种艺术字样式，文本居中对齐，字体为“华文中宋”。\n3. 将第2张幻灯片的版式修改为“图片与标题”，在右侧图片区插入图片“海棠.jpg”，并按以下要求进行调整：\n（1）在“锁定纵横比”前提下，将图片高度设为8厘米；设置图片位置相对于“左上角”，水平为18厘米，垂直为4.8厘米。\n（2）将图片按照“圆角矩形”形状进行裁剪，并为图片设置映像效果。\n（3）为幻灯片中的文本与图片设置动画效果，单击鼠标时，左侧文本框以“飞入”的效果进入；延迟2秒后右侧图片自动以“陀螺旋”的强调效果逆时针旋转两周。\n4. 将第3张幻灯片标题下方的文字转换为SmartArt图形，布局为“垂直曲形列表”，应用“三维/卡通”样式修饰该SmartArt图形，并更改其颜色为“彩色 – 个性色”。为SmartArt图形中包含文字内容的3个形状分别添加对应幻灯片的超链接。\n5. 在第6张幻灯片后插入一张版式为“标题和内容”的新幻灯片，标题为“植物繁多”；在内容区插入一个5行2列的表格，表格内容从考生文件夹下“SC.docx”文档中获取。设置表格高度为8厘米，第1、2列宽度依次为2.8厘米和19.5厘米；设置表格内容在水平和垂直方向均居中对齐；用内置表格样式“中度样式1 – 强调1”修饰表格。\n6. 为演示文稿插入幻灯片编号，编号从1开始。编号为奇数的幻灯片切换方式为“传送带”，效果选项为“自左侧”；编号为偶数的幻灯片切换方式为“飞过”，效果选项为“弹跳切出”。\n7. 在该演示文稿中创建一个演示方案，该演示方案包含第3、4、5、6页幻灯片，并将该演示方案命名为“放映方案1”；在“设置放映方式”中，“放映幻灯片”选择“放映方案1”。\n8. 将制作完成的演示文稿另存为“完成稿.pptx”并提交上传。","score":"得分点说明：该题满分30分\n小王需要制作一份有关《海棠》的植物介绍来倡导大家爱护植物，请打开考生文件夹下的文档“PPT素材.pptx”，帮助他完成演示文稿的制作，具体要求如下：（共8分）\n1. 为演示文稿应用考生文件夹下的“植物.thmx”主题（主题模板应用正确，得1分），并将主题颜色修改为“蓝绿色”（主题颜色应用正确，得1分）。\n2. 将考生文件夹下的图片“封面背景.jpg”设置为第一张幻灯片背景，透明度为“10%”，隐藏背景图形（背景应用正确，得1分；透明度正确，得0.5分；背景图形隐藏正确，得0.5分；共2分）。并将幻灯片中的文本应用一种艺术字样式，文本居中对齐，字体为“华文中宋”（文字应用任意一种艺术字样式，得1分；对齐方式设置正确，得0.5分；字体设置正确，得0.5分；共2分）。\n3. 将第2张幻灯片的版式修改为“图片与标题”（版式应用正确，得1分），在右侧图片区插入图片“海棠.jpg”（图片插入正确，得1分），并按以下要求进行调整：（共7分）\n（1）在“锁定纵横比”前提下，将图片高度设为8厘米（图片高度设置正确且勾选锁定纵横比，得1分）；设置图片位置相对于“左上角”，水平为18厘米，垂直为4.8厘米（图片水平、垂直位置均设置正确，得1分。）。\n（2）将图片按照“圆角矩形”形状进行裁剪（图片剪裁正确，得1分），并为图片设置映像效果（图片效果正确，得1分）。\n（3）为幻灯片中的文本与图片设置动画效果，单击鼠标时，左侧文本框以“飞入”的效果进入（文本动画设置正确，得1分）；延迟2秒后右侧图片自动以“陀螺旋”的强调效果逆时针旋转两周（图片动画“上一动画之后”、“2秒”延迟、“陀螺旋”、“逆时针”、“旋转两周”均设置正确，得2分，否则不得分）。\n4. 将第3张幻灯片标题下方的文字转换为SmartArt图形，布局为“垂直曲形列表”（SmartArt图形转换正确，得1分），应用“三维/卡通”样式修饰该SmartArt图形，并更改其颜色为“彩色 – 个性色”（SmartArt图形样式正确，得0.5分；颜色正确，得0.5分；共1分）。为SmartArt图形中包含文字内容的3个形状分别添加对应幻灯片的超链接（形状超链接添加正确，得1.5分）。（共15分）\n5. 在第6张幻灯片后插入一张版式为“标题和内容”的新幻灯片，标题为“植物繁多”（幻灯片插入正确，得1分；标题正确，得0.5分；共1.5分）；在内容区插入一个5行2列的表格，表格内容从考生文件夹下“SC.docx”文档中获取（表格插入正确且内容正确，得1.5分）。设置表格高度为8厘米，第1、2列宽度依次为2.8厘米和19.5厘米（表格高度正确得0.5分；1、2列宽度正确，得0.5分*2；共1.5分）；设置表格内容在水平和垂直方向均居中对齐（表格中文本对齐方式设置正确，得0.5分）；用内置表格样式“中度样式1 – 强调1”修饰表格（表格样式准确应用，得0.5分）。\n6. 为演示文稿插入幻灯片编号，编号从1开始（抽查验证，编号数字正确，得1分）。编号为奇数的幻灯片切换方式为“传送带”，效果选项为“自左侧”（奇数页切换方式设置正确且效果正确，得1.5分）；编号为偶数的幻灯片切换方式为“飞过”，效果选项为“弹跳切出”（偶数页切换方式设置正确且效果正确，得1.5分）。\n7.在该演示文稿中创建一个演示方案，该演示方案包含第3、4、5、6页幻灯片，并将该演示方案命名为“放映方案1” （演示文稿中存在放映方案1，且包含3-6张幻灯片，得1分）；在“设置放映方式”中，“放映幻灯片”选择“放映方案1”（放映方式设置正确，得1分）。\n8. 将制作完成的演示文稿另存为“完成稿.pptx”并提交上传。（若文件未提交则大题30分不得分；若提交的文件命名不正确，则该大题30分不得分）。\n学生答题文件疑似拷贝作弊验证主要观测点：文字内容、图片均不相同。","id":"op2023_5"},{"year":"2024","theme":"紫洋葱拌花生米","req":"小张正在制作食谱“紫洋葱拌花生米”的介绍演示文稿，请打开考生文件夹下的文档“素材文件.pptx”，帮助他完成演示文稿的制作，具体要求如下：\n1．为演示文稿应用“丝状”主题，并修改幻灯片大小为“A3纸张（297×420毫米）”。\n2．将第1张幻灯片的版式修改为“仅标题”，并按以下要求进行调整：\n（1）设置第1张幻灯片的背景格式为“渐变填充”，预设渐变方式为“浅色渐变–个性色3”。\n（2）为标题“紫洋葱拌花生米”应用一种艺术字样式，文本效果为“转换/弯曲/倒v形”；设置艺术字的位置为水平：6.3厘米，自左上角，垂直：10厘米，自左上角。\n3.在第1张幻灯片之后插入一张版式为“标题和内容”的新幻灯片，要求如下：\n（1）标题文字为“目录”，目录项内容依次为幻灯片3～幻灯片6的标题文字。\n（2）采用SmartArt图形中的“垂直曲形列表”显示目录项内容，调整SmartArt图形大小、显示位置，并更改其颜色及样式。\n（3）为标题“目录”添加动画效果，令其单击时在2秒内以“翻转式由远及近”的动画效果进入，SmartArt图形则在其之后自动飞入。\n4．为第3张幻灯片应用“图片与标题”版式，并在上方图片占位符中插入考生文件夹下的图片ppic1.jpg，应用“简单框架，黑色”的图片样式；为图片添加强调动画效果，令其单击标题“洋葱和花生是良好的搭配”时以“陀螺旋”方式逆时针旋转两周。\n5．在第4张幻灯片文本的下方插入3个同样大小的“圆角矩形”形状,并将其设置为顶端对齐及横向均匀分布;在3个形状中分别输入文本“抗氧化”、“延缓衰老”和“提高免疫力”，适当修改字号和颜色。\n6．利用相册功能，为考生文件夹下的1.png ~4.png共4张图片创建相册幻灯片，要求每张幻灯片2张图片，相框的形状为“居中矩形阴影”，相册标题为“食材图片”。将该相册中的所有幻灯片复制为“素材文件.pptx”演示文稿的第7 ~9张。\n7．设置每张幻灯片的切换方式为“剥离”，效果选项为“向左”，持续时间为2秒，所有幻灯片均每隔5秒自动换片；为所有幻灯片添加编号及页脚，页脚内容为“食谱分享”。\n8．将制作完成的演示文稿另存为“完成稿.pptx”并提交上传。","score":"","id":"op2024_6"},{"year":"2025","theme":"完成稿","req":"北京旅游发展委员会小张正在制作一份介绍北京的演示文稿，请打开考生文件夹下的文档“素材文件.pptx”，帮助他完成演示文稿的制作，具体要求如下：\n1.为演示文稿应用考生文件夹下的“旅游.thmx”主题，并修改幻灯片大小为“标准（4:3）”。\n2.在第1张幻灯片之前插入一张版式为“标题幻灯片”的新幻灯片，依次输入标题“北京古迹旅游简介”、副标题“北京市旅游发展委员会”；将标题为“7大旅游陷阱需提防”的幻灯片移动到最后一张幻灯片之前。\n3.将当前第2张幻灯片的版式修改为“标题和内容”，并按以下要求进行调整：\n（1）将标题下的项目符号列表转换为SmartArt图形，布局为“梯形列表”，并修改SmartArt颜色为“深色2 填充”，样式为“白色轮廓”。\n（2）为SmartArt图形中的“天坛”一词添加超链接，使其单击时跳转至后续相应内容的幻灯片。\n（3）为该SmartArt图形添加任一动画效果。\n4.重设第3张幻灯片中图片及其大小，适当调整图片位置，并应用“简单框架，黑色”的图片样式。\n5.将第6张幻灯片的版式修改为“两栏内容”，并按以下要求进行调整：\n（1）为左侧文本框设置段前间距12磅、1.25倍行距，并添加箭头项目符号，符号颜色为自定义颜色（RGB模式：红色220，绿色147，蓝色40）。\n（2）在右侧占位符中插入考生文件夹下的图片“陷阱1.png”，设置该图片按比例“1:1”进行裁剪，并添加“棱台形椭圆，黑色”的图片样式。\n（3）为右侧图片添加动画效果，令其自动从右上角伴随着“锤打”声飞入；继续为该图片添加“线条颜色”的强调动画，使其在出现后以“慢速（3秒）”反复变换线条颜色，直到幻灯片末尾。\n6．将最后一张幻灯片版式修改为“空白”，取消幻灯片中文本的项目符号，为其中的文字添加一个恰当的艺术字效果，并设置文本字号80，加粗；将文本设置为在文本框中水平和垂直都居中对齐，将文本框设置为在幻灯片中水平和垂直都居中。\n7.为演示文稿添加幻灯片编号，且标题幻灯片中不显示；为除了首张幻灯片之外的其他幻灯片设置一种恰当的切换效果。\n8．将制作完成的演示文稿另存为“完成稿.pptx”并提交上传。","score":"","id":"op2025_7"}],"tips":["操作题务必用 Microsoft Office 2016+ 完成，WPS 可能导致得分点判定异常。","母版统一控制（LOGO / 页脚 / 日期 / 字体）是历年操作题的高频得分点。","「版式 ≥4 种、主题 ≥3 种、页数 ≥9 页」是操作题经典要求，做完逐条核对。","图片处理常考：删除背景抠图、锁定纵横比、对齐分布、插入题注。","目录页超链接跳转、动作按钮、另存 PPTX + PDF 双版本，几乎每年都考。","动画分清「进入 / 强调 / 退出 / 动作路径」，切换效果是「页与页之间」，别混。"]};
+var Q = DATA.questions, OPS = DATA.ops;
+var QI = {}; Q.forEach(function(q){ QI[q.id]=q; });
+var LS = 'office_ppt_contest_v1';
+var S = {done:{}, wrong:{}, fav:{}, ans:{}, log:[]};
+try{ var raw=localStorage.getItem(LS); if(raw){ var o=JSON.parse(raw); if(o&&typeof o==='object'){ S.done=o.done||{};S.wrong=o.wrong||{};S.fav=o.fav||{};S.ans=o.ans||{};S.log=o.log||[]; } } }catch(e){}
+function save(){ try{ localStorage.setItem(LS, JSON.stringify(S)); }catch(e){} }
+function esc(s){ return (s==null?'':String(s)).replace(/[&<>"']/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];}); }
+function toast(msg){ var t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._t); t._t=setTimeout(function(){t.classList.remove('show');},2200); }
+function ask(msg,onYes){ var ov=document.createElement('div'); ov.className='ov'; ov.style.cssText='position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:600;display:flex;align-items:center;justify-content:center;padding:18px'; ov.innerHTML='<div class="card" style="max-width:420px;width:100%;text-align:center"><div style="font-size:15px;line-height:1.8;margin-bottom:16px">'+esc(msg)+'</div><div style="display:flex;gap:10px;justify-content:center"><button class="tbtn" id="akNo">取消</button><button class="tbtn" id="akYes" style="background:var(--primary);color:#fff;border-color:var(--primary)">确定</button></div></div>'; document.body.appendChild(ov); ov.querySelector('#akNo').onclick=function(){ov.remove();}; ov.querySelector('#akYes').onclick=function(){ov.remove();onYes();}; }
+function letter(i){ return String.fromCharCode(65+i); }
+function typeName(t){ return t==='judge'?'判断题':t==='multi'?'不定项':'单选题'; }
+
+/* ---------- 顶部统计 ---------- */
+function renderTop(){
+  var done=Object.keys(S.done).length, ok=0;
+  for(var k in S.ans){ if(S.ans[k]&&S.ans[k].ok) ok++; }
+  var w=Object.keys(S.wrong).length, f=Object.keys(S.fav).length;
+  document.getElementById('progTxt').textContent=done+' / '+Q.length;
+  document.getElementById('progBar').style.width=(Q.length?done/Q.length*100:0)+'%';
+  document.getElementById('accTxt').textContent=done?Math.round(ok/done*100)+'%':'—';
+  document.getElementById('wrongTxt').textContent='错题 '+w;
+  document.getElementById('favTxt').textContent='⭐ 收藏 '+f;
+  var cd=document.getElementById('cd');
+  if(!cd.dataset.r){ cd.dataset.r='1';
+    var items=[['355','客观真题'],[String(OPS.length),'操作真题'],['6','年份'],['6','官方考点']];
+    cd.innerHTML=items.map(function(x){return '<div class="b"><div class="n">'+x[0]+'</div><div class="l">'+x[1]+'</div></div>';}).join('');
+  }
+}
+
+/* ---------- 概览 ---------- */
+function renderOverview(){
+  var h='<h3 style="font-size:16px;font-weight:800;margin-bottom:4px">📌 考试结构</h3>';
+  h+='<table class="ptable"><tr><th>阶段</th><th>时长</th><th>题型与分值</th></tr>';
+  DATA.examStruct.forEach(function(e){ h+='<tr><td><b>'+esc(e.name)+'</b></td><td>'+esc(e.time)+'</td><td>'+esc(e.detail)+'</td></tr>'; });
+  h+='</table>';
+  h+='<h4 style="font-size:14px;color:var(--primary);margin:16px 0 4px">🎯 PowerPoint 官方考核知识点（赛项规程 3.4）</h4><ol class="plist">';
+  DATA.points.forEach(function(p){ h+='<li>'+esc(p)+'</li>'; });
+  h+='</ol>';
+  h+='<h4 style="font-size:14px;color:var(--primary);margin:14px 0 4px">🧩 三科共用 · 计算机公共基础</h4><div class="kv">';
+  DATA.common.forEach(function(p){ h+='<span>'+esc(p)+'</span>'; });
+  h+='</div>';
+  h+='<div class="warnbox"><b>'+esc(DATA.meta.env)+'</b><br>'+esc(DATA.meta.source)+'<br>'+esc(DATA.meta.scope)+'</div>';
+  document.getElementById('overview').innerHTML=h;
+}
+
+/* ---------- 分组卡片 ---------- */
+function pcard(title,meta,list,go,extra){
+  var done=list.filter(function(q){return S.done[q.id];}).length;
+  var pct=list.length?Math.round(done/list.length*100):0;
+  var types={judge:0,single:0,multi:0}; list.forEach(function(q){types[q.type]++;});
+  var h='<h3>'+esc(title)+'</h3><div class="meta">'+meta+'</div>';
+  h+='<div class="kv"><span>共 '+list.length+' 题</span><span class="g">'+types.single+' 单选</span><span class="p">'+types.multi+' 不定项</span><span class="w">'+types.judge+' 判断</span>'+(extra||'')+'</div>';
+  h+='<div class="pbar"><i style="width:'+pct+'%"></i></div>';
+  h+='<div class="meta" style="margin:4px 0 10px">已练 '+done+' 题（'+pct+'%）</div>';
+  h+='<button class="tbtn prac-go" data-go="'+esc(go)+'" style="border-color:var(--primary);color:var(--primary);font-weight:700">📝 开始练习</button>';
+  return '<div class="pcard">'+h+'</div>';
+}
+var GROUPS = {};
+function reg(key,list){ GROUPS[key]=list.map(function(q){return q.id;}); return key; }
+function renderGroups(){
+  var years={}; Q.forEach(function(q){ (years[q.year]=years[q.year]||[]).push(q); });
+  var yh='';
+  Object.keys(years).sort().forEach(function(y){
+    var g=reg('y'+y,years[y]);
+    yh+=pcard(y+' 年区域赛客观题','该年份 PowerPoint 赛项相关真题（PPT 专业题 + 计算机基础）',years[y],g,'');
+  });
+  document.getElementById('years').innerHTML=yh;
+
+  var defs=[];
+  defs.push(['PPT 专业题', Q.filter(function(q){return q.subj==='PPT';}), 'p']);
+  defs.push(['计算机基础（三科共用）', Q.filter(function(q){return q.subj==='计算机基础';}), 'c']);
+  defs.push(['单选题专项', Q.filter(function(q){return q.type==='single';}), 'ts']);
+  defs.push(['不定项选择题专项', Q.filter(function(q){return q.type==='multi';}), 'tm']);
+  defs.push(['判断题专项', Q.filter(function(q){return q.type==='judge';}), 'tj']);
+  ['2020','2021','2022','2023','2024','2025'].forEach(function(y){ });
+  var ch='';
+  defs.forEach(function(d,i){
+    var g=reg('cat'+i,d[1]);
+    ch+=pcard(d[0],'历年真题汇总 · '+(d[2]==='p'?'PPT 操作与功能':'按题型集中训练'),d[1],g,'');
+  });
+  document.getElementById('cats').innerHTML=ch;
+  document.querySelectorAll('.prac-go').forEach(function(b){ b.onclick=function(){ startPractice(GROUPS[b.getAttribute('data-go')]||[], b.closest('.pcard').querySelector('h3').textContent); }; });
+}
+
+/* ---------- 操作真题 ---------- */
+function renderOps(){
+  document.getElementById('ops').innerHTML=OPS.map(function(o){
+    var h='<details class="opcard"><summary>🎬 '+esc(o.year)+' · '+esc(o.theme)+(o.score?' <span class="chip">含官方得分点</span>':' <span class="chip day">原卷未附得分点</span>')+'</summary><div class="opbody">';
+    h+='<h4>题目要求</h4><div class="oppre">'+esc(o.req)+'</div>';
+    if(o.score){ h+='<h4>得分点评分说明</h4><div class="oppre score">'+esc(o.score)+'</div>'; }
+    else{ h+='<div class="tagline">该年份原卷目录未提供独立「得分点评分说明」文件，可参考同目录下「3参考答案」完成稿自行核对。</div>'; }
+    h+='</div></details>';
+    return h;
+  }).join('');
+}
+
+/* ---------- 错题本 / 收藏 ---------- */
+function renderWrongFav(){
+  var wl=Object.keys(S.wrong).map(function(id){return QI[id];}).filter(Boolean);
+  var fl=Object.keys(S.fav).map(function(id){return QI[id];}).filter(Boolean);
+  var w=document.getElementById('wrongBook');
+  if(!wl.length){ w.innerHTML='<div class="meta">暂无错题。做题时答错会自动汇总到这里，重新做对即自动移出。</div>'; }
+  else{
+    reg('wrong',wl);
+    w.innerHTML='<div class="meta">共 <b>'+wl.length+'</b> 道错题 · 按年份分组</div>'+groupList(wl)+
+      '<div class="optrow" style="margin-top:12px"><button class="tbtn" id="btnWrongGo" style="border-color:var(--err);color:var(--err);font-weight:700">📝 重练全部错题</button></div>';
+    document.getElementById('btnWrongGo').onclick=function(){ startPractice(GROUPS['wrong'],'我的错题重练'); };
+  }
+  var f=document.getElementById('favBox');
+  if(!fl.length){ f.innerHTML='<div class="meta">暂无收藏。做题浮层里点「⭐ 收藏」即可加入。</div>'; }
+  else{
+    reg('fav',fl);
+    f.innerHTML='<div class="meta">共 <b>'+fl.length+'</b> 道收藏</div>'+groupList(fl)+
+      '<div class="optrow" style="margin-top:12px"><button class="tbtn" id="btnFavGo" style="border-color:#b45309;color:#b45309;font-weight:700">▶ 重练收藏</button><button class="tbtn" id="btnFavClear">清空收藏</button></div>';
+    document.getElementById('btnFavGo').onclick=function(){ startPractice(GROUPS['fav'],'我的收藏重练'); };
+    document.getElementById('btnFavClear').onclick=function(){ ask('确定清空全部收藏？',function(){S.fav={};save();renderAll();toast('已清空收藏');}); };
+  }
+}
+function groupList(list){
+  var by={}; list.forEach(function(q){ (by[q.year]=by[q.year]||[]).push(q); });
+  return Object.keys(by).sort().map(function(y){
+    return '<div style="margin-top:10px"><div style="font-size:13px;font-weight:700;color:var(--primary)">'+esc(y)+'（'+by[y].length+' 题）</div>'+
+      by[y].slice(0,8).map(function(q){return '<div class="meta" style="margin:3px 0">· '+esc(q.q.slice(0,46))+(q.q.length>46?'…':'')+'</div>';}).join('')+
+      (by[y].length>8?'<div class="meta">… 另有 '+(by[y].length-8)+' 题</div>':'')+'</div>';
+  }).join('');
+}
+
+/* ---------- 随机模考 ---------- */
+function renderRand(){
+  var box=document.getElementById('randBox');
+  box.innerHTML='<div class="meta">按区域赛题型结构随机组卷：<b>40 单选 + 10 不定项 + 10 判断 = 60 题</b>，限时自测，交卷后出正确率报告（练习估算，非官方评分）。</div>'+
+    '<div class="optrow"><button class="tbtn" id="btnRand" style="border-color:var(--primary);color:var(--primary);font-weight:700;font-size:15px;padding:10px 18px">🎲 生成随机模考卷</button></div>'+
+    '<div id="randRes"></div>';
+  document.getElementById('btnRand').onclick=function(){
+    function pick(t,n){ var a=Q.filter(function(q){return q.type===t;}); for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var x=a[i];a[i]=a[j];a[j]=x;} return a.slice(0,n).map(function(q){return q.id;}); }
+    var ids=pick('single',40).concat(pick('multi',10),pick('judge',10));
+    startPractice(ids,'随机模考卷（60 题）',true);
+  };
+}
+
+/* ---------- 做题记录 ---------- */
+function renderRec(){
+  var done=Object.keys(S.done).length, ok=0;
+  for(var k in S.ans){ if(S.ans[k]&&S.ans[k].ok) ok++; }
+  var h='<div class="kv"><span>已练 '+done+' / '+Q.length+' 题</span><span class="g">答对 '+ok+'</span><span class="w">答错 '+(done-ok)+'</span><span class="p">正确率 '+(done?Math.round(ok/done*100):0)+'%</span></div>';
+  // 按年份
+  var by={}; Q.forEach(function(q){ if(S.done[q.id]){ var b=by[q.year]=by[q.year]||{d:0,o:0}; b.d++; if(S.ans[q.id]&&S.ans[q.id].ok)b.o++; } });
+  if(Object.keys(by).length){
+    h+='<h4 style="font-size:14px;color:var(--primary);margin:14px 0 4px">📅 按年份</h4><table class="ptable"><tr><th>年份</th><th>已练</th><th>答对</th><th>正确率</th></tr>';
+    Object.keys(by).sort().forEach(function(y){ var b=by[y]; h+='<tr><td>'+esc(y)+'</td><td>'+b.d+'</td><td>'+b.o+'</td><td>'+Math.round(b.o/b.d*100)+'%</td></tr>'; });
+    h+='</table>';
+  }else{ h+='<div class="tagline" style="margin-top:12px">还没有做题记录，从上面任意一套真题卷开始吧。</div>'; }
+  if(S.log.length){
+    h+='<h4 style="font-size:14px;color:var(--primary);margin:14px 0 4px">🕑 最近练习</h4>';
+    S.log.slice(-8).reverse().forEach(function(l){ h+='<div class="meta" style="margin:3px 0">· '+esc(l.t)+' — '+esc(l.name)+'（'+l.n+' 题）</div>'; });
+  }
+  document.getElementById('rec').innerHTML=h;
+}
+
+function renderTips(){ document.getElementById('tips').innerHTML=DATA.tips.map(function(t){return '<div class="tip">💡 <span>'+esc(t)+'</span></div>';}).join(''); }
+function renderAll(){ renderTop();renderGroups();renderWrongFav();renderRec(); }
+
+/* ---------- 刷题浮层 ---------- */
+var P={ids:[],idx:0,title:'',exam:false,ans:{},locked:{}};
+function startPractice(ids,title,exam){
+  ids=ids.filter(function(id){return !!QI[id];});
+  if(!ids.length){ toast('该分组暂无题目'); return; }
+  P={ids:ids,idx:0,title:title||'专项练习',exam:!!exam,ans:{},locked:{}};
+  var ov=document.createElement('div'); ov.className='ov exam'; ov.id='pracOv';
+  ov.innerHTML='<div class="exam-bar"><div class="eb-left"><b id="pTitle"></b><span id="pPos" class="cnt"></span></div>'+
+    '<div class="eb-mid"><span id="pAcc" class="prac-acc"></span></div>'+
+    '<div class="eb-right"><button class="tbtn" id="pExit">交卷 / 退出</button></div></div>'+
+    '<div class="exam-body"><div class="exam-main"><div id="pQ"></div><div class="exam-nav" id="pNav"></div></div>'+
+    '<div class="exam-side" id="pSide"></div></div>';
+  document.body.appendChild(ov);
+  document.body.style.overflow='hidden';
+  document.getElementById('pTitle').textContent=P.title;
+  document.getElementById('pExit').onclick=closePractice;
+  renderPQ();
+}
+function closePractice(){
+  var done=0,ok=0;
+  P.ids.forEach(function(id){ if(P.ans[id]){ done++; if(P.ans[id].ok)ok++; } });
+  var ov=document.getElementById('pracOv'); if(ov)ov.remove(); document.body.style.overflow='';
+  if(done){
+    S.log.push({t:new Date().toLocaleString('zh-CN',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}),name:P.title,n:done});
+    if(S.log.length>40)S.log=S.log.slice(-40);
+    save();
+    toast('已保存：作答 '+done+' 题，正确率 '+Math.round(ok/done*100)+'%');
+  }
+  if(P.exam){
+    var r=document.getElementById('randRes');
+    if(r) r.innerHTML='<div class="warnbox" style="margin-top:12px"><b>本次模考报告</b><br>作答 '+done+' / '+P.ids.length+' 题'+
+      (done?(', 答对 '+ok+' 题，正确率 <b>'+Math.round(ok/done*100)+'%</b>'):'，本次未作答')+'。（练习估算，非官方等值分）</div>';
+  }
+  renderAll();
+}
+function renderPQ(){
+  var id=P.ids[P.idx], q=QI[id]; if(!q)return;
+  var multi=q.type==='multi', rec=P.ans[id], locked=!!rec;
+  var h='<div class="card" style="box-shadow:none;margin:0">';
+  h+='<div class="qsub"><b>'+typeName(q.type)+'</b><b class="y">'+esc(q.year)+' 年</b><b>'+esc(q.subj)+'</b>'+(q.diff?'<b class="g">'+esc(q.diff)+'</b>':'')+'</div>';
+  h+='<div class="qhead" style="font-size:15px;font-weight:700;line-height:1.8;margin-bottom:12px">'+(P.idx+1)+'. '+esc(q.q)+'</div>';
+  h+='<div class="opts" id="pOpts">';
+  var sel=rec?rec.sel.slice():[];
+  q.o.forEach(function(o,i){
+    var cls='opt';
+    if(locked){ if(q.a.indexOf(letter(i))>=0)cls+=' correct'; else if(sel.indexOf(i)>=0)cls+=' wrong'; }
+    else if(sel.indexOf(i)>=0)cls+=' sel';
+    h+='<div class="'+cls+'" data-i="'+i+'"><span class="lk">'+letter(i)+'</span><span>'+esc(o)+'</span></div>';
+  });
+  h+='</div>';
+  if(multi&&!locked) h+='<div style="margin-top:10px"><button class="tbtn" id="pSubmit" style="border-color:var(--primary);color:var(--primary)">提交答案</button></div>';
+  if(locked){
+    h+='<div class="res '+(rec.ok?'ok':'err')+'" style="margin-top:12px;font-weight:700">'+(rec.ok?'✅ 回答正确':'❌ 回答错误')+' · 正确答案：<b>'+q.a.split('').join('、')+'</b></div>';
+    h+='<div class="ex-note">'+(q.ex?esc(q.ex):'官方原卷未附解析，可对照题目要求与教材考点自行复盘。')+'</div>';
+  }
+  h+='<div class="optrow" style="margin-top:12px"><button class="tbtn" id="pFav">'+(S.fav[id]?'⭐ 已收藏':'⭐ 收藏')+'</button>'+
+     (locked?'<button class="tbtn" id="pRedo">🔄 重做本题</button>':'')+'</div>';
+  h+='</div>';
+  document.getElementById('pQ').innerHTML=h;
+  document.getElementById('pOpts').querySelectorAll('.opt').forEach(function(el){
+    if(locked)return;
+    el.onclick=function(){
+      var i=parseInt(el.getAttribute('data-i'));
+      if(multi){ var k=P._sel=P._sel||{}; var cur=k[id]||[]; var p=cur.indexOf(i); if(p>=0)cur.splice(p,1);else cur.push(i); k[id]=cur; el.classList.toggle('sel'); }
+      else{ P._sel=P._sel||{}; P._sel[id]=[i]; grade(id,[i]); }
+    };
+  });
+  var sb=document.getElementById('pSubmit'); if(sb)sb.onclick=function(){ grade(id,(P._sel&&P._sel[id])||[]); };
+  document.getElementById('pFav').onclick=function(){ if(S.fav[id])delete S.fav[id];else S.fav[id]=1; save(); this.textContent=S.fav[id]?'⭐ 已收藏':'⭐ 收藏'; renderWrongFav(); renderTop(); toast(S.fav[id]?'已收藏':'已取消收藏'); };
+  var rb=document.getElementById('pRedo'); if(rb)rb.onclick=function(){ delete P.ans[id]; delete S.ans[id]; delete S.wrong[id]; delete S.done[id]; save(); renderPQ(); renderPSide(); };
+  // nav
+  var nav='<button class="tbtn" id="pPrev">← 上一题</button><button class="tbtn" id="pNext">下一题 →</button>';
+  document.getElementById('pNav').innerHTML=nav;
+  document.getElementById('pPrev').onclick=function(){ if(P.idx>0){P.idx--;renderPQ();} };
+  document.getElementById('pNext').onclick=function(){ if(P.idx<P.ids.length-1){P.idx++;renderPQ();}else{ closePractice(); } };
+  document.getElementById('pPos').textContent=(P.idx+1)+' / '+P.ids.length;
+  var okc=0,dc=0; P.ids.forEach(function(x){ if(P.ans[x]){dc++;if(P.ans[x].ok)okc++;} });
+  document.getElementById('pAcc').textContent=dc?('正确率 '+Math.round(okc/dc*100)+'%'):'';
+  renderPSide();
+}
+function grade(id,sel){
+  var q=QI[id]; if(!q||P.ans[id])return;
+  sel=sel.slice().sort();
+  var right=q.a.split('').map(function(L){return L.charCodeAt(0)-65;}).sort();
+  var ok=sel.length===right.length&&sel.every(function(v,i){return v===right[i];});
+  P.ans[id]={sel:sel,ok:ok};
+  S.ans[id]={ok:ok}; S.done[id]=1;
+  if(ok)delete S.wrong[id]; else S.wrong[id]=1;
+  save(); renderPQ();
+}
+function renderPSide(){
+  var side=document.getElementById('pSide'); if(!side)return;
+  var dc=0; P.ids.forEach(function(x){if(P.ans[x])dc++;});
+  var h='<div class="nav-title">本卷进度 '+dc+' / '+P.ids.length+'</div>';
+  h+='<div class="nav-title" style="margin-top:12px">题号</div><div class="nav-grid">';
+  P.ids.forEach(function(id,i){
+    var cls='nc '+(P.ans[id]?(P.ans[id].ok?'cok':'cno'):'un');
+    h+='<div class="'+cls+(i===P.idx?' cur':'')+'" data-i="'+i+'">'+(i+1)+'</div>';
+  });
+  h+='</div><div class="nav-legend"><span class="nc un">未练</span><span class="nc cok">对</span><span class="nc cno">错</span></div>';
+  h+='<div class="tagline" style="margin-top:12px">单选/判断点选即判分；不定项选完后点「提交答案」。</div>';
+  side.innerHTML=h;
+  side.querySelectorAll('.nav-grid .nc').forEach(function(el){ el.onclick=function(){ P.idx=parseInt(el.getAttribute('data-i')); renderPQ(); }; });
+}
+
+/* ---------- 绑定 ---------- */
+document.getElementById('btnRedo').onclick=function(){ startPractice(GROUPS['wrong']||[],'我的错题重练'); };
+document.getElementById('clearWrong').onclick=function(){ ask('确定清空全部错题标记？（不影响已做记录）',function(){S.wrong={};save();renderAll();toast('已清空错题');}); };
+document.getElementById('btnReset').onclick=function(){ ask('确定重置全部做题进度、错题与收藏？此操作不可撤销。',function(){S={done:{},wrong:{},fav:{},ans:{},log:[]};save();renderAll();toast('已重置全部进度');}); };
+
+renderOverview();renderOps();renderRand();renderTips();renderAll();
+</script>
+</body>
+</html>

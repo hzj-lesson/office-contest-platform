@@ -555,7 +555,7 @@ function renderWrongFav(){
     reg('wrong',wl);
     w.innerHTML='<div class="meta">共 <b>'+wl.length+'</b> 道错题 · 按年份分组</div>'+groupList(wl)+
       '<div class="optrow" style="margin-top:12px"><button class="tbtn" id="btnWrongGo" style="border-color:var(--err);color:var(--err);font-weight:700">📝 重练全部错题</button></div>';
-    document.getElementById('btnWrongGo').onclick=function(){ startPractice(GROUPS['wrong'],'我的错题重练'); };
+    document.getElementById('btnWrongGo').onclick=function(){ startPractice(GROUPS['wrong'],'我的错题重练',false,true); };
   }
   var f=document.getElementById('favBox');
   if(!fl.length){ f.innerHTML='<div class="meta">暂无收藏。做题浮层里点「⭐ 收藏」即可加入。</div>'; }
@@ -563,7 +563,7 @@ function renderWrongFav(){
     reg('fav',fl);
     f.innerHTML='<div class="meta">共 <b>'+fl.length+'</b> 道收藏</div>'+groupList(fl)+
       '<div class="optrow" style="margin-top:12px"><button class="tbtn" id="btnFavGo" style="border-color:#b45309;color:#b45309;font-weight:700">▶ 重练收藏</button><button class="tbtn" id="btnFavClear">清空收藏</button></div>';
-    document.getElementById('btnFavGo').onclick=function(){ startPractice(GROUPS['fav'],'我的收藏重练'); };
+    document.getElementById('btnFavGo').onclick=function(){ startPractice(GROUPS['fav'],'我的收藏重练',false,true); };
     document.getElementById('btnFavClear').onclick=function(){ ask('确定清空全部收藏？',function(){S.fav={};save();renderAll();toast('已清空收藏');}); };
   }
 }
@@ -670,12 +670,12 @@ function switchTab(which){
 
 /* ---------- 刷题浮层 ---------- */
 var P={ids:[],idx:0,title:'',exam:false,ans:{},locked:{}};
-function startPractice(ids,title,exam){
+function startPractice(ids,title,exam,noResume){
   ids=ids.filter(function(id){return !!QI[id];});
   if(!ids.length){ toast('该分组暂无题目'); return; }
   P={ids:ids,idx:0,title:title||'专项练习',exam:!!exam,ans:{},locked:{}};
-  // 恢复本机已做的本卷题目：退出/刷新后重进仍保持已答与解析
-  ids.forEach(function(id){ if(S.ans[id]) P.ans[id]={sel:(S.ans[id].sel||[]).slice(),ok:!!S.ans[id].ok}; });
+  // 恢复本机已做的本卷题目：退出/刷新后重进仍保持已答与解析（错题/收藏重练除外，需可重做）
+  if(!noResume) ids.forEach(function(id){ if(S.ans[id]) P.ans[id]={sel:(S.ans[id].sel||[]).slice(),ok:!!S.ans[id].ok}; });
   var ov=document.createElement('div'); ov.className='ov exam'; ov.id='pracOv';
   ov.innerHTML='<div class="exam-bar"><div class="eb-left"><b id="pTitle"></b><span id="pPos" class="cnt"></span></div>'+
     '<div class="eb-mid"><span id="pAcc" class="prac-acc"></span></div>'+
@@ -715,15 +715,23 @@ function renderPQ(){
   var sel=rec?rec.sel.slice():[];
   q.o.forEach(function(o,i){
     var cls='opt';
-    if(locked){ if(q.a.indexOf(letter(i))>=0)cls+=' correct'; else if(sel.indexOf(i)>=0)cls+=' wrong'; }
+    if(locked){
+      if(rec.ok){ if(q.a.indexOf(letter(i))>=0)cls+=' correct'; }
+      else{ if(sel.indexOf(i)>=0)cls+=' wrong'; }
+    }
     else if(sel.indexOf(i)>=0)cls+=' sel';
     h+='<div class="'+cls+'" data-i="'+i+'"><span class="lk">'+letter(i)+'</span><span>'+esc(o)+'</span></div>';
   });
   h+='</div>';
   if(multi&&!locked) h+='<div style="margin-top:10px"><button class="tbtn" id="pSubmit" style="border-color:var(--primary);color:var(--primary)">提交答案</button></div>';
   if(locked){
-    h+='<div class="res '+(rec.ok?'ok':'err')+'" style="margin-top:12px;font-weight:700">'+(rec.ok?'✅ 回答正确':'❌ 回答错误')+' · 正确答案：<b>'+q.a.split('').join('、')+'</b></div>';
-    h+='<div class="ex-note">'+(q.ex?esc(q.ex):'官方原卷未附解析，可对照题目要求与教材考点自行复盘。')+'</div>';
+    if(rec.ok){
+      h+='<div class="res ok" style="margin-top:12px;font-weight:700">✅ 回答正确 · 正确答案：<b>'+q.a.split('').join('、')+'</b></div>';
+      h+='<div class="ex-note">'+(q.ex?esc(q.ex):'官方原卷未附解析，可对照题目要求与教材考点自行复盘。')+'</div>';
+    }else{
+      h+='<div class="res err" style="margin-top:12px;font-weight:700">❌ 回答错误 · 已加入错题本，做对后自动移出</div>';
+      h+='<div class="ex-note">本题暂不揭晓答案与解析，请在「我的错题」中重做，答对后即可查看。</div>';
+    }
   }
   h+='<div class="optrow" style="margin-top:12px"><button class="tbtn" id="pFav">'+(S.fav[id]?'⭐ 已收藏':'⭐ 收藏')+'</button>'+
      (locked?'<button class="tbtn" id="pRedo">🔄 重做本题</button>':'')+'</div>';
@@ -739,7 +747,7 @@ function renderPQ(){
   });
   var sb=document.getElementById('pSubmit'); if(sb)sb.onclick=function(){ grade(id,(P._sel&&P._sel[id])||[]); };
   document.getElementById('pFav').onclick=function(){ if(S.fav[id])delete S.fav[id];else S.fav[id]=1; save(); this.textContent=S.fav[id]?'⭐ 已收藏':'⭐ 收藏'; renderWrongFav(); renderTop(); toast(S.fav[id]?'已收藏':'已取消收藏'); };
-  var rb=document.getElementById('pRedo'); if(rb)rb.onclick=function(){ delete P.ans[id]; delete S.ans[id]; delete S.wrong[id]; delete S.done[id]; save(); renderPQ(); renderPSide(); };
+  var rb=document.getElementById('pRedo'); if(rb)rb.onclick=function(){ delete P.ans[id]; if(P._sel)delete P._sel[id]; renderPQ(); renderPSide(); toast('请重新作答，答对后自动移出错题本'); };
   // nav
   var nav='<button class="tbtn" id="pPrev">← 上一题</button><button class="tbtn" id="pNext">下一题 →</button>';
   document.getElementById('pNav').innerHTML=nav;

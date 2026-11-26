@@ -709,6 +709,8 @@ function closePractice(){
 function renderPQ(){
   var id=P.ids[P.idx], q=QI[id]; if(!q)return;
   var multi=q.type==='multi', rec=P.ans[id], locked=!!rec;
+  // 错题本重练答错后不锁选项：直接点选项即可再答，无需按「重做本题」
+  var canReselect = P.drill && locked && !rec.ok;
   // 错题本重练：第 1 遍答错暂不揭晓，第 2 遍再错就显示答案与解析
   var drillHide = P.drill && (S.drillErr[id]||0) < 2;
   var h='<div class="card" style="box-shadow:none;margin:0">';
@@ -729,28 +731,28 @@ function renderPQ(){
     h+='<div class="'+cls+'" data-i="'+i+'"><span class="lk">'+letter(i)+'</span><span>'+esc(o)+'</span></div>';
   });
   h+='</div>';
-  if(multi&&!locked) h+='<div style="margin-top:10px"><button class="tbtn" id="pSubmit" style="border-color:var(--primary);color:var(--primary)">提交答案</button></div>';
+  if(multi&&(!locked||canReselect)) h+='<div style="margin-top:10px"><button class="tbtn" id="pSubmit" style="border-color:var(--primary);color:var(--primary)">提交答案</button></div>';
   if(locked){
     if(rec.ok){
       h+='<div class="res ok" style="margin-top:12px;font-weight:700">✅ 回答正确 · 正确答案：<b>'+q.a.split('').join('、')+'</b></div>';
       h+='<div class="ex-note">'+(q.ex?esc(q.ex):'官方原卷未附解析，可对照题目要求与教材考点自行复盘。')+'</div>';
     }else if(drillHide){
       h+='<div class="res err" style="margin-top:12px;font-weight:700">❌ 回答错误 · 已加入错题本，做对后自动移出</div>';
-      h+='<div class="ex-note">本题第 1 遍答错暂不揭晓答案；点「重做本题」再答错一次，将自动显示正确答案与解析。</div>';
+      h+='<div class="ex-note">本题第 1 遍答错暂不揭晓答案；直接点选项重新作答，再答错一次将自动显示正确答案与解析。</div>';
     }else{
       h+='<div class="res err" style="margin-top:12px;font-weight:700">❌ 回答错误 · 正确答案：<b>'+q.a.split('').join('、')+'</b>'+(P.drill?'（连续答错 2 次，已揭晓）':'')+'</div>';
       h+='<div class="ex-note">'+(q.ex?esc(q.ex):'官方原卷未附解析，可对照题目要求与教材考点自行复盘。')+'</div>';
     }
   }
   h+='<div class="optrow" style="margin-top:12px"><button class="tbtn" id="pFav">'+(S.fav[id]?'⭐ 已收藏':'⭐ 收藏')+'</button>'+
-     (locked?'<button class="tbtn" id="pRedo">🔄 重做本题</button>':'')+'</div>';
+     (locked&&!canReselect?'<button class="tbtn" id="pRedo">🔄 重做本题</button>':'')+'</div>';
   h+='</div>';
   document.getElementById('pQ').innerHTML=h;
   document.getElementById('pOpts').querySelectorAll('.opt').forEach(function(el){
-    if(locked)return;
+    if(locked&&!canReselect)return;
     el.onclick=function(){
       var i=parseInt(el.getAttribute('data-i'));
-      if(multi){ var k=P._sel=P._sel||{}; var cur=k[id]||[]; var p=cur.indexOf(i); if(p>=0)cur.splice(p,1);else cur.push(i); k[id]=cur; el.classList.toggle('sel'); }
+      if(multi){ var k=P._sel=P._sel||{}; var cur=k[id]||(canReselect&&rec?rec.sel.slice():[]); var p=cur.indexOf(i); if(p>=0)cur.splice(p,1);else cur.push(i); k[id]=cur; el.classList.toggle('sel'); }
       else{ P._sel=P._sel||{}; P._sel[id]=[i]; grade(id,[i]); }
     };
   });
@@ -768,7 +770,10 @@ function renderPQ(){
   renderPSide();
 }
 function grade(id,sel){
-  var q=QI[id]; if(!q||P.ans[id])return;
+  var q=QI[id]; if(!q)return;
+  var prev=P.ans[id];
+  // 普通卷已答即锁定；仅错题本重练答错后允许直接覆盖重选
+  if(prev && !(P.drill && !prev.ok))return;
   sel=sel.slice().sort();
   var right=q.a.split('').map(function(L){return L.charCodeAt(0)-65;}).sort();
   var ok=sel.length===right.length&&sel.every(function(v,i){return v===right[i];});

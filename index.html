@@ -452,8 +452,8 @@ var DATA = {"meta":{"title":"Office 高级应用赛 · PowerPoint 赛项备考�
 var Q = DATA.questions, OPS = DATA.ops;
 var QI = {}; Q.forEach(function(q){ QI[q.id]=q; });
 var LS = 'office_ppt_contest_v1';
-var S = {done:{}, wrong:{}, fav:{}, ans:{}, log:[]};
-try{ var raw=localStorage.getItem(LS); if(raw){ var o=JSON.parse(raw); if(o&&typeof o==='object'){ S.done=o.done||{};S.wrong=o.wrong||{};S.fav=o.fav||{};S.ans=o.ans||{};S.log=o.log||[]; } } }catch(e){}
+var S = {done:{}, wrong:{}, fav:{}, ans:{}, log:[], drillErr:{}};
+try{ var raw=localStorage.getItem(LS); if(raw){ var o=JSON.parse(raw); if(o&&typeof o==='object'){ S.done=o.done||{};S.wrong=o.wrong||{};S.fav=o.fav||{};S.ans=o.ans||{};S.log=o.log||[];S.drillErr=o.drillErr||{}; } } }catch(e){}
 function save(){ try{ localStorage.setItem(LS, JSON.stringify(S)); }catch(e){} }
 function esc(s){ return (s==null?'':String(s)).replace(/[&<>"']/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];}); }
 function toast(msg){ var t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._t); t._t=setTimeout(function(){t.classList.remove('show');},2200); }
@@ -709,6 +709,8 @@ function closePractice(){
 function renderPQ(){
   var id=P.ids[P.idx], q=QI[id]; if(!q)return;
   var multi=q.type==='multi', rec=P.ans[id], locked=!!rec;
+  // 错题本重练：第 1 遍答错暂不揭晓，第 2 遍再错就显示答案与解析
+  var drillHide = P.drill && (S.drillErr[id]||0) < 2;
   var h='<div class="card" style="box-shadow:none;margin:0">';
   h+='<div class="qsub"><b>'+typeName(q.type)+'</b><b class="y">'+esc(q.year)+' 年</b><b>'+esc(q.subj)+'</b>'+(q.diff?'<b class="g">'+esc(q.diff)+'</b>':'')+'</div>';
   h+='<div class="qhead" style="font-size:15px;font-weight:700;line-height:1.8;margin-bottom:12px">'+(P.idx+1)+'. '+esc(q.q)+'</div>';
@@ -720,7 +722,7 @@ function renderPQ(){
       if(rec.ok){ if(q.a.indexOf(letter(i))>=0)cls+=' correct'; }
       else{
         if(sel.indexOf(i)>=0)cls+=' wrong';
-        if(!P.drill && q.a.indexOf(letter(i))>=0)cls+=' correct';
+        if(!drillHide && q.a.indexOf(letter(i))>=0)cls+=' correct';
       }
     }
     else if(sel.indexOf(i)>=0)cls+=' sel';
@@ -732,11 +734,11 @@ function renderPQ(){
     if(rec.ok){
       h+='<div class="res ok" style="margin-top:12px;font-weight:700">✅ 回答正确 · 正确答案：<b>'+q.a.split('').join('、')+'</b></div>';
       h+='<div class="ex-note">'+(q.ex?esc(q.ex):'官方原卷未附解析，可对照题目要求与教材考点自行复盘。')+'</div>';
-    }else if(P.drill){
+    }else if(drillHide){
       h+='<div class="res err" style="margin-top:12px;font-weight:700">❌ 回答错误 · 已加入错题本，做对后自动移出</div>';
-      h+='<div class="ex-note">本题暂不揭晓答案与解析，请在「我的错题」中重做，答对后即可查看。</div>';
+      h+='<div class="ex-note">本题第 1 遍答错暂不揭晓答案；点「重做本题」再答错一次，将自动显示正确答案与解析。</div>';
     }else{
-      h+='<div class="res err" style="margin-top:12px;font-weight:700">❌ 回答错误 · 正确答案：<b>'+q.a.split('').join('、')+'</b></div>';
+      h+='<div class="res err" style="margin-top:12px;font-weight:700">❌ 回答错误 · 正确答案：<b>'+q.a.split('').join('、')+'</b>'+(P.drill?'（连续答错 2 次，已揭晓）':'')+'</div>';
       h+='<div class="ex-note">'+(q.ex?esc(q.ex):'官方原卷未附解析，可对照题目要求与教材考点自行复盘。')+'</div>';
     }
   }
@@ -754,7 +756,7 @@ function renderPQ(){
   });
   var sb=document.getElementById('pSubmit'); if(sb)sb.onclick=function(){ grade(id,(P._sel&&P._sel[id])||[]); };
   document.getElementById('pFav').onclick=function(){ if(S.fav[id])delete S.fav[id];else S.fav[id]=1; save(); this.textContent=S.fav[id]?'⭐ 已收藏':'⭐ 收藏'; renderWrongFav(); renderTop(); toast(S.fav[id]?'已收藏':'已取消收藏'); };
-  var rb=document.getElementById('pRedo'); if(rb)rb.onclick=function(){ delete P.ans[id]; if(P._sel)delete P._sel[id]; if(!P.drill){ delete S.ans[id]; delete S.wrong[id]; delete S.done[id]; save(); } renderPQ(); renderPSide(); if(P.drill)toast('请重新作答，答对后自动移出错题本'); };
+  var rb=document.getElementById('pRedo'); if(rb)rb.onclick=function(){ delete P.ans[id]; if(P._sel)delete P._sel[id]; if(!P.drill){ delete S.ans[id]; delete S.wrong[id]; delete S.done[id]; save(); } renderPQ(); renderPSide(); if(P.drill)toast((S.drillErr[id]||0)>=2?'答案已揭晓，请复盘后重做':'请重新作答，答对移出错题本；再答错将显示答案'); };
   // nav
   var nav='<button class="tbtn" id="pPrev">← 上一题</button><button class="tbtn" id="pNext">下一题 →</button>';
   document.getElementById('pNav').innerHTML=nav;
@@ -773,6 +775,8 @@ function grade(id,sel){
   P.ans[id]={sel:sel,ok:ok};
   S.ans[id]={sel:sel,ok:ok}; S.done[id]=1;
   if(ok)delete S.wrong[id]; else S.wrong[id]=1;
+  // 仅错题本重练计入「答错遍数」：第 2 遍答错即揭晓答案
+  if(P.drill){ if(ok)delete S.drillErr[id]; else S.drillErr[id]=(S.drillErr[id]||0)+1; }
   save(); renderPQ();
 }
 function renderPSide(){
@@ -792,8 +796,8 @@ function renderPSide(){
 
 /* ---------- 绑定 ---------- */
 document.getElementById('btnRedo').onclick=function(){ startPractice(GROUPS['wrong']||[],'我的错题重练',false,true); };
-document.getElementById('clearWrong').onclick=function(){ ask('确定清空全部错题标记？（不影响已做记录）',function(){S.wrong={};save();renderAll();toast('已清空错题');}); };
-document.getElementById('btnReset').onclick=function(){ ask('确定重置全部做题进度、错题与收藏？此操作不可撤销。',function(){S={done:{},wrong:{},fav:{},ans:{},log:[]};save();renderAll();toast('已重置全部进度');}); };
+document.getElementById('clearWrong').onclick=function(){ ask('确定清空全部错题标记？（不影响已做记录）',function(){S.wrong={};S.drillErr={};save();renderAll();toast('已清空错题');}); };
+document.getElementById('btnReset').onclick=function(){ ask('确定重置全部做题进度、错题与收藏？此操作不可撤销。',function(){S={done:{},wrong:{},fav:{},ans:{},log:[],drillErr:{}};save();renderAll();toast('已重置全部进度');}); };
 document.getElementById('tabBtnQuiz').onclick=function(){ switchTab('quiz'); };
 document.getElementById('tabBtnKnow').onclick=function(){ switchTab('know'); };
 

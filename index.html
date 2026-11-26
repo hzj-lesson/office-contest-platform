@@ -412,9 +412,6 @@ a.anc:hover{text-decoration:underline}
   <div class="sec">🎬 PowerPoint 操作真题 <small>7 套往届操作题 · 原题要求 + 官方得分点评分说明</small></div>
   <div id="ops"></div>
 
-  <div class="sec">❌ 我的错题 <small>答错自动汇总 · 做对一道自动移出</small></div>
-  <div class="pcard" id="wrongBook"></div>
-
   <div class="sec">⭐ 我的收藏 <small>做题时点「⭐ 收藏」· 一键重练</small></div>
   <div class="pcard" id="favBox"></div>
 
@@ -549,14 +546,8 @@ function renderOps(){
 function renderWrongFav(){
   var wl=Object.keys(S.wrong).map(function(id){return QI[id];}).filter(Boolean);
   var fl=Object.keys(S.fav).map(function(id){return QI[id];}).filter(Boolean);
-  var w=document.getElementById('wrongBook');
-  if(!wl.length){ w.innerHTML='<div class="meta">暂无错题。做题时答错会自动汇总到这里，重新做对即自动移出。</div>'; }
-  else{
-    reg('wrong',wl);
-    w.innerHTML='<div class="meta">共 <b>'+wl.length+'</b> 道错题 · 按年份分组</div>'+groupList(wl)+
-      '<div class="optrow" style="margin-top:12px"><button class="tbtn" id="btnWrongGo" style="border-color:var(--err);color:var(--err);font-weight:700">📝 重练全部错题</button></div>';
-    document.getElementById('btnWrongGo').onclick=function(){ startPractice(GROUPS['wrong'],'我的错题重练',false,true); };
-  }
+  // 错题列表已收起：只保留顶部「重练错题」按钮，此处仅注册分组供重练使用
+  reg('wrong',wl);
   var f=document.getElementById('favBox');
   if(!fl.length){ f.innerHTML='<div class="meta">暂无收藏。做题浮层里点「⭐ 收藏」即可加入。</div>'; }
   else{

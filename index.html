@@ -554,7 +554,7 @@ function renderWrongFav(){
     reg('fav',fl);
     f.innerHTML='<div class="meta">共 <b>'+fl.length+'</b> 道收藏</div>'+groupList(fl)+
       '<div class="optrow" style="margin-top:12px"><button class="tbtn" id="btnFavGo" style="border-color:#b45309;color:#b45309;font-weight:700">▶ 重练收藏</button><button class="tbtn" id="btnFavClear">清空收藏</button></div>';
-    document.getElementById('btnFavGo').onclick=function(){ startPractice(GROUPS['fav'],'我的收藏重练'); };
+    document.getElementById('btnFavGo').onclick=function(){ startPractice(GROUPS['fav'],'我的收藏重练',false,true,'fav'); };
     document.getElementById('btnFavClear').onclick=function(){ ask('确定清空全部收藏？',function(){S.fav={};save();renderAll();toast('已清空收藏');}); };
   }
 }
@@ -661,12 +661,12 @@ function switchTab(which){
 }
 
 /* ---------- 刷题浮层 ---------- */
-var P={ids:[],idx:0,title:'',exam:false,drill:false,ans:{},locked:{}};
-function startPractice(ids,title,exam,drill){
+var P={ids:[],idx:0,title:'',exam:false,drill:false,src:'',ans:{},locked:{}};
+function startPractice(ids,title,exam,drill,src){
   ids=ids.filter(function(id){return !!QI[id];});
   if(!ids.length){ toast('该分组暂无题目'); return; }
-  P={ids:ids,idx:0,title:title||'专项练习',exam:!!exam,drill:!!drill,ans:{},locked:{}};
-  // 恢复本机已做的本卷题目：退出/刷新后重进仍保持已答与解析（仅错题本重练不回填，需可重做）
+  P={ids:ids,idx:0,title:title||'专项练习',exam:!!exam,drill:!!drill,src:src||'',ans:{},locked:{}};
+  // 恢复本机已做的本卷题目：退出/刷新后重进仍保持已答与解析（错题本/收藏重练不回填，需可重做）
   if(!drill) ids.forEach(function(id){ if(S.ans[id]) P.ans[id]={sel:(S.ans[id].sel||[]).slice(),ok:!!S.ans[id].ok}; });
   var ov=document.createElement('div'); ov.className='ov exam'; ov.id='pracOv';
   ov.innerHTML='<div class="exam-bar"><div class="eb-left"><b id="pTitle"></b><span id="pPos" class="cnt"></span></div>'+
@@ -728,7 +728,7 @@ function renderPQ(){
       h+='<div class="res ok" style="margin-top:12px;font-weight:700">✅ 回答正确 · 正确答案：<b>'+q.a.split('').join('、')+'</b></div>';
       h+='<div class="ex-note">'+(q.ex?esc(q.ex):'官方原卷未附解析，可对照题目要求与教材考点自行复盘。')+'</div>';
     }else if(drillHide){
-      h+='<div class="res err" style="margin-top:12px;font-weight:700">❌ 回答错误 · 已加入错题本，做对后自动移出</div>';
+      h+='<div class="res err" style="margin-top:12px;font-weight:700">❌ 回答错误'+(P.src==='fav'?' · 答对后自动移出收藏':' · 已加入错题本，做对后自动移出')+'</div>';
       h+='<div class="ex-note">本题第 1 遍答错暂不揭晓答案；直接点选项重新作答，再答错一次将自动显示正确答案与解析。</div>';
     }else{
       h+='<div class="res err" style="margin-top:12px;font-weight:700">❌ 回答错误 · 正确答案：<b>'+q.a.split('').join('、')+'</b>'+(P.drill?'（连续答错 2 次，已揭晓）':'')+'</div>';
@@ -749,7 +749,7 @@ function renderPQ(){
   });
   var sb=document.getElementById('pSubmit'); if(sb)sb.onclick=function(){ grade(id,(P._sel&&P._sel[id])||[]); };
   document.getElementById('pFav').onclick=function(){ if(S.fav[id])delete S.fav[id];else S.fav[id]=1; save(); this.textContent=S.fav[id]?'⭐ 已收藏':'⭐ 收藏'; renderWrongFav(); renderTop(); toast(S.fav[id]?'已收藏':'已取消收藏'); };
-  var rb=document.getElementById('pRedo'); if(rb)rb.onclick=function(){ delete P.ans[id]; if(P._sel)delete P._sel[id]; if(!P.drill){ delete S.ans[id]; delete S.wrong[id]; delete S.done[id]; save(); } renderPQ(); renderPSide(); if(P.drill)toast((S.drillErr[id]||0)>=2?'答案已揭晓，请复盘后重做':'请重新作答，答对移出错题本；再答错将显示答案'); };
+  var rb=document.getElementById('pRedo'); if(rb)rb.onclick=function(){ delete P.ans[id]; if(P._sel)delete P._sel[id]; if(!P.drill){ delete S.ans[id]; delete S.wrong[id]; delete S.done[id]; save(); } renderPQ(); renderPSide(); if(P.drill)toast((S.drillErr[id]||0)>=2?'答案已揭晓，请复盘后重做':(P.src==='fav'?'请重新作答，答对后自动移出收藏；再答错将显示答案':'请重新作答，答对移出错题本；再答错将显示答案')); };
   // nav
   var nav='<button class="tbtn" id="pPrev">← 上一题</button><button class="tbtn" id="pNext">下一题 →</button>';
   document.getElementById('pNav').innerHTML=nav;
@@ -771,8 +771,11 @@ function grade(id,sel){
   P.ans[id]={sel:sel,ok:ok};
   S.ans[id]={sel:sel,ok:ok}; S.done[id]=1;
   if(ok)delete S.wrong[id]; else S.wrong[id]=1;
-  // 仅错题本重练计入「答错遍数」：第 2 遍答错即揭晓答案
-  if(P.drill){ if(ok)delete S.drillErr[id]; else S.drillErr[id]=(S.drillErr[id]||0)+1; }
+  // 错题本/收藏重练计入「答错遍数」：第 2 遍答错即揭晓答案；收藏重练答对后自动移出收藏
+  if(P.drill){
+    if(ok){ delete S.drillErr[id]; if(P.src==='fav'){ delete S.fav[id]; renderWrongFav(); renderTop(); toast('答对，已移出收藏'); } }
+    else S.drillErr[id]=(S.drillErr[id]||0)+1;
+  }
   save(); renderPQ();
 }
 function renderPSide(){
@@ -791,7 +794,7 @@ function renderPSide(){
 }
 
 /* ---------- 绑定 ---------- */
-document.getElementById('btnRedo').onclick=function(){ startPractice(GROUPS['wrong']||[],'我的错题重练',false,true); };
+document.getElementById('btnRedo').onclick=function(){ startPractice(GROUPS['wrong']||[],'我的错题重练',false,true,'wrong'); };
 document.getElementById('clearWrong').onclick=function(){ ask('确定清空全部错题标记？（不影响已做记录）',function(){S.wrong={};S.drillErr={};save();renderAll();toast('已清空错题');}); };
 document.getElementById('btnReset').onclick=function(){ ask('确定重置全部做题进度、错题与收藏？此操作不可撤销。',function(){S={done:{},wrong:{},fav:{},ans:{},log:[],drillErr:{}};save();renderAll();toast('已重置全部进度');}); };
 document.getElementById('tabBtnQuiz').onclick=function(){ switchTab('quiz'); };
